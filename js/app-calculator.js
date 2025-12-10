@@ -64,6 +64,79 @@ jQuery(function ($) {
         _functions.increaseValue($input);
     });
 
+
+    //===============
+    // Drag + Touch  
+    //===============
+    (function(){
+        let isDragging = false;
+        let startX = 0, startY = 0;
+        let lastX = 0, lastY = 0;
+        let currentScale = 1;
+
+        const originalUpdateScale = _functions.updateScale;
+        _functions.updateScale = function(val){
+            currentScale = val / 100;
+            originalUpdateScale(val);
+
+            $('[data-draggable]').css('transform', `translate(${lastX}px, ${lastY}px) scale(${currentScale})`);
+        };
+
+        function getPoint(e){
+            if(e.touches && e.touches.length){
+                return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            }
+            return { x: e.clientX, y: e.clientY };
+        }
+
+        $('[data-draggable]').each(function(){
+            const $el = $(this);
+
+            function start(e){
+                const p = getPoint(e);
+
+                isDragging = true;
+                startX = p.x - lastX;
+                startY = p.y - lastY;
+
+                $el.addClass('dragging');
+                $el.css('cursor', 'grab');
+
+                e.preventDefault();
+            }
+
+            function move(e){
+                if(!isDragging) return;
+
+                const p = getPoint(e);
+                lastX = p.x - startX;
+                lastY = p.y - startY;
+
+                $el.css('transform', `translate(${lastX}px, ${lastY}px) scale(${currentScale})`);
+                e.preventDefault();
+            }
+
+            function stop(){
+                isDragging = false;
+                $el.removeClass('dragging');
+                $el.css('cursor', 'default');
+            }
+
+            // mouse
+            $el.on('mousedown', start);
+            $(document).on('mousemove', move);
+            $(document).on('mouseup', stop);
+
+            // touch
+            $el.on('touchstart', start);
+            $(document).on('touchmove', move);
+            $(document).on('touchend touchcancel', stop);
+        });
+    })();
+
+
+
+
     // close filters
     $(document).on('click', '.filters-close', function () {
         $(this).toggleClass('active');

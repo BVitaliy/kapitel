@@ -118,3 +118,11 @@
 @media (max-width: 575px) {
 .filter-num-cell:nth-child(1) {font-size: 1rem;}
 }
+
+
+
+
+/* new Styles */
+.dragging{
+    transition: none!important;
+}

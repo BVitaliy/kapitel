@@ -1,5 +1,5 @@
 <div class="style-map">
-    <div class="style-map__image">
+    <div class="style-map__image" data-draggable>
         <img src="img/content/kitchen-image.jpg" alt="">
 
         <div class="marker" style="left: 20%; top: 40%;">

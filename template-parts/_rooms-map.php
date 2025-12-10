@@ -1,5 +1,5 @@
 <div class="rooms-map">
-    <div class="rooms-map__image">
+    <div class="rooms-map__image" data-draggable>
         <img src="img/rooms-map.png" alt="">
 
         <div class="tooltip" style="left: 42%; bottom: 30%;">
