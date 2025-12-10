@@ -1,6 +1,6 @@
 <div class="style-map">
     <div class="style-map__image" data-draggable>
-        <img src="img/content/kitchen-image.jpg" alt="">
+        <img src="img/content/kitchen-image.jpg" data-default-src="img/content/kitchen-image.jpg" data-image-id="kitchen-main-1" alt="">
 
         <div class="marker" style="left: 20%; top: 40%;">
             <svg width="17" height="17">

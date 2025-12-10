@@ -15,13 +15,15 @@
 
         <main>
             <div class="section section-calculator">
-                <?php include 'template-parts/_stepper.php'; ?>
+                <form action="" id="main-form"> 
+                    <?php include 'template-parts/_stepper.php'; ?>
 
-                <?php include 'template-parts/_style-map.php'; ?>
+                    <?php include 'template-parts/_style-map.php'; ?>
 
-                <?php include 'template-parts/_styles.php'; ?>
+                    <?php include 'template-parts/_styles.php'; ?>
 
-                <?php include 'template-parts/_filters-2.php'; ?>
+                    <?php include 'template-parts/_filters-2.php'; ?>
+                </form>
             </div>
         </main>
     </div>
