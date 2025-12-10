@@ -1,0 +1,20 @@
+@use "./../mixins" as *;
+
+.section-calculator {
+    --filters-width: 25.5rem;
+    --filters-gap: 1.5625rem;
+    --toggle-height: 2.8125rem;
+    --styles-width: 9.9375rem;
+    margin: 0;
+    position: relative;
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex: 1;
+}
+
+@include maxMedia(lg) {
+    .section-calculator {
+        flex-direction: column;
+    }
+}

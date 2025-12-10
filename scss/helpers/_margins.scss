@@ -1,0 +1,46 @@
+@use "./../mixins"as *;
+
+/* margins */
+.mt-xl {
+    margin-top: var(--sp-xl);
+}
+
+.mt-lg {
+    margin-top: var(--sp-lg);
+}
+
+.mt-md {
+    margin-top: var(--sp-md);
+}
+
+.mt-sm {
+    margin-top: var(--sp-sm);
+}
+
+.mt-xs {
+    margin-top: var(--sp-xs);
+}
+
+.mb-xl {
+    margin-bottom: var(--sp-xl);
+}
+
+.mb-lg {
+    margin-bottom: var(--sp-lg);
+}
+
+.mb-md {
+    margin-bottom: var(--sp-md);
+}
+
+.mb-sm {
+    margin-bottom: var(--sp-sm);
+}
+
+.mb-xs {
+    margin-bottom: var(--sp-xs);
+}
+
+.mx-auto {
+    margin-inline: auto;
+}

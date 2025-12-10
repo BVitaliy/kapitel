@@ -1,0 +1,60 @@
+@use "./../mixins" as *;
+
+/*--------------------*/
+/*  ROOMS MAP         */
+/*--------------------*/
+.rooms-map {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% - var(--filters-width) - var(--filters-gap));
+    height: 100%;
+
+    &__image {
+        display: inline-block;
+        vertical-align: top;
+        position: relative;
+        transition: transform var(--transition-1);
+    }
+}
+
+.tooltip {
+    position: absolute;
+    display: inline-flex;
+    align-items: baseline;
+    font-size: var(--h6);
+    font-weight: 500;
+    white-space: nowrap;
+    padding: .29em .55em;
+    color: var(--clr-black);
+    background-color: var(--clr-white);
+    box-shadow: var(--box-shadow);
+    border-radius: var(--rd-1);
+
+    b {
+        font-size: .9em;
+        padding-inline: .83em .28em;
+        color: var(--clr-primary);
+    }
+
+    span {
+        font-size: 1rem;
+        font-weight: 400;
+    }
+}
+
+@include maxMedia(lg) {
+    .rooms-map {
+        position: static;
+        width: 100%;
+    }
+}
+
+@include maxMedia(sm) {
+    .tooltip {
+        font-size: .875rem;
+    }
+}

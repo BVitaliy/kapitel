@@ -1,0 +1,49 @@
+@use "./../mixins" as *;
+
+/* cover */
+.image {
+  position: relative;
+
+  img {
+    display: block;
+    position: relative;
+    width: 100%;
+  }
+}
+
+:where(.image-cover),
+:where(.video-cover),
+:where(.image-contain) {
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 50%;
+}
+
+:where(.image-round) {
+  overflow: hidden;
+  border-radius: 100%;
+  padding-bottom: 100%;
+}
+
+.video-cover video,
+.image-cover img,
+.image-contain img {
+  @include objectFit
+}
+
+.image-contain img {
+  object-fit: scale-down;
+}
+
+a .image-cover img,
+a .video-cover video {
+  transition: transform var(--transition-1);
+}
+
+@include minMedia(xl) {
+
+  a:hover .image-cover img,
+  a:hover .video-cover video {
+    transform: scale(1.04);
+  }
+}

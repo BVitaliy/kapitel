@@ -1,0 +1,16 @@
+@use "./../mixins" as *;
+
+/* icon */
+.icon {
+    --size: 1.5rem;
+    display: inline-block;
+    width: var(--size);
+    height: var(--size);
+    flex-shrink: 0;
+
+    >* {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+}

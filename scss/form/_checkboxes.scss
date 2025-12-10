@@ -1,0 +1,149 @@
+@use "./../mixins" as *;
+
+/*--------------------*/
+/*  Checkbox & Radio  */
+/*--------------------*/
+.ch-box-wrap {
+  gap: rem(20);
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: .75rem;
+
+  &:has(.ch-box-inner) {
+    gap: rem(12);
+  }
+}
+
+.ch-box {
+  --ch-size: .875rem;
+  --lh-size: calc(var(--ch-size) * 1.143);
+  cursor: pointer;
+  font-size: var(--ch-size);
+  font-weight: 400;
+  line-height: var(--lh-size);
+  text-align: left;
+  gap: calc(var(--ch-size) / 2);
+  display: inline-flex;
+  align-items: center;
+  min-width: rem(133);
+  color: var(--clr-black-80);
+
+  a {
+    color: var(--clr-primary);
+    text-decoration: underline;
+    text-decoration-color: transparent;
+  }
+
+  input[type="radio"],
+  input[type="checkbox"] {
+    display: inline-block;
+    position: relative;
+    vertical-align: text-top;
+    color: var(--clr-input);
+    height: var(--lh-size);
+    width: var(--lh-size);
+
+    flex-shrink: 0;
+    align-self: baseline;
+    border: rem(1) solid currentColor;
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      display: block;
+      width: 71.5%;
+      height: 71.5%;
+      transform: translate(-50%, -50%) scale(0);
+      border-radius: inherit;
+      background-color: currentColor;
+      transition: var(--transition-1);
+    }
+
+    &:checked {
+      color: var(--clr-primary);
+
+      &:before {
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+  }
+
+  input[type="radio"] {
+    border-radius: 100%;
+  }
+}
+
+.ch-box-inner {
+  display: none;
+  width: 100%;
+  padding-left: rem(24);  
+}
+
+.ch-box-wrap>.ch-box:has(input:checked)+.ch-box-inner {
+  display: block;
+}
+
+.ch-box-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: rem(15);
+
+  &:first-child {
+    min-height: rem(26);    
+  }
+
+  &:only-child {
+    margin-bottom: 0;
+  }
+
+  &+* {
+    margin-top: rem(15);
+  }
+
+  .ch-box {
+    min-width: auto;
+  }
+
+  label {
+    display: flex;
+    align-items: center;
+  }
+
+  input[type=number] {
+    width: rem(50);
+    height: rem(26);
+    text-align: center;
+    margin-inline: rem(8);
+  }
+}
+
+.ch-box-inp {
+  display: none;
+  font-size: rem(14);
+  font-weight: 400;
+  color: var(--clr-black-50);
+
+  small {
+    font-size: rem(14);
+    color: var(--clr-black);
+  }
+}
+
+.ch-box-row label:has(:checked)+.ch-box-inp {
+  display: block;
+}
+
+@include minMedia(xl) {
+  .ch-box a:not(.btn):hover {
+    text-decoration-color: currentColor;
+  }
+}
+
+@include maxMedia(sm) {
+  .ch-box {
+    min-width: auto;
+  }
+}

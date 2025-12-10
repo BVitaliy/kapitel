@@ -1,0 +1,26 @@
+@use "./../mixins" as *;
+
+/* colors */
+.clr-white {
+  color: var(--clr-white) !important;
+}
+
+.clr-black {
+  color: var(--clr-black) !important;
+}
+
+.clr-primary {
+  color: var(--clr-primary) !important;
+}
+
+.clr-secondary {
+  color: var(--clr-secondary) !important;
+}
+
+.clr-green {
+  color: var(--clr-green) !important;
+}
+
+.clr-red {
+  color: var(--clr-red) !important;
+}

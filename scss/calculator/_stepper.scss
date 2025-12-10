@@ -1,0 +1,100 @@
+@use "./../mixins" as *;
+
+/*--------------------*/
+/*  STEPPER           */
+/*--------------------*/
+.stepper {
+    &-zoom {
+        position: absolute;
+        right: 0;
+        left: 0;
+        top: rem(23);
+        z-index: 1;
+        margin-inline: auto;
+        width: rem(154);
+        height: rem(45);
+        padding: rem(11) rem(10);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: .75rem;
+        background-color: var(--clr-white);
+
+        button {
+            width: rem(23);
+            height: rem(23);
+            flex-shrink: 0;
+            font-size: 0;
+            position: relative;
+            cursor: pointer;
+
+            &::before,
+            &::after {
+                content: '';
+                display: block;
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                left: 0;
+                top: 0;
+                margin: auto;
+                background-color: var(--clr-black-30);
+                transition: var(--transition-1);
+            }
+
+            &::before {
+                width: rem(15);
+                height: rem(1);
+            }
+
+            &::after {
+                width: 0;
+                height: 0;
+            }
+
+            &.incr {
+                &::after {
+                    width: rem(1);
+                    height: rem(15);
+                }
+            }
+        }
+
+        input {
+            text-align: center;
+            border-right: rem(1) solid var(--clr-black-10);
+            border-left: rem(1) solid var(--clr-black-10);
+            height: rem(21);
+        }
+    }
+
+    &-number {
+        width: 100%;
+        display: flex;
+        align-items: center;
+
+        button {
+            width: rem(40);
+            height: rem(40);
+            flex-shrink: 0;
+            background-color: var(--bg-4);
+            border: rem(1) solid transparent;
+            cursor: pointer;
+            transition: var(--transition-1);
+        }
+    }
+}
+
+@include minMedia(xl) {
+    .stepper-zoom button:hover {
+
+        &::before,
+        &::after {
+            background-color: var(--clr-black);
+        }
+    }
+
+    .stepper-number button:hover {
+        border-color: var(--clr-black-10);
+    }
+}

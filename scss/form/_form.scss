@@ -1,0 +1,37 @@
+@use "./../mixins" as *;
+
+/*--------------------*/
+/*  Form Block        */
+/*--------------------*/
+.form-block {
+  --space: 1.25rem;
+
+  .row {
+    --bs-gutter-x: var(--space);
+    --bs-gutter-y: var(--space);
+  }
+
+  >* {
+    margin-bottom: var(--space);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.submit-field {
+  padding-top: var(--space);
+}
+
+@include maxMedia(xl) {
+  .form-block {
+    --space: 1.25rem;
+  }
+}
+
+@include maxMedia(lg) {
+  .form-block {
+    --space: 1rem;
+  }
+}

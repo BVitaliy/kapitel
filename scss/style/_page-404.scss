@@ -1,0 +1,47 @@
+@use "./../mixins"as *;
+
+/*--------------------*/
+/*  404               */
+/*--------------------*/
+.page-404 {
+    margin: 0;
+    padding: 2.5rem 0;
+    width: 100%;
+    min-height: calc(100svh - var(--h-height));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page-404-inner {
+
+    .text {
+        margin-top: 1rem;
+    }
+
+    .btn {
+        margin-top: 1.25rem;
+    }
+}
+
+.page-404-img {
+    display: block;
+
+    img {
+        width: 100%;
+    }
+}
+
+@include maxMedia(md) {
+    .page-404-inner {
+        text-align: center;
+
+        .text {
+            margin-top: .5rem;
+        }
+
+        .btn {
+            margin-top: .875rem;
+        }
+    }
+}

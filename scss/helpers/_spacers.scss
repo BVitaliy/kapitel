@@ -1,0 +1,27 @@
+@use "./../mixins" as *;
+
+/* spacers */
+[class*='spacer'] {
+  clear: both;
+  width: 100%;
+}
+
+.spacer-xl {
+  height: var(--sp-xl);
+}
+
+.spacer-lg {
+  height: var(--sp-lg);
+}
+
+.spacer-md {
+  height: var(--sp-md);
+}
+
+.spacer-sm {
+  height: var(--sp-sm);
+}
+
+.spacer-xs {
+  height: var(--sp-xs);
+}

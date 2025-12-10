@@ -1,0 +1,206 @@
+@use "./../mixins" as *;
+
+/*--------------------*/
+/*  Select            */
+/*--------------------*/
+// SumoSelect wrapper
+.SumoSelect {
+  --sel-p: 0.875rem;
+  --sel-h: 2.8125rem;
+  --sel-fz: .875rem;
+  --sel-items: 5;
+  --opt-p: 0.625rem;
+  --opt-lh: calc(var(--sel-fz) * 1.125);
+  --max-height: calc((var(--opt-p) * 2 + var(--opt-lh)) * var(--sel-items) + var(--opt-p) * 2);
+  --clr-text: #909090;
+  cursor: pointer;
+  z-index: 1;
+  width: 100%;
+}
+
+// html select hidden
+.SumoUnder {
+  z-index: 0;
+  padding: 0;
+  margin: 0;
+  line-height: 0;
+  font-size: 0;
+  display: none;
+  backface-visibility: hidden;
+}
+
+// SumoSelect field
+.SumoSelect>.CaptionCont {
+  z-index: 1;
+  text-align: left;
+  height: var(--sel-h);
+  padding: var(--sel-p);
+  padding-top: calc(var(--sel-p) * 0.85);
+  padding-right: calc(var(--sel-p) * 2.5);
+  background: var(--clr-white);
+  color: var(--clr-black);
+  border: rem(1) solid var(--clr-border);
+  border-radius: 0;
+  transition: var(--transition-1);
+
+  // selected value or placeholder
+  >span {
+    cursor: pointer;
+    padding-right: 0;
+    font-size: var(--sel-fz);
+    font-weight: 400;
+    line-height: calc(var(--sel-h) - (var(--sel-p) * 2));
+    color: currentColor;
+    backface-visibility: hidden;
+
+    &.placeholder {
+      font-style: normal;
+      color: var(--clr-text);
+    }
+  }
+
+  // arrow
+  >label {
+    display: inline-block;
+    cursor: pointer;
+    width: rem(16);
+    height: rem(16);
+    color: currentColor;
+    right: var(--sel-p);
+    bottom: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: var(--transition-1);
+
+    i {
+      background-image: none;
+      opacity: 1;
+      width: 100%;
+      height: 100%;
+      top: 50%;
+      left: 50%;
+      right: auto;
+      bottom: auto;
+      color: currentColor;
+      background: url("../img/icons/icon-chevron-down.svg") no-repeat center;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+
+// SumoSelect dropdown
+.SumoSelect>.optWrapper {
+  display: block;
+  overflow: auto;
+  z-index: 2;
+  padding: 0;
+  top: calc(100% + 0.125rem);
+  left: 0;
+  width: 100%;
+  border: rem(1) solid var(--clr-border);  
+  background-color: var(--bg-3);
+  border-radius: 0;
+  opacity: 0;
+  visibility: hidden;
+  backface-visibility: hidden;  
+  transition: 0s;
+
+  >.options {
+    font-size: var(--sel-fz);
+    max-height: var(--max-height);
+    padding: var(--opt-p) 0;
+    border-radius: 0 !important;
+  }
+
+  >.options li.opt {
+    padding: 0;
+    border-bottom: 0;
+    transition: var(--transition-1);
+  }
+
+  >.options li label {
+    white-space: unset;
+    text-align: left;
+    padding: calc(var(--opt-p) * .75) var(--sel-p);
+    font-size: var(--sel-fz);
+    line-height: 1;
+    font-weight: 400;
+    color: var(--clr-black);
+    transition: var(--transition-1);
+  }
+
+  >.options li.opt.selected label {
+    color: var(--clr-primary);
+  }
+
+  >.options>.opt.disabled:first-child {
+    display: none !important;
+  }
+
+  >.options li.group>label {
+    padding: var(--opt-p) var(--sel-p);
+    font-weight: 600;
+  }
+
+  >.options li ul li.opt {
+    padding-left: var(--opt-p);
+  }
+}
+
+.SumoSelect:focus>.CaptionCont,
+.SumoSelect:hover>.CaptionCont {
+  box-shadow: none;
+  border-color: var(--clr-border);
+}
+
+.SumoSelect.open {
+  >.CaptionCont {
+    >label {
+      transform: translateY(-50%) rotateX(180deg);
+    }
+  }
+
+  >.optWrapper {
+    top: calc(100% + 0.125rem);
+    opacity: 1;
+    visibility: visible;
+    transition: var(--transition-1);
+    transition-delay: .2s;
+  }
+}
+
+.SumoSelect.disabled {
+  opacity: .5;
+
+  >.CaptionCont {
+    cursor: not-allowed;
+
+    >span {
+      cursor: not-allowed;
+    }
+  }
+}
+
+@include minMedia(xl) {
+  .SumoSelect>.optWrapper>.options li.opt:hover {
+    background-color: transparent;
+    
+    label {
+      color: var(--clr-primary);
+    }
+  }
+}
+
+@include maxMedia(xl) {
+  .SumoSelect {
+    --sel-h: 3.25rem;
+  }
+}
+
+@include maxMedia(lg) {
+  .SumoSelect {
+    --sel-p: .75rem;
+    --sel-h: 2.875rem;
+    --sel-fz: .875rem;
+  }
+}
