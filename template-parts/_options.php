@@ -4,7 +4,7 @@
             <img src="img/icons/icon-floor.svg" alt="">
         </div>
         <div class="filter-opt__title">
-            Підлога <small>Без стяжки, тепла підлога, ламінат</small>
+            Підлога <small> </small>
         </div>
         <div class="filter-opt__toggle"></div>
     </div>
@@ -19,13 +19,13 @@
             <div class="ch-box-inner">
                 <div class="ch-box-row">
                     <label class="ch-box">
-                        <input type="radio" name="floor_condition">
+                        <input type="radio" value=1 name="floor_condition">
                         <span>
                             Стяжка
                         </span>
                     </label>
                     <label class="ch-box">
-                        <input type="radio" name="floor_condition">
+                        <input type="radio" value=0 name="floor_condition">
                         <span>
                             Без стяжки
                         </span>
@@ -43,7 +43,7 @@
             <div class="ch-box-inner">
                 <div class="ch-box-row">
                     <label class="ch-box">
-                        <input type="radio" name="underfloor_heating">
+                        <input type="radio" value="1" name="underfloor_heating">
                         <span>
                             Так
                         </span>
@@ -55,7 +55,7 @@
                     </div>
                 </div>
                 <label class="ch-box">
-                    <input type="radio" name="underfloor_heating">
+                    <input type="radio" value="0" name="underfloor_heating">
                     <span>
                         Ні
                     </span>
@@ -106,7 +106,7 @@
             <img src="img/icons/icon-ceiling.png" alt="">
         </div>
         <div class="filter-opt__title">
-            Стеля<span class="req">*</span> <small>Підвісна</small>
+            Стеля<span class="req">*</span> <small> </small>
         </div>
         <div class="filter-opt__toggle"></div>
     </div>
@@ -143,14 +143,14 @@
             <img src="img/icons/icon-walls.svg" alt="">
         </div>
         <div class="filter-opt__title">
-            Стіни<span class="req">*</span> <small>Фарбування</small>
+            Стіни<span class="req">*</span> <small> </small>
         </div>
         <div class="filter-opt__toggle"></div>
     </div>
     <div class="filter-opt__inner">
         <div class="ch-box-wrap">
             <label class="ch-box">
-                <input type="radio" name="ceiling">
+                <input type="radio" name="wall">
                 <span>
                     Штукатурення, грунутвання, шпаклювання, армування, фарбування
                 </span>
@@ -158,7 +158,7 @@
         </div>
         <div class="ch-box-wrap">
             <label class="ch-box">
-                <input type="radio" name="ceiling">
+                <input type="radio" name="wall">
                 <span>
                     Штукатурення, грунутвання, шпаклювання, армування, декоративна штукатурка 
                 </span>
@@ -166,7 +166,7 @@
         </div>
         <div class="ch-box-wrap">
             <label class="ch-box">
-                <input type="radio" name="ceiling">
+                <input type="radio" name="wall">
                 <span>
                     Штукатурення, грунутвання, шпаклювання, армування, поклейка шпалер
                 </span>
@@ -180,7 +180,7 @@
             <img src="img/icons/icon-baseboard.svg" alt="">
         </div>
         <div class="filter-opt__title">
-            Плінтус <small>MDF</small>
+            Плінтус <small> </small>
         </div>
         <div class="filter-opt__toggle"></div>
     </div>
@@ -217,7 +217,7 @@
             <img src="img/icons/icon-lighting.svg" alt="">
         </div>
         <div class="filter-opt__title">
-            Освітлення<span class="req">*</span> <small>Точкове</small>
+            Освітлення<span class="req">*</span> <small> </small>
         </div>
         <div class="filter-opt__toggle"></div>
     </div>
@@ -278,7 +278,7 @@
             <img src="img/icons/icon-doors.svg" alt="">
         </div>
         <div class="filter-opt__title">
-            Двері<span class="req">*</span> <small>Прихованого монтажу</small>
+            Двері<span class="req">*</span> <small>   </small>
         </div>
         <div class="filter-opt__toggle"></div>
     </div>

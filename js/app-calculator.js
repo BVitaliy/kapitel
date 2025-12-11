@@ -235,16 +235,215 @@ jQuery(function ($) {
         _functions.updateTotal();
     });
 
-    // Active filters image
-    $(document).on('click', '.filters-img', function () {
-        $('.filters-img').removeClass('active');
-        $(this).addClass('active');
-    });
+ 
 
     // Filter options
     $(document).on('click', '.filter-opt__top', function () {
         $(this).closest('.filter-opt').toggleClass('active');
         $(this).closest('.filter-opt').find('.filter-opt__inner').slideToggle();
     });
+
+
+    // Active filters image
+    $(document).on('click', '.filters-img', function () {
+        $('.filters-img').removeClass('active');
+        $(this).addClass('active');
+
+        const targetId = $(this).data('image-target')
+        const imageSrc = $(this).data('image')
+ 
+        const $targetImg = $(`[data-image-id="${targetId}"]`)
+        if (!$targetImg.length) return
+ 
+        $targetImg.addClass('no-transition')
+ 
+        $targetImg.attr('src', imageSrc)
+ 
+        setTimeout(() => {
+            $targetImg.removeClass('no-transition')
+        }, 50)
+
+        // -------------------------------
+        // Оновлює hidden input під поточний таб
+        const $activeTab = $('._tab-item.is-active')
+        const tabIndex = $activeTab.index() + 1
+        const roomType = $('.filters-title').data('room-type');
+
+        const inputName = `${roomType}-image-${tabIndex}`
+        const $formInput = $(`#main-form [name="${inputName}"]`)
+
+        if($formInput.length){
+            $formInput.val(imageSrc)
+        }
+    });
+
+
+
+    $(document).ready(function(){
+
+        // тип приміщення (на сторінці тільки один)
+        const roomType = $('.filters-title').data('room-type'); // "кухня"
+        const $tabs = $('._tab-item');
+        
+        const $form = $('#main-form');
+
+        // створює hidden input для кожного таба
+        $tabs.each(function(index){
+            const tabIndex = index + 1; // щоб рахувало з 1
+            const inputName = `${roomType}-image-${tabIndex}`;
+ 
+            if( !$form.find(`[name="${inputName}"]`).length ){
+                const $input = $('<input>', {
+                    type: 'hidden',
+                    name: inputName,
+                    value: '' // спочатку пусте
+                });
+                $form.append($input);
+            }
+        });
+
+        // ініціалізує картинку на активному табі
+        const activeIndex = $tabs.filter('.is-active').index() + 1;
+        const activeInput = $form.find(`[name="${roomType}-image-${activeIndex}"]`);
+        
+        // якщо картинка є в data-image-id
+        const $mainImg = $('.style-map__image').find('img[data-image-id]')
+        if($mainImg.length){
+            activeInput.val($mainImg.attr('src'))
+        }
+
+    });
+
+    $(document).on('click', '._tab-item', function(){
+        const $this = $(this);
+        const index = $this.index() + 1;
+        const roomType = $('.filters-title').data('room-type');
+        const $form = $('#main-form');
+
+        // знімаємо активні класи
+        $this.siblings().removeClass('is-active');
+        $this.addClass('is-active');
+
+        // показуємо відповідний _tab
+        const $tabsContent = $('.filters ._tab');
+        $tabsContent.removeClass('active').eq(index-1).addClass('active');
+
+        // оновлюємо картинку
+        const $mainImg = $('.style-map__image').find('img[data-image-id]');
+        const mainDefaultSrc = $mainImg.attr('data-default-src');
+        const inputName = `${roomType}-image-${index}`;
+        const $input = $form.find(`[name="${inputName}"]`);
+
+        let newSrc;
+        if($input.val()){ // якщо раніше вибрана картинка
+            newSrc = $input.val();
+        } else {
+            // скидає на дефолт
+            newSrc = mainDefaultSrc;
+            $input.val(mainDefaultSrc);
+        }
+
+        $mainImg.attr('src', newSrc);
+
+        // === Додаємо активний клас на filters-img для поточного таба
+        $('.filters-img').removeClass('active');
+        $(`.filters-img[data-image="${newSrc}"]`).addClass('active');
+    });
+
+
+$(document).ready(function() {
+    const $form = $('#main-form');
+
+    // Функція для оновлення small з вибраними опціями
+    function updateFilterOptTitle($opt) {
+        const selected = [];
+
+        $opt.find('.ch-box-wrap').each(function() {
+            const $wrap = $(this);
+            const $mainCheckbox = $wrap.find('> label.ch-box > input[type="checkbox"]').first();
+            const $mainLabel = $wrap.find('> label.ch-box > span').first().text().trim();
+
+            if($mainCheckbox.length) {
+                if(!$mainCheckbox.is(':checked')) {
+                    // якщо батьківський чекбокс відчеканий — очищаємо вкладені input
+                    $wrap.find('.ch-box-inner input').each(function() {
+                        const name = $(this).attr('name');
+                        // if(name) $form.find(`[name="${name}"]`).val('');
+                        if($(this).is(':checkbox') || $(this).is(':radio')) $(this).prop('checked', false);
+                    });
+                    return; // пропускаємо цю обгортку
+                }
+            }
+
+            // для вкладених input
+            const $checkedInner = $wrap.find('.ch-box-inner input:checked');
+            if($checkedInner.length) {
+                $checkedInner.each(function() {
+                    const valLabel = $(this).closest('label').find('span').first().text().trim();
+                    if($mainLabel) {
+                        selected.push($mainLabel + ' - ' + valLabel);
+                    } else {
+                        selected.push(valLabel);
+                    }
+                });
+            } else if($mainCheckbox.length && $mainCheckbox.is(':checked')) {
+                // якщо тільки батьківський чекбокс без вкладень
+                selected.push($mainLabel);
+            } else if(!$mainCheckbox.length) {
+                // немає батьківського чекбоксу, але є radio buttons
+                const $checkedRadio = $wrap.find('input[type="radio"]:checked');
+                if($checkedRadio.length) {
+                    const radioLabel = $checkedRadio.closest('label').find('span').first().text().trim();
+                    selected.push(radioLabel);
+                }
+            }
+        });
+
+        const $small = $opt.find('.filter-opt__title small');
+        if(selected.length) {
+            $small.text(selected.join(', '));
+        } else {
+            const defaultText = $opt.data('default-text') || '';
+            $small.text(defaultText);
+        }
+    }
+
+    // Зберігаємо дефолтний текст
+    $('.filter-opt').each(function() {
+        const $title = $(this).find('.filter-opt__title small');
+        $(this).data('default-text', $title.text().trim());
+    });
+
+    // Слухаємо зміни в input
+    $form.on('input change', 'input, select, textarea', function() {
+        // Вивід значень форми
+        const formData = {};
+        $form.find('input, select, textarea').each(function() {
+            const name = $(this).attr('name');
+            if(!name) return;
+
+            if($(this).is(':checkbox')) {
+                formData[name] = $(this).is(':checked');
+            } else if($(this).is(':radio')) {
+                if($(this).is(':checked')) formData[name] = $(this).val();
+                else if(!(name in formData)) formData[name] = '';
+            } else {
+                formData[name] = $(this).val();
+            }
+        });
+        console.clear();
+        console.log('Form values:', formData);
+
+        // Оновлюємо small для кожного батьківського filter-opt
+        const $opt = $(this).closest('.filter-opt');
+        updateFilterOptTitle($opt);
+    });
+
+    // Ініціалізація для pre-checked значень
+    $('.filter-opt').each(function() {
+        updateFilterOptTitle($(this));
+    });
+});
+
 
 });

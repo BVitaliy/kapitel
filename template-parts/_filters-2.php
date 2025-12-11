@@ -4,7 +4,7 @@
     </button>
     <div class="filters-bg _tabs active">
         <div class="filters-title-wrap">
-            <div class="filters-title upper">Кухня</div>
+            <div class="filters-title upper" data-room-type="kitchen">Кухня</div>
             <div class="sub-links">
                 <ul>
                     <li class="_tab-item is-active">1</li>
