@@ -1,4 +1,4 @@
-<div class="filter-opt">
+<div class="filter-opt" data-marker="kitchen-floor">
     <div class="filter-opt__top">
         <div class="filter-opt__icon">
             <img src="img/icons/icon-floor.svg" alt="">
@@ -19,7 +19,7 @@
             <div class="ch-box-inner">
                 <div class="ch-box-row">
                     <label class="ch-box">
-                        <input type="radio" value=1 name="floor_condition">
+                        <input type="radio" value=1 name="floor_condition"  >
                         <span>
                             Стяжка
                         </span>
@@ -72,25 +72,25 @@
             <div class="ch-box-inner">
                 <div class="ch-box-row">
                     <label class="ch-box">
-                        <input type="radio" name="floor_type">
+                        <input type="radio" name="floor_type" data-url="img/content/floor/Плитка.png">
                         <span>
                             Плитка
                         </span>
                     </label>
                     <label class="ch-box">
-                        <input type="radio" name="floor_type">
+                        <input type="radio" name="floor_type" data-url="img/content/floor/Вініл.png">
                         <span>
                             Вініл
                         </span>
                     </label>
                     <label class="ch-box">
-                        <input type="radio" name="floor_type">
+                        <input type="radio" name="floor_type" data-url="img/content/floor/Паркет.png">
                         <span>
                             Паркет
                         </span>
                     </label>
                     <label class="ch-box">
-                        <input type="radio" name="floor_type">
+                        <input type="radio" name="floor_type" data-url="img/content/floor/Ламінат.png">
                         <span>
                             Ламінат
                         </span>
@@ -100,7 +100,7 @@
         </div>
     </div>
 </div>
-<div class="filter-opt">
+<div class="filter-opt" data-marker="kitchen-ceiling">
     <div class="filter-opt__top">
         <div class="filter-opt__icon">
             <img src="img/icons/icon-ceiling.png" alt="">
@@ -137,7 +137,7 @@
         </div>
     </div>
 </div>
-<div class="filter-opt">
+<div class="filter-opt" data-marker="kitchen-walls">
     <div class="filter-opt__top">
         <div class="filter-opt__icon">
             <img src="img/icons/icon-walls.svg" alt="">
@@ -174,7 +174,7 @@
         </div>
     </div>
 </div>
-<div class="filter-opt">
+<div class="filter-opt" data-marker="kitchen-baseboard">
     <div class="filter-opt__top">
         <div class="filter-opt__icon">
             <img src="img/icons/icon-baseboard.svg" alt="">
@@ -211,7 +211,7 @@
         </div>
     </div>
 </div>
-<div class="filter-opt">
+<div class="filter-opt" data-marker="kitchen-lighting">
     <div class="filter-opt__top">
         <div class="filter-opt__icon">
             <img src="img/icons/icon-lighting.svg" alt="">
@@ -272,7 +272,7 @@
         </div>
     </div>
 </div>
-<div class="filter-opt">
+<div class="filter-opt" data-marker="kitchen-doors">
     <div class="filter-opt__top">
         <div class="filter-opt__icon">
             <img src="img/icons/icon-doors.svg" alt="">

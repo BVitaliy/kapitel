@@ -65,111 +65,59 @@ jQuery(function ($) {
     });
 
 
-    //===============
-    // Drag + Touch  
-    //===============
-    (function(){
-        let isDragging = false;
-        let startX = 0, startY = 0;
-        let lastX = 0, lastY = 0;
-        let currentScale = 1;
-
-        const originalUpdateScale = _functions.updateScale;
-        _functions.updateScale = function(val){
-            currentScale = val / 100;
-            originalUpdateScale(val);
-
-            $('[data-draggable]').css('transform', `translate(${lastX}px, ${lastY}px) scale(${currentScale})`);
-        };
-
-        function getPoint(e){
-            if(e.touches && e.touches.length){
-                return { x: e.touches[0].clientX, y: e.touches[0].clientY };
-            }
-            return { x: e.clientX, y: e.clientY };
-        }
-
-        $('[data-draggable]').each(function(){
-            const $el = $(this);
-
-            function start(e){
-                const p = getPoint(e);
-
-                isDragging = true;
-                startX = p.x - lastX;
-                startY = p.y - lastY;
-
-                $el.addClass('dragging');
-                $el.css('cursor', 'grab');
-
-                e.preventDefault();
-            }
-
-            function move(e){
-                if(!isDragging) return;
-
-                const p = getPoint(e);
-                lastX = p.x - startX;
-                lastY = p.y - startY;
-
-                $el.css('transform', `translate(${lastX}px, ${lastY}px) scale(${currentScale})`);
-                e.preventDefault();
-            }
-
-            function stop(){
-                isDragging = false;
-                $el.removeClass('dragging');
-                $el.css('cursor', 'default');
-            }
-
-            // mouse
-            $el.on('mousedown', start);
-            $(document).on('mousemove', move);
-            $(document).on('mouseup', stop);
-
-            // touch
-            $el.on('touchstart', start);
-            $(document).on('touchmove', move);
-            $(document).on('touchend touchcancel', stop);
-        });
-    })();
-
-
-
+ 
 
     // close filters
-    $(document).on('click', '.filters-close', function () {
+    $(document).on('click', '.filters-close', function (e) {
+        e.preventDefault();
         $(this).toggleClass('active');
         $(this).next('.filters-bg').toggleClass('active');
     });
 
     // Handle click on "+" button
     $('.filters-num-body').on('click', '.incr', function () {
-        // Find the current stepper
         let $stepper = $(this).closest('.stepper');
 
-        // Find the input inside stepper
+        // Input
         let $input = $stepper.find('input');
 
-        // Increase the value by 1
-        let currentVal = parseInt($input.val()) || 1; // default at least 1
-        $input.val(currentVal + 1);
+        let currentVal = parseInt($input.val()) || 1;
+        let max = parseInt($input.attr('max')) || 999;
 
-        // Create a new row element
-        let $row = $(this).closest('.filters-num-row');
-        let $newRow = $(`
-        <div class="filters-num-row type2">
-            <div class="filter-num-cell"></div>
-            <div class="filter-num-cell"></div>
-            <div class="filter-num-cell">
-            <input type="number" value="" min="1" max="999" class="input">
-            <span>м²</span>
-            </div>
-        </div>
-        `);
+        // Якщо вже max — не інкрементуємо і не створюємо новий ряд
+        if (currentVal >= max) {
+            $input.val(max);
+            return;
+        }
 
-        // Insert the new row right after the current one
-        $row.after($newRow);
+        // Інкремент
+        let newVal = currentVal + 1;
+        if (newVal > max) newVal = max;
+
+        $input.val(newVal);
+
+        // Якщо після інкременту НЕ досягли max — створюємо новий ряд
+        if (newVal <= max) {
+            let $row = $(this).closest('.filters-num-row');
+
+            let $newRow = $(`
+                <div class="filters-num-row type2">
+                    <div class="filter-num-cell"></div>
+                    <div class="filter-num-cell"></div>
+                    <div class="filter-num-cell">
+                        <input type="number" value="" min="1" max="999" class="input">
+                        <span>м²</span>
+                    </div>
+                </div>
+            `);
+
+            $row.after($newRow);
+        }
+
+        $(document).on("input", '.filters-num-row input[type="number"]', function () {
+            updateRoomsMap();
+            updateRoomsFormData();
+        });
     });
 
     // Handle click on "-" button
@@ -192,6 +140,11 @@ jQuery(function ($) {
                 $nextRow.remove();
             }
         }
+
+    $(document).on("input", '.filters-num-row input[type="number"]', function () {
+        updateRoomsMap();
+        updateRoomsFormData();
+    });
     });
 
     // Function to update total-square
@@ -227,6 +180,7 @@ jQuery(function ($) {
 
     // Update total whenever any input changes
     $('.filters-num-body').on('input', '.input', function () {
+        console.log('asdasd')
         _functions.updateTotal();
     });
 
@@ -237,44 +191,168 @@ jQuery(function ($) {
 
  
 
-    // Filter options
+   // Filter options
     $(document).on('click', '.filter-opt__top', function () {
-        $(this).closest('.filter-opt').toggleClass('active');
-        $(this).closest('.filter-opt').find('.filter-opt__inner').slideToggle();
+        let optMarker = $(this).parent('.filter-opt').data('marker');
+
+        $(this).closest('.filter-opt').find('.filter-opt__inner').slideToggle();        
+        $(this).closest('.filter-opt').siblings().find('.filter-opt__inner').slideUp();
+
+        $('.style-map .marker').each(function () {
+            let marker = $(this).data('marker');
+
+            if (marker == optMarker) {
+                $(this).toggleClass('active').siblings('.marker').removeClass('active');
+            }
+        });
+    });
+
+        // Add active class to marker
+    $(document).on('click', '.marker', function () {
+        let marker = $(this).data('marker');
+
+        $(this).toggleClass('active').siblings('.marker').removeClass('active');
+
+        $('.filter-opt').each(function () {
+            let optMarker = $(this).data('marker');
+            let filterInner = $(this).find('.filter-opt__inner');
+
+            if (optMarker == marker) {
+                filterInner.slideToggle();
+
+                $(this).siblings().find('.filter-opt__inner').slideUp();
+            }
+        });
     });
 
 
+        //===============
+    // Drag + Touch  
+    //===============
+ 
+    let isDragging = false;
+    let startX = 0, startY = 0;
+    let lastX = 0, lastY = 0;
+    let currentScale = 1;
+
+
+ 
+    _functions.resetDrag = function(){
+        isDragging = false;
+        startX = 0;
+        startY = 0;
+        lastX = 0;
+        lastY = 0;
+
+        $('[data-draggable]').css('transform', `translate(0px, 0px) scale(${currentScale})`);
+    };
+
+    const originalUpdateScale = _functions.updateScale;
+    _functions.updateScale = function(val){
+        currentScale = val / 100;
+        originalUpdateScale(val);
+
+        $('[data-draggable]').css('transform', `translate(${lastX}px, ${lastY}px) scale(${currentScale})`);
+    };
+
+    function getPoint(e){
+        if(e.touches && e.touches.length){
+            return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        }
+        return { x: e.clientX, y: e.clientY };
+    }
+
+    $('[data-draggable]').each(function(){
+        const $el = $(this);
+
+        function start(e){
+            const p = getPoint(e);
+
+            isDragging = true;
+            startX = p.x - lastX;
+            startY = p.y - lastY;
+
+            $el.addClass('dragging');
+            $el.css('cursor', 'grab');
+
+            e.preventDefault();
+        }
+
+        function move(e){
+            if(!isDragging) return;
+
+            const p = getPoint(e);
+            lastX = p.x - startX;
+            lastY = p.y - startY;
+
+            $el.css('transform', `translate(${lastX}px, ${lastY}px) scale(${currentScale})`);
+            e.preventDefault();
+        }
+
+        function stop(){
+            isDragging = false;
+            $el.removeClass('dragging');
+            $el.css('cursor', 'default');
+        }
+
+        // mouse
+        $el.on('mousedown', start);
+        $(document).on('mousemove', move);
+        $(document).on('mouseup', stop);
+
+        // touch
+        $el.on('touchstart', start);
+        $(document).on('touchmove', move);
+        $(document).on('touchend touchcancel', stop);
+    });
+
+ 
     // Active filters image
     $(document).on('click', '.filters-img', function () {
+
         $('.filters-img').removeClass('active');
         $(this).addClass('active');
 
-        const targetId = $(this).data('image-target')
-        const imageSrc = $(this).data('image')
- 
-        const $targetImg = $(`[data-image-id="${targetId}"]`)
-        if (!$targetImg.length) return
- 
-        $targetImg.addClass('no-transition')
- 
-        $targetImg.attr('src', imageSrc)
- 
+        const targetId = $(this).data('image-target');
+        const imageSrc = $(this).data('image');
+        const styleId  = $(this).data('style-id'); // <---- Додано
+
+        const $targetImg = $(`[data-image-id="${targetId}"]`);
+        if (!$targetImg.length) return;
+
+        $targetImg.addClass('no-transition');
+        $targetImg.attr('src', imageSrc);
+
         setTimeout(() => {
-            $targetImg.removeClass('no-transition')
-        }, 50)
+            $targetImg.removeClass('no-transition');
+        }, 50);
+
+        // --------------------------
+        // 🔥 Перемикання маркерів
+        // --------------------------
+        $('[data-markers] .list').removeClass('active visible');
+
+        const $activeMarkers = $(`[data-markers-id="${styleId}"]`);
+        if ($activeMarkers.length) {
+            $activeMarkers.addClass('active visible');
+        }
 
         // -------------------------------
-        // Оновлює hidden input під поточний таб
-        const $activeTab = $('._tab-item.is-active')
-        const tabIndex = $activeTab.index() + 1
+        // Оновлює hidden input
+        const $activeTab = $('._tab-item.is-active');
+        const tabIndex = $activeTab.index() + 1;
         const roomType = $('.filters-title').data('room-type');
 
-        const inputName = `${roomType}-image-${tabIndex}`
-        const $formInput = $(`#main-form [name="${inputName}"]`)
+        const inputName = `${roomType}-image-${tabIndex}`;
+        const $formInput = $(`#main-form [name="${inputName}"]`);
 
-        if($formInput.length){
-            $formInput.val(imageSrc)
+        if ($formInput.length) {
+            $formInput.val(imageSrc);
         }
+
+        // Reset zoom + drag
+        _functions.setValue($(".js_zoom input"), 100);
+        _functions.resetDrag();
     });
 
 
@@ -348,102 +426,230 @@ jQuery(function ($) {
         // === Додаємо активний клас на filters-img для поточного таба
         $('.filters-img').removeClass('active');
         $(`.filters-img[data-image="${newSrc}"]`).addClass('active');
+
+        _functions.setValue($(".js_zoom input"), 100);
+        // $('[data-draggable]').css('transform', `translate(0px, 0px) scale(1)`);
+         _functions.resetDrag();
+     
     });
 
 
-$(document).ready(function() {
-    const $form = $('#main-form');
+    $(document).ready(function() {
+        const $form = $('#main-form');
 
-    // Функція для оновлення small з вибраними опціями
-    function updateFilterOptTitle($opt) {
-        const selected = [];
+        // Функція для оновлення small з вибраними опціями
+        function updateFilterOptTitle($opt) {
+            const selected = [];
 
-        $opt.find('.ch-box-wrap').each(function() {
-            const $wrap = $(this);
-            const $mainCheckbox = $wrap.find('> label.ch-box > input[type="checkbox"]').first();
-            const $mainLabel = $wrap.find('> label.ch-box > span').first().text().trim();
+            $opt.find('.ch-box-wrap').each(function() {
+                const $wrap = $(this);
+                const $mainCheckbox = $wrap.find('> label.ch-box > input[type="checkbox"]').first();
+                const $mainLabel = $wrap.find('> label.ch-box > span').first().text().trim();
 
-            if($mainCheckbox.length) {
-                if(!$mainCheckbox.is(':checked')) {
-                    // якщо батьківський чекбокс відчеканий — очищаємо вкладені input
-                    $wrap.find('.ch-box-inner input').each(function() {
-                        const name = $(this).attr('name');
-                        // if(name) $form.find(`[name="${name}"]`).val('');
-                        if($(this).is(':checkbox') || $(this).is(':radio')) $(this).prop('checked', false);
-                    });
-                    return; // пропускаємо цю обгортку
-                }
-            }
-
-            // для вкладених input
-            const $checkedInner = $wrap.find('.ch-box-inner input:checked');
-            if($checkedInner.length) {
-                $checkedInner.each(function() {
-                    const valLabel = $(this).closest('label').find('span').first().text().trim();
-                    if($mainLabel) {
-                        selected.push($mainLabel + ' - ' + valLabel);
-                    } else {
-                        selected.push(valLabel);
+                if($mainCheckbox.length) {
+                    if(!$mainCheckbox.is(':checked')) {
+                        // якщо батьківський чекбокс відчеканий — очищаємо вкладені input
+                        $wrap.find('.ch-box-inner input').each(function() {
+                            const name = $(this).attr('name');
+                            // if(name) $form.find(`[name="${name}"]`).val('');
+                            if($(this).is(':checkbox') || $(this).is(':radio')) $(this).prop('checked', false);
+                        });
+                        return; // пропускаємо цю обгортку
                     }
-                });
-            } else if($mainCheckbox.length && $mainCheckbox.is(':checked')) {
-                // якщо тільки батьківський чекбокс без вкладень
-                selected.push($mainLabel);
-            } else if(!$mainCheckbox.length) {
-                // немає батьківського чекбоксу, але є radio buttons
-                const $checkedRadio = $wrap.find('input[type="radio"]:checked');
-                if($checkedRadio.length) {
-                    const radioLabel = $checkedRadio.closest('label').find('span').first().text().trim();
-                    selected.push(radioLabel);
                 }
+
+                // для вкладених input
+                const $checkedInner = $wrap.find('.ch-box-inner input:checked');
+                if($checkedInner.length) {
+                    $checkedInner.each(function() {
+                        const valLabel = $(this).closest('label').find('span').first().text().trim();
+                        if($mainLabel) {
+                            selected.push($mainLabel + ' - ' + valLabel);
+                        } else {
+                            selected.push(valLabel);
+                        }
+                    });
+                } else if($mainCheckbox.length && $mainCheckbox.is(':checked')) {
+                    // якщо тільки батьківський чекбокс без вкладень
+                    selected.push($mainLabel);
+                } else if(!$mainCheckbox.length) {
+                    // немає батьківського чекбоксу, але є radio buttons
+                    const $checkedRadio = $wrap.find('input[type="radio"]:checked');
+                    if($checkedRadio.length) {
+                        const radioLabel = $checkedRadio.closest('label').find('span').first().text().trim();
+                        selected.push(radioLabel);
+                    }
+                }
+            });
+
+            const $small = $opt.find('.filter-opt__title small');
+            if(selected.length) {
+                $small.text(selected.join(', '));
+            } else {
+                const defaultText = $opt.data('default-text') || '';
+                $small.text(defaultText);
             }
+        }
+
+        // Зберігаємо дефолтний текст
+        $('.filter-opt').each(function() {
+            const $title = $(this).find('.filter-opt__title small');
+            $(this).data('default-text', $title.text().trim());
         });
 
-        const $small = $opt.find('.filter-opt__title small');
-        if(selected.length) {
-            $small.text(selected.join(', '));
-        } else {
-            const defaultText = $opt.data('default-text') || '';
-            $small.text(defaultText);
-        }
+        // Слухаємо зміни в input
+        $form.on('input change', 'input, select, textarea', function() {
+            // Вивід значень форми
+            const formData = {};
+            $form.find('input, select, textarea').each(function() {
+                const name = $(this).attr('name');
+                if(!name) return;
+
+                if($(this).is(':checkbox')) {
+                    formData[name] = $(this).is(':checked');
+                } else if($(this).is(':radio')) {
+                    if($(this).is(':checked')) formData[name] = $(this).val();
+                    else if(!(name in formData)) formData[name] = '';
+                } else {
+                    formData[name] = $(this).val();
+                }
+            });
+            // console.clear();
+            // console.log('Form values:',  formData);
+
+            // Оновлюємо small для кожного батьківського filter-opt
+            const $opt = $(this).closest('.filter-opt');
+            updateFilterOptTitle($opt);
+        });
+
+        // Ініціалізація для pre-checked значень
+        $('.filter-opt').each(function() {
+            updateFilterOptTitle($(this));
+        });
+    });
+
+
+    function updateRoomsMap() {
+        let totalGlobalSquare = 0;
+
+        $(".filters-num-row").each(function () {
+            const $row = $(this);
+
+            // новий ключ
+            const roomType = $row.data("room-type");      // kithen, room, corridor...
+            const imgSrc = $row.data("filled-image");
+            const count = parseInt($row.find(".stepper input").val()) || 0;
+
+            let totalRoomSquare = 0;
+
+            // збираємо всі площі для цього row (враховує також додані type2)
+            $row.find('input[type="number"]').each(function () {
+                let val = parseFloat($(this).val());
+                if (!isNaN(val)) totalRoomSquare += val;
+            });
+
+            totalGlobalSquare += totalRoomSquare;
+
+            // Картинка на мапі за roomType
+            let $mapImg = $(`img[data-image-id="${roomType}"]`);
+
+            // Тултіп можна знайти або по data-tooltip
+            let $tooltip = $(`.rooms-map .tooltip[data-tooltip="${roomType}"]`);
+
+            // Якщо тултіпів нема з data-tooltip — fallback на індекс
+            if (!$tooltip.length) {
+                const index = $(".filters-num-row").index($row);
+                $tooltip = $(".rooms-map .tooltip").eq(index);
+            }
+
+            // ---------------------------
+            // ПОКАЗ / СКРИТТЯ КАРТИНКИ
+            // ---------------------------
+            if (totalRoomSquare > 1) {
+                $mapImg.attr("src", imgSrc);
+            } else {
+                $mapImg.attr("src", "#");
+            }
+
+            // ---------------------------
+            // ОНОВЛЕННЯ ТУЛТІПУ
+            // ---------------------------
+            $tooltip.find("b").text(totalRoomSquare);
+        });
+
+        // Глобальна площа
+        $(".total-square").text(totalGlobalSquare);
+
+        updateRoomsFormData();
     }
 
-    // Зберігаємо дефолтний текст
-    $('.filter-opt').each(function() {
-        const $title = $(this).find('.filter-opt__title small');
-        $(this).data('default-text', $title.text().trim());
-    });
 
-    // Слухаємо зміни в input
-    $form.on('input change', 'input, select, textarea', function() {
-        // Вивід значень форми
-        const formData = {};
-        $form.find('input, select, textarea').each(function() {
-            const name = $(this).attr('name');
-            if(!name) return;
+    function buildRoomsObject() {
+        let result = {};
 
-            if($(this).is(':checkbox')) {
-                formData[name] = $(this).is(':checked');
-            } else if($(this).is(':radio')) {
-                if($(this).is(':checked')) formData[name] = $(this).val();
-                else if(!(name in formData)) formData[name] = '';
-            } else {
-                formData[name] = $(this).val();
+        $(".filters-num-row").each(function () {
+            const $row = $(this);
+            const type = $row.data("room-type");  // kithen, room, corridor...
+            const count = parseInt($row.find(".stepper input").val()) || 0;
+
+            // Масив площ (кожен input — окрема кімната)
+            let squares = [];
+
+            $row.find('input[type="number"]').each(function () {
+                const val = parseFloat($(this).val());
+                if (!isNaN(val) && val > 0) {
+                    squares.push(val);
+                }
+            });
+
+            // Якщо нема площ або count = 0 → пропускаємо
+            if (squares.length === 0 || count === 0) return;
+
+            // Масив приміщень одного типу
+            result[type] = [];
+
+            // Формуємо елементи масиву приміщень
+            // Кількість кімнат = count
+            // Площі = squares[i] або null (якщо не вистачає)
+            for (let i = 0; i < count; i++) {
+                result[type].push({
+                    square: squares[i] || null,   // на цьому етапі тільки площа
+                    // на наступних сторінках можна додавати:
+                    // floor_type: null,
+                    // wall_type: null,
+                    // notes: "",
+                });
             }
         });
-        console.clear();
-        console.log('Form values:', formData);
 
-        // Оновлюємо small для кожного батьківського filter-opt
-        const $opt = $(this).closest('.filter-opt');
-        updateFilterOptTitle($opt);
+        return result;
+    }
+
+    function updateRoomsFormData() {
+        const obj = buildRoomsObject();
+        $("#rooms_data").val(JSON.stringify(obj));
+        console.clear()
+        console.log('DATA:',obj)
+    }
+
+    // -------------------------------
+    // ЛІСТЕНЕРИ
+    // -------------------------------
+
+    // Ввод площі
+    $(document).on("input", '.filters-num-row input[type="number"]', function () {
+        updateRoomsMap();
+        updateRoomsFormData();
     });
 
-    // Ініціалізація для pre-checked значень
-    $('.filter-opt').each(function() {
-        updateFilterOptTitle($(this));
+    $(document).on("click", ".filters-num-row .incr, .filters-num-row .decr", function () {
+        setTimeout(() => {
+            updateRoomsMap();
+            updateRoomsFormData();
+        }, 50);
     });
-});
 
+    // Стартовий запуск
+    updateRoomsMap();
 
 });

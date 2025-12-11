@@ -28,6 +28,12 @@
 .tooltip {position: absolute;display: inline-flex;align-items: baseline;font-size: var(--h6);font-weight: 500;white-space: nowrap;padding: 0.29em 0.55em;color: var(--clr-black);background-color: var(--clr-white);box-shadow: var(--box-shadow);border-radius: var(--rd-1);}
 .tooltip b {font-size: 0.9em;padding-inline: 0.83em 0.28em;color: var(--clr-primary);}
 .tooltip span {font-size: 1rem;font-weight: 400;}
+
+.rooms-map .tooltip:not(.active){
+    display: none;
+}
+ 
+
 @media (max-width: 991px) {
 .rooms-map {position: static;width: 100%;}
 }
@@ -100,8 +106,27 @@
 .style-map {position: absolute;left: 0;top: 0;width: 100%;height: 100%;display: flex;align-items: center;justify-content: center;}
 .style-map img {position: absolute;left: 50%;top: 50%;max-width: none;-o-object-fit: none;object-fit: none;transform: translate(-50%, -50%);-o-object-position: center;object-position: center;}
 .style-map__image {position: relative;width: 100%;height: 100%;transition: var(--transition-1);}
-.style-map .marker {position: absolute;width: 2.5rem;height: 2.5rem;border-radius: 100%;background-color: var(--clr-white);color: var(--clr-black);box-shadow: var(--box-shadow-1);}
-.style-map .marker.active {background-color: var(--clr-primary);}
+.style-map .marker {position: absolute;width: 2.5rem;height: 2.5rem;display: flex;align-items: center;justify-content: center;border-radius: 100%;background-color: var(--clr-white);color: var(--clr-black);box-shadow: var(--box-shadow-1);transition: var(--transition-1);cursor: pointer;}
+.style-map .marker.active {background-color: var(--clr-primary);color: var(--clr-white);}
+.rooms-map__image .main-image img:not(.main),
+.style-map__image .main-image img{
+    position: absolute;
+    left: 0;
+    top: 0;
+    max-width: none;
+    -o-object-fit: none;
+    object-fit: none;
+    transform: translate(0%, 0); 
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.rooms-map__image .main-image img[src="#"],
+.style-map__image .main-image img[src="#"] {
+    display: none;
+}
 @media (min-width: 992px) {
 .filters-wrap {width: var(--filters-width);position: absolute;bottom: var(--filters-gap);right: var(--filters-gap);top: var(--filters-gap);}
 .styles-wrap {width: var(--styles-width);position: absolute;bottom: var(--filters-gap);left: var(--filters-gap);top: var(--filters-gap);}
@@ -125,4 +150,10 @@
 /* new Styles */
 .dragging{
     transition: none!important;
+}
+ [data-markers] .list {
+    display: none;
+}
+[data-markers] .list.active {
+    display: block;
 }

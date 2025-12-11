@@ -52,4 +52,51 @@
         <path d="M16.11 9.23621L4.65371 16.11M4.65371 16.11H0.834961V0.834961H12.2912M4.65371 16.11H16.11V0.834961H12.2912M0.834961 7.70871L12.2912 0.834961M16.11 3.88996L0.834961 13.055" stroke="currentColor" stroke-width="1.67"/>
     </symbol>
 
+    <symbol id="walls" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12.291 17.6375V14.5825" stroke="currentColor" stroke-width="1.67"/>
+        <path d="M0.834961 17.6375V14.5825" stroke="currentColor" stroke-width="1.67"/>
+        <path d="M0.834961 16.1099H12.2912" stroke="currentColor" stroke-width="1.67"/>
+        <path d="M14.5825 0.834961H17.6375" stroke="currentColor" stroke-width="1.67"/>
+        <path d="M14.5825 12.2913H17.6375" stroke="currentColor" stroke-width="1.67"/>
+        <path d="M16.1099 12.2912V0.834961" stroke="currentColor" stroke-width="1.67"/>
+        <path d="M0.834961 0.834961H12.2912V12.2912H0.834961V0.834961Z" stroke="currentColor" stroke-width="1.67"/>
+    </symbol>
+
+    <symbol id="ceiling" viewBox="0 0 19 19" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M9.2159 0L18.4319 5.11997L9.2159 10.2399L0 5.11997L9.2159 0ZM9.2159 1.90192L3.45526 5.11997L9.2159 8.31971L14.9988 5.11997L9.2159 1.90192Z" fill="currentColor"/>
+        <path d="M0.812012 8.14868H2.48438V9.82104H0.812012V8.14868Z" fill="currentColor"/>
+        <path d="M0.812012 12.2466H2.48438V13.9189H0.812012V12.2466Z" fill="currentColor"/>
+        <path d="M3.33105 13.7179H5.00342V15.3903H3.33105V13.7179Z" fill="currentColor"/>
+        <path d="M8.37988 12.5167H10.0522V14.1891H8.37988V12.5167Z" fill="currentColor"/>
+        <path d="M5.85107 15.172H7.52344V16.8444H5.85107V15.172Z" fill="currentColor"/>
+        <path d="M8.37988 16.6274H10.0522V18.2998H8.37988V16.6274Z" fill="currentColor"/>
+        <path d="M10.9004 15.172H12.5728V16.8444H10.9004V15.172Z" fill="currentColor"/>
+        <path d="M13.4199 13.7179H15.0923V15.3903H13.4199V13.7179Z" fill="currentColor"/>
+        <path d="M15.9395 12.2466H17.6118V13.9189H15.9395V12.2466Z" fill="currentColor"/>
+        <path d="M15.9395 8.14868H17.6118V9.82104H15.9395V8.14868Z" fill="currentColor"/>
+    </symbol>
+    
+    <symbol id="lighting" viewBox="0 0 17 17" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8.47246 3.81885C4.25438 3.81885 0.834961 7.23831 0.834961 11.4563H16.11C16.11 7.23831 12.6905 3.81885 8.47246 3.81885Z" stroke="currentColor" stroke-width="1.67"/>
+        <path d="M10.7637 13.7476C10.7637 15.013 9.73786 16.0388 8.4724 16.0388C7.20694 16.0388 6.18115 15.013 6.18115 13.7476" stroke="currentColor" stroke-width="1.67"/>
+        <path d="M8.47266 3.81875V0" stroke="currentColor" stroke-width="1.67"/>
+    </symbol>
+
+    <symbol id="doors" viewBox="0 0 16 19" xmlns="http://www.w3.org/2000/svg">
+        <path d="M14.5825 0.834961H0.834961V17.6375H14.5825V0.834961Z" stroke="currentColor" stroke-width="1.67"/>
+        <path d="M9.23633 9.23633H12.2913" stroke="currentColor" stroke-width="1.67"/>
+    </symbol>
+
+    <symbol id="baseboard" viewBox="0 0 17 17" xmlns="http://www.w3.org/2000/svg">
+        <path d="M11.1456 16.1099H5.79932" stroke="currentColor" stroke-width="1.67"/>
+        <path d="M5.79932 0.834961H11.1456" stroke="currentColor" stroke-width="1.67"/>
+        <path d="M0.834961 5.79932V11.1456" stroke="currentColor" stroke-width="1.67"/>
+        <path d="M16.1099 5.79932V11.1456" stroke="currentColor" stroke-width="1.67"/>
+        <path d="M0.834961 3.88996V0.834961H3.88996" stroke="currentColor" stroke-width="1.67"/>
+        <path d="M16.1102 3.88996V0.834961H13.0552" stroke="currentColor" stroke-width="1.67"/>
+        <path d="M16.1102 13.0549V16.1099H13.0552" stroke="currentColor" stroke-width="1.67"/>
+        <path d="M0.834961 13.0549V16.1099H3.88996" stroke="currentColor" stroke-width="1.67"/>
+        <path d="M4.65381 4.65381H12.2913V12.2913H4.65381V4.65381Z" stroke="currentColor" stroke-width="1.67"/>
+    </symbol>
+
 </svg>

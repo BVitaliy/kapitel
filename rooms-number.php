@@ -15,11 +15,16 @@
 
         <main>
             <div class="section section-calculator">
-                <?php include 'template-parts/_stepper.php'; ?>
+                <form action="" id="main-form"> 
+                    <?php include 'template-parts/_stepper.php'; ?>
 
-                <?php include 'template-parts/_rooms-map.php'; ?>
+                    <?php include 'template-parts/_rooms-map.php'; ?>
 
-                <?php include 'template-parts/_filters.php'; ?>
+                    <?php include 'template-parts/_filters.php'; ?>
+                    
+                    <input type="hidden" name="rooms_data" id="rooms_data">
+                </form>
+
             </div>
         </main>
     </div>

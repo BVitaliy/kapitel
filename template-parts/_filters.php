@@ -16,66 +16,66 @@
                     </div>
                 </div>
                 <div class="filters-num-body">
-                    <div class="filters-num-row">
+                    <div class="filters-num-row" data-room-type="kitсhen" data-filled-image="img/rooms-map-1.png">
                         <div class="filter-num-cell">1. Кухня</div>
                         <div class="filter-num-cell">
                             <div class="stepper stepper-number">
                                 <button class="decr" type="button">-</button>
-                                <input value="1" readonly="" tabindex="-1">
+                                <input value="1" min="1" max="2" readonly="" tabindex="-1">
                                 <button class="incr" type="button">+</button>
                             </div>
                         </div>
                         <div class="filter-num-cell">
-                            <input type="number" value="25" min="1" max="999" class="input">
+                            <input type="number" value="" min="1" max="999" class="input">
                             <span>м²</span>
                         </div>
                     </div>
-                    <div class="filters-num-row">
+                    <div class="filters-num-row" data-room-type="room" data-filled-image="#">
                         <div class="filter-num-cell">2. Кімната</div>
                         <div class="filter-num-cell">
                             <div class="stepper stepper-number">
                                 <button class="decr" type="button">-</button>
-                                <input value="1" readonly="" tabindex="-1">
+                                <input value="1"  min="1" max="6" readonly="" tabindex="-1">
                                 <button class="incr" type="button">+</button>
                             </div>
                         </div>
                         <div class="filter-num-cell">
-                            <input type="number" value="18" min="1" max="999" class="input">
+                            <input type="number" value="" min="1" max="999" class="input">
                             <span>м²</span>
                         </div>
                     </div>
-                    <div class="filters-num-row">
+                    <div class="filters-num-row" data-room-type="corridor" data-filled-image="#">
                         <div class="filter-num-cell">3. Коридор</div>
                         <div class="filter-num-cell">
                             <div class="stepper stepper-number">
                                 <button class="decr" type="button">-</button>
-                                <input value="1" readonly="" tabindex="-1">
+                                <input value="1"  min="1" max="2" readonly="" tabindex="-1">
                                 <button class="incr" type="button">+</button>
                             </div>
                         </div>
                         <div class="filter-num-cell">
-                            <input type="number" value="8" min="1" max="999" class="input">
+                            <input type="number" value="" min="1" max="999" class="input">
                             <span>м²</span>
                         </div>
                     </div>
-                    <div class="filters-num-row">
+                    <div class="filters-num-row" data-room-type="bathroom" data-filled-image="#">
                         <div class="filter-num-cell">4. Санвузол</div>
                         <div class="filter-num-cell">
                             <div class="stepper stepper-number">
                                 <button class="decr" type="button">-</button>
-                                <input value="1" readonly="" tabindex="-1">
+                                <input value="1"  min="1" max="4" readonly="" tabindex="-1">
                                 <button class="incr" type="button">+</button>
                             </div>
                         </div>
                         <div class="filter-num-cell">
-                            <input type="number" value="8" min="1" max="999" class="input">
+                            <input type="number" value="" min="1" max="999" class="input">
                             <span>м²</span>
                         </div>
                     </div>
                 </div>
                 <div class="filters-total-square">
                     Загальна площа:
-                    <b class="total-square">13</b>
+                    <b class="total-square">0</b>
                     <span>м²</span>
                 </div>
             </div>
@@ -90,3 +90,31 @@
         </div>
     </div>
 </div>
+
+<!-- {
+    kithen:[
+        {
+            square:"10",
+            floor_type:"Паркет",
+            ...
+        },
+        {
+            square:"20",
+            floor_type:"Вініл",
+            ...
+        }    
+    ],
+    room: [
+        {
+            square:"10",
+            ...
+        },
+        {
+            square:"20" ,
+            floor_type:"Вініл",
+            ...
+        } 
+    ],
+    corridor:[...],
+    bathroom:[...],
+} -->
