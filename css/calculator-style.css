@@ -129,7 +129,7 @@
 }
 @media (min-width: 992px) {
 .filters-wrap {width: var(--filters-width);position: absolute;bottom: var(--filters-gap);right: var(--filters-gap);top: var(--filters-gap);}
-.styles-wrap {width: var(--styles-width);position: absolute;bottom: var(--filters-gap);left: var(--filters-gap);top: var(--filters-gap);}
+.styles-wrap {width: var(--styles-width);position: absolute;left: var(--filters-gap);top: var(--filters-gap);}
 }
 @media (min-width: 1200px) {
 .filters-close:hover i {background-color: var(--clr-black-70);}
@@ -139,6 +139,41 @@
 @media (max-width: 991px) {
 .filters-wrap {position: static;width: 100%;flex: 1;display: flex;}
 .filters-bg {height: auto;flex: 1;}
+.style-map{
+    position: relative;
+    height: auto;
+    display: block;
+}
+.style-map:before{
+    content: "";
+    display: block;
+    padding-top: 85%;
+}
+.style-map__image{
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+}
+.styles-wrap{
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background-color: #fff;
+}
+.styles-wrap .filters{
+    gap: 10px;
+    white-space:nowrap;
+    display: flex;
+overflow: auto;
+}
+.styles-wrap .filters .filters-img {
+    min-width: 122px;
+    width: 122px;
+    margin: 0;
+    padding-top: 0;
+    height: 75px;
+}
 }
 @media (max-width: 575px) {
 .filter-num-cell:nth-child(1) {font-size: 1rem;}

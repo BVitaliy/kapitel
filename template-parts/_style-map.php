@@ -2,9 +2,9 @@
     <div class="style-map__image" data-draggable>
         <div class="main-image">
 
-            <img src="img/content/kitchen-image.jpg"   data-default-src="img/content/kitchen-image.jpg" data-image-id="kitchen-main-1" alt="">
+            <img src="img/content/kitchen-image.jpg"  class="main" data-default-src="img/content/kitchen-image.jpg" data-image-id="kitchen-main-1" alt="">
             <img src="#" data-default-src="#" data-image-id="floor" alt="Підлога">
-            <img src="#" data-default-src="#" data-image-id="celling" alt="Стеля">
+            <img src="#" data-default-src="#" data-image-id="ceiling" alt="Стеля">
             <img src="#" data-default-src="#" data-image-id="walls_color" alt="Стіни">
             <img src="#" data-default-src="#" data-image-id="plinth" alt="Плінтус">
             <img src="#" data-default-src="#" data-image-id="lighting" alt="Освітлення">

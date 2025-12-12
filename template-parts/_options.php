@@ -72,25 +72,25 @@
             <div class="ch-box-inner">
                 <div class="ch-box-row">
                     <label class="ch-box">
-                        <input type="radio" name="floor_type" data-url="img/content/floor/Плитка.png">
+                        <input type="radio" value="0" name="floor" data-image="floor"  data-url="img/content/floor/Плитка.png">
                         <span>
                             Плитка
                         </span>
                     </label>
                     <label class="ch-box">
-                        <input type="radio" name="floor_type" data-url="img/content/floor/Вініл.png">
+                        <input type="radio" value="1" name="floor" data-image="floor"  data-url="img/content/floor/Вініл.png">
                         <span>
                             Вініл
                         </span>
                     </label>
                     <label class="ch-box">
-                        <input type="radio" name="floor_type" data-url="img/content/floor/Паркет.png">
+                        <input type="radio" value="2" name="floor" data-image="floor"  data-url="img/content/floor/Паркет.png">
                         <span>
                             Паркет
                         </span>
                     </label>
                     <label class="ch-box">
-                        <input type="radio" name="floor_type" data-url="img/content/floor/Ламінат.png">
+                        <input type="radio" value="3" name="floor" data-image="floor"  data-url="img/content/floor/Ламінат.png">
                         <span>
                             Ламінат
                         </span>
@@ -113,7 +113,7 @@
     <div class="filter-opt__inner">
         <div class="ch-box-wrap">
             <label class="ch-box">
-                <input type="radio" name="ceiling">
+                <input type="radio" name="ceiling" value="0" data-image="ceiling"  data-url="img/_temp/Стеля/підвісна.png">
                 <span>
                     Підвісна
                 </span>
@@ -121,7 +121,7 @@
         </div>
         <div class="ch-box-wrap">
             <label class="ch-box">
-                <input type="radio" name="ceiling">
+                <input type="radio" name="ceiling" value="1" data-image="ceiling"  data-url="img/_temp/Стеля/натяжна.png">
                 <span>
                     Натяжна
                 </span>
@@ -129,7 +129,7 @@
         </div>
         <div class="ch-box-wrap">
             <label class="ch-box">
-                <input type="radio" name="ceiling">
+                <input type="radio" name="ceiling" value="2" data-image="ceiling"  data-url="#">
                 <span>
                     Лофт
                 </span>

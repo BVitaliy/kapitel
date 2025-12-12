@@ -341,101 +341,101 @@ jQuery(function ($) {
 
     
 
-    // Function to update total-square
-    _functions.updateTotal = function () {
-        let total = 0;
+    // // Function to update total-square
+    // _functions.updateTotal = function () {
+    //     let total = 0;
 
-        // Loop through all inputs inside .filters-num-body
-        $('.filters-num-body .input').each(function () {
-            let val = parseInt($(this).val()) || 0;
-            total += val;
-        });
+    //     // Loop through all inputs inside .filters-num-body
+    //     $('.filters-num-body .input').each(function () {
+    //         let val = parseInt($(this).val()) || 0;
+    //         total += val;
+    //     });
 
-        // Update the total-square element
-        $('.total-square').text(total);
+    //     // Update the total-square element
+    //     $('.total-square').text(total);
 
-        // Save to localStorage
-        localStorage.setItem('totalSquare', total);
-    }
+    //     // Save to localStorage
+    //     localStorage.setItem('totalSquare', total);
+    // }
 
-    // Run once on page load
-    $(document).ready(function () {
-        // If we have saved value in localStorage, show it
-        let savedTotal = localStorage.getItem('totalSquare');
-        if (savedTotal !== null) {
-            $('.total-square').text(savedTotal);
-        }
+    // // Run once on page load
+    // $(document).ready(function () {
+    //     // If we have saved value in localStorage, show it
+    //     let savedTotal = localStorage.getItem('totalSquare');
+    //     if (savedTotal !== null) {
+    //         $('.total-square').text(savedTotal);
+    //     }
 
-        // If filters-num-body exists, run updateTotal
-        if ($('.filters-num-body').length > 0) {
-            _functions.updateTotal();
-        }
-    });
+    //     // If filters-num-body exists, run updateTotal
+    //     if ($('.filters-num-body').length > 0) {
+    //         _functions.updateTotal();
+    //     }
+    // });
 
-    // Update total whenever any input changes
-    $('.filters-num-body').on('input', '.input', function () {
-        _functions.updateTotal();
-    });
+    // // Update total whenever any input changes
+    // $('.filters-num-body').on('input', '.input', function () {
+    //     _functions.updateTotal();
+    // });
 
-    // Also update when incr/decr buttons are clicked
-    $('.filters-num-body').on('click', '.incr, .decr', function () {
-        _functions.updateTotal();
-    });
+    // // Also update when incr/decr buttons are clicked
+    // $('.filters-num-body').on('click', '.incr, .decr', function () {
+    //     _functions.updateTotal();
+    // });
 
-    // Save all values of .input fields into localStorage
-    function saveInputs() {
-        let inputsData = [];
-        $('.filters-num-body .input').each(function (index) {
-            inputsData[index] = $(this).val();
-        });
-        localStorage.setItem('filtersInputs', JSON.stringify(inputsData));
-    }
+    // // Save all values of .input fields into localStorage
+    // function saveInputs() {
+    //     let inputsData = [];
+    //     $('.filters-num-body .input').each(function (index) {
+    //         inputsData[index] = $(this).val();
+    //     });
+    //     localStorage.setItem('filtersInputs', JSON.stringify(inputsData));
+    // }
 
-    // Restore values of .input fields from localStorage
-    function restoreInputs() {
-        let saved = localStorage.getItem('filtersInputs');
-        if (saved) {
-            let inputsData = JSON.parse(saved);
-            $('.filters-num-body .input').each(function (index) {
-                if (inputsData[index] !== undefined) {
-                    $(this).val(inputsData[index]);
-                }
-            });
-        }
-    }
+    // // Restore values of .input fields from localStorage
+    // function restoreInputs() {
+    //     let saved = localStorage.getItem('filtersInputs');
+    //     if (saved) {
+    //         let inputsData = JSON.parse(saved);
+    //         $('.filters-num-body .input').each(function (index) {
+    //             if (inputsData[index] !== undefined) {
+    //                 $(this).val(inputsData[index]);
+    //             }
+    //         });
+    //     }
+    // }
 
-    // Update the total-square element
-    _functions.updateTotal = function () {
-        let total = 0;
-        $('.filters-num-body .input').each(function () {
-            let val = parseInt($(this).val()) || 0;
-            total += val;
-        });
-        $('.total-square').text(total);
-        localStorage.setItem('totalSquare', total);
-    }
+    // // Update the total-square element
+    // _functions.updateTotal = function () {
+    //     let total = 0;
+    //     $('.filters-num-body .input').each(function () {
+    //         let val = parseInt($(this).val()) || 0;
+    //         total += val;
+    //     });
+    //     $('.total-square').text(total);
+    //     localStorage.setItem('totalSquare', total);
+    // }
 
-    // Run once on page load
-    $(document).ready(function () {
-        // Restore input values
-        restoreInputs();
+    
+    // // Update total and save inputs whenever any input changes
+    // $('.filters-num-body').on('input', '.input', function () {
+    //     saveInputs();
+    //     _functions.updateTotal();
+    // });
+    // // Run once on page load
+    // $(document).ready(function () {
+    //     // Restore input values
+    //     restoreInputs();
 
-        // Restore total-square value
-        let savedTotal = localStorage.getItem('totalSquare');
-        if (savedTotal !== null) {
-            $('.total-square').text(savedTotal);
-        }
+    //     // Restore total-square value
+    //     let savedTotal = localStorage.getItem('totalSquare');
+    //     if (savedTotal !== null) {
+    //         $('.total-square').text(savedTotal);
+    //     }
 
-        // If filters-num-body exists, recalculate
-        if ($('.filters-num-body').length > 0) {
-            _functions.updateTotal();
-        }
-    });
-
-    // Update total and save inputs whenever any input changes
-    $('.filters-num-body').on('input', '.input', function () {
-        saveInputs();
-        _functions.updateTotal();
-    });
+    //     // If filters-num-body exists, recalculate
+    //     if ($('.filters-num-body').length > 0) {
+    //         _functions.updateTotal();
+    //     }
+    // });
 
 });

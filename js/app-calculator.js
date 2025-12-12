@@ -65,7 +65,155 @@ jQuery(function ($) {
     });
 
 
- 
+_functions.restoreInputsFromRoomsData = function () {
+    let saved = localStorage.getItem('rooms_data');
+    if (!saved) return;
+
+    let rooms = JSON.parse(saved);
+
+    Object.keys(rooms).forEach(type => {
+        let items = rooms[type];
+
+        // Перший (оригінальний) row
+        let $firstRow = $(`.filters-num-row[data-room-type="${type}"]`).first();
+        if ($firstRow.length === 0) return;
+
+        // Видаляємо попередні type2 ряди
+        $(`.filters-num-row[data-room-type="${type}"]`).not($firstRow).remove();
+
+        // ---- FIRST ROW ----
+
+        // 1) КІЛЬКІСТЬ — stepper-number
+        $firstRow.find(".stepper-number input").val(items.length);
+
+        // 2) ПЛОЩА — input.input
+        if (items[0] && items[0].square != null) {
+            $firstRow.find("input.input").val(items[0].square);
+        } else {
+            $firstRow.find("input.input").val("");
+        }
+
+        // ---- OTHER ROWS ----
+        if (items.length > 1) {
+            let filledImage = $firstRow.data("filled-image");
+
+            for (let i = 1; i < items.length; i++) {
+                let square = items[i].square ?? "";
+
+                let $newRow = $(`
+                    <div class="filters-num-row type2"
+                        data-room-type="${type}"
+                        data-filled-image="${filledImage}">
+                        <div class="filter-num-cell"></div>
+                        <div class="filter-num-cell"></div>
+                        <div class="filter-num-cell">
+                            <input type="number" value="${square}" min="1" max="999" class="input">
+                            <span>м²</span>
+                        </div>
+                    </div>
+                `);
+
+                $firstRow.after($newRow);
+                $firstRow = $newRow;
+            }
+        }
+    });
+};
+
+
+
+    // Function to update total-square
+    _functions.updateTotal = function () {
+        let total = 0;
+
+        // Loop through all inputs inside .filters-num-body
+        $('.filters-num-body .input').each(function () {
+            let val = parseInt($(this).val()) || 0;
+            total += val;
+        });
+
+        // Update the total-square element
+        $('.total-square').text(total);
+
+        // Save to localStorage
+        localStorage.setItem('totalSquare', total);
+    }
+
+    // Run once on page load
+    $(document).ready(function () {
+        // If we have saved value in localStorage, show it
+        let savedTotal = localStorage.getItem('totalSquare');
+        if (savedTotal !== null) {
+            $('.total-square').text(savedTotal);
+        }
+
+        // If filters-num-body exists, run updateTotal
+        if ($('.filters-num-body').length > 0) {
+            _functions.updateTotal();
+        }
+    });
+
+    // Update total whenever any input changes
+    $('.filters-num-body').on('input', '.input', function () {
+        _functions.updateTotal();
+    });
+
+    // Also update when incr/decr buttons are clicked
+    $('.filters-num-body').on('click', '.incr, .decr', function () {
+        _functions.updateTotal();
+    });
+
+    // Save all values of .input fields into localStorage
+    function saveInputs() {
+        let inputsData = [];
+        $('.filters-num-body .input').each(function (index) {
+            inputsData[index] = $(this).val();
+        });
+        localStorage.setItem('filtersInputs', JSON.stringify(inputsData));
+    }
+
+    // Restore values of .input fields from localStorage
+    function restoreInputs() {
+        let saved = localStorage.getItem('filtersInputs');
+        if (saved) {
+            let inputsData = JSON.parse(saved);
+            $('.filters-num-body .input').each(function (index) {
+                if (inputsData[index] !== undefined) {
+                    $(this).val(inputsData[index]);
+                }
+            });
+        }
+    }
+
+    // Update the total-square element
+    _functions.updateTotal = function () {
+        let total = 0;
+        $('.filters-num-body .input').each(function () {
+            let val = parseInt($(this).val()) || 0;
+            total += val;
+        });
+        $('.total-square').text(total);
+        localStorage.setItem('totalSquare', total);
+    }
+
+    
+    // Update total and save inputs whenever any input changes
+    $('.filters-num-body').on('input', '.input', function () {
+        // saveInputs();
+        _functions.updateTotal();
+    });
+
+
+
+    $(document).ready(function () {
+        _functions.restoreInputsFromRoomsData();
+
+        _functions.updateTotal();
+
+        // validateRooms();
+        _functions.updateRoomsMap();
+        _functions.updateRoomsFormData();
+    });
 
     // close filters
     $(document).on('click', '.filters-close', function (e) {
@@ -98,10 +246,16 @@ jQuery(function ($) {
 
         // Якщо після інкременту НЕ досягли max — створюємо новий ряд
         if (newVal <= max) {
-            let $row = $(this).closest('.filters-num-row');
+            let $row = $(this).closest('.filters-num-row'); 
+
+            // Витягуємо атрибути з поточного ряду
+            let roomType = $row.data('room-type');
+            let filledImage = $row.data('filled-image');
 
             let $newRow = $(`
-                <div class="filters-num-row type2">
+                <div class="filters-num-row type2"   
+                    data-room-type="${roomType}"
+                    data-filled-image="${filledImage}">
                     <div class="filter-num-cell"></div>
                     <div class="filter-num-cell"></div>
                     <div class="filter-num-cell">
@@ -115,9 +269,10 @@ jQuery(function ($) {
         }
 
         $(document).on("input", '.filters-num-row input[type="number"]', function () {
-            updateRoomsMap();
-            updateRoomsFormData();
+            _functions.updateRoomsMap();
+            _functions.updateRoomsFormData();
         });
+        validateRooms();
     });
 
     // Handle click on "-" button
@@ -141,10 +296,54 @@ jQuery(function ($) {
             }
         }
 
-    $(document).on("input", '.filters-num-row input[type="number"]', function () {
-        updateRoomsMap();
-        updateRoomsFormData();
+        $(document).on("input", '.filters-num-row input[type="number"]', function () {
+            _functions.updateRoomsMap();
+            _functions.updateRoomsFormData();
+        });
+
+        validateRooms();
     });
+
+
+    function validateRooms() {
+        let valid = true;
+        let total = 0;
+
+        $(".filters-num-row").each(function () {
+            const $row = $(this);
+            const $inputs = $row.find('input[type="number"].input');
+
+            let rowValid = true;
+            let rowTotal = 0;
+
+            $inputs.each(function () {
+                const val = parseFloat($(this).val());
+
+                if (!isNaN(val) && val > 0) {
+                    rowTotal += val;
+                } else {
+                    rowValid = false;
+                }
+            });
+
+            if (!rowValid) valid = false;
+            else total += rowTotal;
+        });
+
+        // Загальна площа
+        $(".total-square").text(total);
+
+        // Кнопка далі
+        const $next = $(".filters-button .btn");
+        if (valid && total > 0) {
+            $next.removeAttr("disabled").removeClass("disabled");
+        } else {
+            $next.attr("disabled", "disabled").addClass("disabled");
+        }
+    }
+
+    $(document).on("input", '.filters-num-row input[type="number"]', function () {
+        validateRooms();
     });
 
     // Function to update total-square
@@ -407,7 +606,7 @@ jQuery(function ($) {
         $tabsContent.removeClass('active').eq(index-1).addClass('active');
 
         // оновлюємо картинку
-        const $mainImg = $('.style-map__image').find('img[data-image-id]');
+        const $mainImg = $('.style-map__image').find('img[data-image-id].main');
         const mainDefaultSrc = $mainImg.attr('data-default-src');
         const inputName = `${roomType}-image-${index}`;
         const $input = $form.find(`[name="${inputName}"]`);
@@ -435,6 +634,20 @@ jQuery(function ($) {
 
 
     $(document).ready(function() {
+        // 🖼 ОНОВЛЕННЯ КАРТИНОК ЗА RADIO / CHECKBOX
+        $(document).on("change", 'input[data-image]', function () {
+            const type = $(this).data("image");    // наприклад "floor"
+            const url = $(this).data("url");       // шлях до картинки
+
+            // Знаходимо відповідний <img data-image-id="floor">
+            const $img = $(`.main-image img[data-image-id="${type}"]`);
+
+            if ($img.length) {
+                $img.attr("src", url);
+            }
+        });
+
+
         const $form = $('#main-form');
 
         // Функція для оновлення small з вибраними опціями
@@ -452,7 +665,19 @@ jQuery(function ($) {
                         $wrap.find('.ch-box-inner input').each(function() {
                             const name = $(this).attr('name');
                             // if(name) $form.find(`[name="${name}"]`).val('');
-                            if($(this).is(':checkbox') || $(this).is(':radio')) $(this).prop('checked', false);
+                            if($(this).is(':checkbox') || $(this).is(':radio')) {
+                                // знімаємо чек/радіо
+                                $(this).prop('checked', false);
+
+                                // очищаємо відповідну картинку в .main-image
+                                const imgType = $(this).data('image'); // наприклад "floor"
+                                if (imgType) {
+                                    const $img = $(`.main-image img[data-image-id="${imgType}"]`);
+                                    const defaultSrc = $img.data("default-src") || "";
+
+                                    $img.attr("src", defaultSrc);
+                                }
+                            }
                         });
                         return; // пропускаємо цю обгортку
                     }
@@ -515,7 +740,7 @@ jQuery(function ($) {
                 }
             });
             // console.clear();
-            // console.log('Form values:',  formData);
+            console.log('Form values:',  formData);
 
             // Оновлюємо small для кожного батьківського filter-opt
             const $opt = $(this).closest('.filter-opt');
@@ -529,95 +754,114 @@ jQuery(function ($) {
     });
 
 
-    function updateRoomsMap() {
+    _functions.updateRoomsMap = function () {
         let totalGlobalSquare = 0;
+
+        // 1️⃣ Групуємо сумарні площі по roomType
+        let totals = {}; // { kitchen: 14, room: 22, corridor: 5 }
 
         $(".filters-num-row").each(function () {
             const $row = $(this);
+            const roomType = $row.data("room-type");
+            if (!roomType) return;
 
-            // новий ключ
-            const roomType = $row.data("room-type");      // kithen, room, corridor...
-            const imgSrc = $row.data("filled-image");
-            const count = parseInt($row.find(".stepper input").val()) || 0;
+            let rowSquare = 0;
 
-            let totalRoomSquare = 0;
-
-            // збираємо всі площі для цього row (враховує також додані type2)
             $row.find('input[type="number"]').each(function () {
-                let val = parseFloat($(this).val());
-                if (!isNaN(val)) totalRoomSquare += val;
+                const val = parseFloat($(this).val());
+                if (!isNaN(val)) rowSquare += val;
             });
 
-            totalGlobalSquare += totalRoomSquare;
+            if (!totals[roomType]) totals[roomType] = 0;
+            totals[roomType] += rowSquare;
 
-            // Картинка на мапі за roomType
-            let $mapImg = $(`img[data-image-id="${roomType}"]`);
+            totalGlobalSquare += rowSquare;
+        });
 
-            // Тултіп можна знайти або по data-tooltip
-            let $tooltip = $(`.rooms-map .tooltip[data-tooltip="${roomType}"]`);
+        // 2️⃣ Оновлюємо map-image та tooltip лише 1 раз для кожного типу
+        for (let roomType in totals) {
+            const totalRoomSquare = totals[roomType];
 
-            // Якщо тултіпів нема з data-tooltip — fallback на індекс
-            if (!$tooltip.length) {
-                const index = $(".filters-num-row").index($row);
-                $tooltip = $(".rooms-map .tooltip").eq(index);
-            }
+            // Шукаємо картинку roomType
+            const $mapImg = $(`img[data-image-id="${roomType}"]`);
 
-            // ---------------------------
-            // ПОКАЗ / СКРИТТЯ КАРТИНКИ
-            // ---------------------------
-            if (totalRoomSquare > 1) {
+            // Знаходимо перший ряд з цим типом — він містить data-filled-image
+            const $firstRow = $(`.filters-num-row[data-room-type="${roomType}"]`).first();
+            const imgSrc = $firstRow.data("filled-image");
+
+            // Якщо площа > 0 → ставимо картинку
+            if (totalRoomSquare > 0) {
                 $mapImg.attr("src", imgSrc);
             } else {
                 $mapImg.attr("src", "#");
             }
 
-            // ---------------------------
-            // ОНОВЛЕННЯ ТУЛТІПУ
-            // ---------------------------
-            $tooltip.find("b").text(totalRoomSquare);
-        });
+            // Тултіп — шукаємо по data-tooltip
+            let $tooltip = $(`.rooms-map .tooltip[data-tooltip="${roomType}"]`);
 
-        // Глобальна площа
+            if ($tooltip.length) {
+                $tooltip.find("b").text(totalRoomSquare);
+            }
+        }
+
+        // 3️⃣ Сума всіх площ
         $(".total-square").text(totalGlobalSquare);
 
-        updateRoomsFormData();
+        _functions.updateRoomsFormData();
     }
+ 
+    _functions.buildRoomsObject = function() {
+        const result = {};
+        const squaresByType = {};   // { kithen: [10, null, 20], room: [15, null] }
+        const countByType = {};     // { kithen: 2, room: 3 }
 
-
-    function buildRoomsObject() {
-        let result = {};
-
+        // 1) Пройтись по всіх рядках і зібрати дані
         $(".filters-num-row").each(function () {
             const $row = $(this);
-            const type = $row.data("room-type");  // kithen, room, corridor...
-            const count = parseInt($row.find(".stepper input").val()) || 0;
+            const type = $row.data("room-type");
+            if (!type) return;
 
-            // Масив площ (кожен input — окрема кімната)
-            let squares = [];
+            // 1.1 ініціалізація
+            if (!Array.isArray(squaresByType[type])) squaresByType[type] = [];
 
+            // 1.2 збираємо всі поля площі в цьому рядку (type2 теж)
             $row.find('input[type="number"]').each(function () {
-                const val = parseFloat($(this).val());
-                if (!isNaN(val) && val > 0) {
-                    squares.push(val);
+                const raw = $(this).val();
+                if (raw === '' || raw === null || typeof raw === 'undefined') {
+                    squaresByType[type].push(null);
+                } else {
+                    const v = parseFloat(raw);
+                    squaresByType[type].push(isNaN(v) ? null : v);
                 }
             });
 
-            // Якщо нема площ або count = 0 → пропускаємо
-            if (squares.length === 0 || count === 0) return;
+            // 1.3 беремо значення stepper (кількість кімнат) з цього рядка, якщо воно є
+            const $stepperInput = $row.find('.stepper input').first();
+            if ($stepperInput.length) {
+                const stepVal = parseInt($stepperInput.val());
+                if (!isNaN(stepVal) && stepVal > 0) {
+                    // використаємо перше ненульове значення stepper для цього типу
+                    if (!countByType[type]) countByType[type] = stepVal;
+                    else countByType[type] = Math.max(countByType[type], stepVal);
+                }
+            }
+        });
 
-            // Масив приміщень одного типу
+        // 2) Формуємо результат: для кожного типу — масив кімнат довжини count
+        const allTypes = new Set([...Object.keys(squaresByType), ...Object.keys(countByType)]);
+        allTypes.forEach(type => {
+            const squares = squaresByType[type] || [];
+            const count = Math.max(countByType[type] || 0, squares.length);
+
+            // Якщо count === 0 і немає жодних площ — пропускаємо (не додаємо ключ)
+            if (count === 0) return;
+
             result[type] = [];
 
-            // Формуємо елементи масиву приміщень
-            // Кількість кімнат = count
-            // Площі = squares[i] або null (якщо не вистачає)
             for (let i = 0; i < count; i++) {
                 result[type].push({
-                    square: squares[i] || null,   // на цьому етапі тільки площа
-                    // на наступних сторінках можна додавати:
-                    // floor_type: null,
-                    // wall_type: null,
-                    // notes: "",
+                    square: (typeof squares[i] !== 'undefined') ? squares[i] : null
+                    // тут пізніше можна додавати інші поля (floor_type, wall_type, ...)
                 });
             }
         });
@@ -625,31 +869,37 @@ jQuery(function ($) {
         return result;
     }
 
-    function updateRoomsFormData() {
-        const obj = buildRoomsObject();
-        $("#rooms_data").val(JSON.stringify(obj));
-        console.clear()
-        console.log('DATA:',obj)
+     _functions.updateRoomsFormData  = function() {
+            const obj = _functions.buildRoomsObject();
+            console.log('obj',obj)
+            console.log('asdasdasd')
+        // Перевірка, чи об'єкт не пустий
+            if (obj && Object.keys(obj).length > 0) {
+                $("#rooms_data").val(JSON.stringify(obj));
+                localStorage.setItem('rooms_data', JSON.stringify(obj));
+                console.log('DATA:', obj);
+            } else {
+                console.warn('Rooms object is empty. Nothing to save.');
+            }
     }
 
-    // -------------------------------
-    // ЛІСТЕНЕРИ
-    // -------------------------------
-
+ 
     // Ввод площі
     $(document).on("input", '.filters-num-row input[type="number"]', function () {
-        updateRoomsMap();
-        updateRoomsFormData();
+        _functions.updateRoomsMap();
+        _functions.updateRoomsFormData();
     });
 
     $(document).on("click", ".filters-num-row .incr, .filters-num-row .decr", function () {
         setTimeout(() => {
-            updateRoomsMap();
-            updateRoomsFormData();
+            _functions.updateRoomsMap();
+            _functions.updateRoomsFormData();
         }, 50);
     });
 
     // Стартовий запуск
-    updateRoomsMap();
+    // updateRoomsMap();
 
+ 
+ 
 });

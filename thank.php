@@ -4,6 +4,7 @@
 <head>
     <?php include 'inc/global/_top.php'; ?>
     <title>Kapitel :: Thank</title>
+ 
 </head>
 
 <body>
