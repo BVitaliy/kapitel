@@ -16,17 +16,17 @@
                     </div>
                 </div>
                 <div class="filters-num-body">
-                    <div class="filters-num-row" data-room-type="kitсhen" data-filled-image="img/rooms-map-1.png">
+                    <div class="filters-num-row" data-room-type="kitchen" data-filled-image="img/rooms-map-1.png">
                         <div class="filter-num-cell">1. Кухня</div>
                         <div class="filter-num-cell">
                             <div class="stepper stepper-number">
                                 <button class="decr" type="button">-</button>
-                                <input value="1" min="1" max="2" readonly="" tabindex="-1">
+                                <input value="1" min="1" max="5" readonly="" tabindex="-1">
                                 <button class="incr" type="button">+</button>
                             </div>
                         </div>
                         <div class="filter-num-cell">
-                            <input type="number" value="" min="1" max="999" class="input">
+                            <input type="number" value="" min="1" max="999" class="input" required>
                             <span>м²</span>
                         </div>
                     </div>
@@ -35,12 +35,12 @@
                         <div class="filter-num-cell">
                             <div class="stepper stepper-number">
                                 <button class="decr" type="button">-</button>
-                                <input value="1"  min="1" max="6" readonly="" tabindex="-1">
+                                <input value="1"  min="1" max="5" readonly="" tabindex="-1">
                                 <button class="incr" type="button">+</button>
                             </div>
                         </div>
                         <div class="filter-num-cell">
-                            <input type="number" value="" min="1" max="999" class="input">
+                            <input type="number" value="" min="1" max="999" class="input" required>
                             <span>м²</span>
                         </div>
                     </div>
@@ -49,12 +49,12 @@
                         <div class="filter-num-cell">
                             <div class="stepper stepper-number">
                                 <button class="decr" type="button">-</button>
-                                <input value="1"  min="1" max="2" readonly="" tabindex="-1">
+                                <input value="1"  min="1" max="5" readonly="" tabindex="-1">
                                 <button class="incr" type="button">+</button>
                             </div>
                         </div>
                         <div class="filter-num-cell">
-                            <input type="number" value="" min="1" max="999" class="input">
+                            <input type="number" value="" min="1" max="999" class="input" required>
                             <span>м²</span>
                         </div>
                     </div>
@@ -63,12 +63,12 @@
                         <div class="filter-num-cell">
                             <div class="stepper stepper-number">
                                 <button class="decr" type="button">-</button>
-                                <input value="1"  min="1" max="4" readonly="" tabindex="-1">
+                                <input value="1"  min="1" max="5" readonly="" tabindex="-1">
                                 <button class="incr" type="button">+</button>
                             </div>
                         </div>
                         <div class="filter-num-cell">
-                            <input type="number" value="" min="1" max="999" class="input">
+                            <input type="number" value="" min="1" max="999" class="input" required>
                             <span>м²</span>
                         </div>
                     </div>

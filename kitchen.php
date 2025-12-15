@@ -29,6 +29,9 @@
             </div>
         </main>
     </div>
+            <script type="text/template" id="options-template" style="display:none">
+                <?php include 'template-parts/_options.php'; ?>
+            </script>
 
     <!-- Popups -->
     <div class="popup-wrapper" id="popups"></div>

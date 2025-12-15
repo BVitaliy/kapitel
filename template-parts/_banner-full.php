@@ -48,8 +48,8 @@
                     <div class="banner-col banner-right">
                         <div class="banner-form">
                             <div class="banner-form__title h5 title upper text-center">калькулятор вартості проєкту</div>
-                            <form class="form-block">
-                                <div class="input-field">
+                            <div class="form-block">
+                                <!--  <div class="input-field">
                                     <div class="input-placeholder">Область</div>
                                     <select class="SelectBox">
                                         <option value="placeholder" selected disabled>Введіть назву</option>
@@ -61,9 +61,18 @@
                                         <option>Option 6</option>
                                         <option>Option 7</option>
                                         <option>Option 8</option>
-                                    </select>
+                                    </select> 
+                                </div>
+                                -->
+                                <div class="input-field">
+                                    <div class="input-placeholder">Область</div>
+                                    <input type="text" class="input" required name=region placeholder="Введіть назву">
                                 </div>
                                 <div class="input-field">
+                                    <div class="input-placeholder">Місто</div>
+                                    <input type="text" class="input" required name=city placeholder="Введіть назву">
+                                </div>                                
+                                <!-- <div class="input-field">
                                     <div class="input-placeholder">Місто</div>
                                     <select class="SelectBox">
                                         <option value="placeholder" selected disabled>Введіть назву</option>
@@ -76,32 +85,32 @@
                                         <option>Option 7</option>
                                         <option>Option 8</option>
                                     </select>
-                                </div>
+                                </div> -->
                                 <div class="input-field">
                                     <div class="input-placeholder">Тип нерухомості</div>
                                     <div class="ch-box-wrap">
                                         <label class="ch-box">
-                                            <input type="radio" name="property_type" checked>
+                                            <input type="radio" name="property_type" value=0 checked>
                                             <span>
                                                 Новобудова
                                             </span>
                                         </label>
                                         <label class="ch-box">
-                                            <input type="radio" name="property_type">
+                                            <input type="radio" name="property_type" value=1>
                                             <span>
                                                 Вторинний ринок
                                             </span>
                                         </label>
                                     </div>
                                 </div>
-
+                                <div class="error-text invalid"></div>
                                 <div class="submit-field">
                                     <!-- change on program to button tag and add type="submit" -->
-                                    <a href="rooms-number.php" class="btn btn-block">
+                                    <a href="#" class="btn btn-block js-next">
                                         <b>Почати</b>
                                     </a>
                                 </div>
-                            </form>
+</div>
                         </div>
                     </div>
                 </div>

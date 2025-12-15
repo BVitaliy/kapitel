@@ -62,7 +62,7 @@
                         <div class="h-price">
                             <svg width="18" height="18">
                                 <use xlink:href="img/icons/icons_global.svg#money" fill="none"></use>
-                            </svg><b class="total-cost">75 370</b> грн
+                            </svg><b class="total-cost">0</b> грн
                         </div>
                         <div class="h-square">
                             <svg width="18" height="18">
