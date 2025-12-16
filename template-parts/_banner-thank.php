@@ -30,7 +30,7 @@
                     <div class="text">
                         Ми отримали ваші дані, ви можете завантажити свою презентацію
                     </div>     
-                    <a href="pdf/presentation.pdf" class="btn btn-icon btn-pdf" download>
+                    <a href="pdf/kapitel.pdf" class="btn btn-icon btn-pdf" download>
                         завантажити пдф
                     </a>           
                 </div>
