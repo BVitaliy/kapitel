@@ -123,7 +123,7 @@ header.scrolled .h-wrap {box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.04);}
 .h-links {margin-inline: auto;}
 .h-links ul {display: flex;align-items: center;gap: 1.67vw;}
 .h-links li {flex: 0 0 auto;}
-.h-links a, .h-links span {pointer-events: none;display: inline-flex;align-items: center;gap: 0.3125rem;white-space: nowrap;font-size: 0.875rem;line-height: 1em;color: var(--clr-black);}
+.h-links a, .h-links span {display: inline-flex;align-items: center;gap: 0.3125rem;white-space: nowrap;font-size: 0.875rem;line-height: 1em;color: var(--clr-black);}
 .h-links a i, .h-links span i {flex-shrink: 0;width: 1.75rem;height: 1.75rem;font-size: 1rem;display: flex;align-items: center;justify-content: center;border-radius: 100%;background-color: var(--bg-2);color: var(--clr-text);transition: var(--transition-1);}
 .h-links .current a {pointer-events: none;}
 .h-links .current a i {background-color: var(--clr-primary);color: var(--clr-white);}
