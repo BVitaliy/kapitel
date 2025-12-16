@@ -27,7 +27,7 @@
                     <h1 class="h6 title upper text-center">
                         зберегти прорахунок і отримати презентацію
                     </h1>
-                    <form class="form-block">
+                    <!-- <form class="form-block"> -->
                         <div class="input-field">
                             <div class="input-placeholder">Ваше ім’я</div>
                             <input type="text" class="input" placeholder="Введіть ваше ім’я">
@@ -49,7 +49,7 @@
                             </label>
                         </div>
                         <div class="form-buttons">
-                            <a href="index.php" class="btn-back">
+                            <a href="#" class="btn-back js-back">
                                 <svg width="9" height="16">
                                     <use xlink:href="img/icons/icons_global.svg#chevron-left" fill="none"></use>
                                 </svg>
@@ -61,7 +61,7 @@
                                 </a>
                             </div>
                         </div>
-                    </form>
+                    <!-- </form> -->
                 </div>
             </div>
         </div>

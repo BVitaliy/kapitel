@@ -125,3 +125,17 @@ input:-webkit-autofill:focus {border: 0;-webkit-text-fill-color: var(--clr-black
 @media (max-width: 991px) {
 .SumoSelect {--sel-p: .75rem;--sel-h: 2.875rem;--sel-fz: .875rem;}
 }
+
+.form-buttons {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding-top: var(--space);
+}
+.form-buttons .submit-field {
+    padding-top: 0;
+    flex: 1;
+}
+.banner-form > * + * {
+    margin-top: var(--sp-sm);
+}

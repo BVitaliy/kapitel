@@ -90,13 +90,13 @@
                                     <div class="input-placeholder">Тип нерухомості</div>
                                     <div class="ch-box-wrap">
                                         <label class="ch-box">
-                                            <input type="radio" name="property_type" value=0 checked>
+                                            <input type="radio" name="property_type" value=new checked>
                                             <span>
                                                 Новобудова
                                             </span>
                                         </label>
                                         <label class="ch-box">
-                                            <input type="radio" name="property_type" value=1>
+                                            <input type="radio" name="property_type" value=old>
                                             <span>
                                                 Вторинний ринок
                                             </span>

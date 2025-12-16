@@ -119,10 +119,7 @@
                                     </div>
                                 </div>
                             </div>
-
  
-                            
-                            
                     </div>
 
                 </div>
@@ -215,9 +212,96 @@
 
                     
                     </div>
+                </div> 
+                
+                <div class="js-step step-5 js-step-rooms">
+                    <div class="section section-calculator">
+                    
+                        <?php include 'template-parts/_stepper.php'; ?>
 
-                </div>                   
+                        <?php include 'template-parts/_style-map.php'; ?>
+
+                        <?php include 'template-parts/_styles.php'; ?>
+
+                        <div class="filters-wrap" data-options-type="corridor">
+                            <button class="filters-close active d-none d-lg-flex" data-toggle-more="Розгорнути" data-toggle-less="Згорнути">
+                                <i></i>
+                            </button>
+                            <div class="filters-bg _tabs active">
+                                <div class="filters-title-wrap">
+                                    <div class="filters-title upper" data-room-type="corridor">Коридор</div>
+                                    <div class="sub-links">
+                                        <ul> 
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="filters">
+                            
+                                </div>
+
+                                <div class="error-text invalid"></div>
+                                <div class="filters-button">
+                                    <a href="#" class="btn-back js-back">
+                                        <svg width="9" height="16">
+                                            <use xlink:href="img/icons/icons_global.svg#chevron-left" fill="none"></use>
+                                        </svg>
+                                    </a>
+                                     <a href="#" class="btn js-next js-step-validation">Далі</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    
+                    </div>
+                </div>  
+                
+                <div class="js-step step-6 js-step-rooms">
+                    <div class="section section-calculator">
+                    
+                        <?php include 'template-parts/_stepper.php'; ?>
+
+                        <?php include 'template-parts/_style-map.php'; ?>
+
+                        <?php include 'template-parts/_styles.php'; ?>
+
+                        <div class="filters-wrap" data-options-type="bathroom">
+                            <button class="filters-close active d-none d-lg-flex" data-toggle-more="Розгорнути" data-toggle-less="Згорнути">
+                                <i></i>
+                            </button>
+                            <div class="filters-bg _tabs active">
+                                <div class="filters-title-wrap">
+                                    <div class="filters-title upper" data-room-type="bathroom">Санвузол</div>
+                                    <div class="sub-links">
+                                        <ul> 
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="filters">
+                            
+                                </div>
+
+                                <div class="error-text invalid"></div>
+                                <div class="filters-button">
+                                    <a href="#" class="btn-back js-back">
+                                        <svg width="9" height="16">
+                                            <use xlink:href="img/icons/icons_global.svg#chevron-left" fill="none"></use>
+                                        </svg>
+                                    </a>
+                                     <a href="#" class="btn js-next js-step-validation">Далі</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    
+                    </div>
+                </div>      
+
+                <div class="js-step step-7 js-step-rooms">
+                    <?php include 'template-parts/_banner-form.php'; ?>
+                </div>   
+
                  <input type="hidden" name="rooms_data" id="rooms_data">
+                 <input type="hidden" name="total_price">
            </form>        
         </main>
     </div>

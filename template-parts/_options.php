@@ -11,7 +11,7 @@
     <div class="filter-opt__inner">
         <div class="ch-box-wrap">
             <label class="ch-box">
-                <input type="checkbox">
+                <input type="checkbox" name="floor_option_1">
                 <span>
                     Стан підлоги
                 </span>
@@ -35,7 +35,7 @@
         </div>
         <div class="ch-box-wrap">
             <label class="ch-box">
-                <input type="checkbox" >
+                <input type="checkbox" name="floor_option_2">
                 <span>
                     Тепла підлога
                 </span>
@@ -64,7 +64,7 @@
         </div>
         <div class="ch-box-wrap">
             <label class="ch-box">
-                <input type="checkbox" >
+                <input type="checkbox" name="floor_option_3">
                 <span>
                     Тип підлоги
                 </span>

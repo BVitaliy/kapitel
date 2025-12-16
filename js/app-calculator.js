@@ -70,7 +70,7 @@ _functions.restoreInputsFromRoomsData = function () {
     if (!saved) return;
 
     let rooms = JSON.parse(saved);
-    console.log('rooms' ,rooms)
+    // console.log('rooms' ,rooms)
     Object.keys(rooms).forEach(type => {
         let items = rooms[type];
 
@@ -152,11 +152,11 @@ _functions.restoreInputsFromRoomsData = function () {
                         }
                     });
                 });
-        console.log('roomsData',roomsData)
+       
     }
 }
 
-console.log('total',total)
+ 
         // 3️⃣ Оновлюємо UI
         $('.total-square').text(total);
 
@@ -625,8 +625,10 @@ $(this).closest('.filter-opt').toggleClass('active');
                     if(!$mainCheckbox.is(':checked')) {
                         // якщо батьківський чекбокс відчеканий — очищаємо вкладені input
                         $wrap.find('.ch-box-inner input').each(function() {
-                            const name = $(this).attr('name');
-                            // if(name) $form.find(`[name="${name}"]`).val('');
+                            const $input = $(this);
+                            if ($input.is('input[type="number"]')) {
+                                $input.val(0); // 👈 важливо: number → 0
+                            } 
                             if($(this).is(':checkbox') || $(this).is(':radio')) {
                                 // знімаємо чек/радіо
                                 $(this).prop('checked', false);
@@ -641,6 +643,7 @@ $(this).closest('.filter-opt').toggleClass('active');
                                 }
                             }
                         });
+                        
                         return; // пропускаємо цю обгортку
                     }
                 }
@@ -700,9 +703,7 @@ $(this).closest('.filter-opt').toggleClass('active');
                 } else {
                     formData[name] = $(this).val();
                 }
-            });
-            // console.clear();
-            console.log('Form values:',  formData);
+            }); 
 
             // Оновлюємо small для кожного батьківського filter-opt
             const $opt = $(this).closest('.filter-opt');
@@ -794,50 +795,7 @@ $(this).closest('.filter-opt').toggleClass('active');
         }, 50);
     });
 
- 
-    //   _functions.buildRoomTabs = function() {
-    //     const roomsData = JSON.parse(localStorage.getItem('rooms_data') || '{}');
-
-    //     $('.filters-wrap').each(function () {
-    //         const $wrap = $(this);
-    //         const type = $wrap.data('options-type'); // kitchen
-    //         const rooms = roomsData[type];
-
-    //         if (!rooms || !rooms.length) return;
-
-    //         const $tabsList = $wrap.find('._tab-item').parent();
-    //         const $tabsContainer = $wrap.find('.filters');
-
-    //         // очищаємо шаблонні
-    //         $tabsList.empty();
-    //         $tabsContainer.empty();
-
-    //         rooms.forEach((room, index) => {
-    //             const roomIndex = index + 1;
-
-    //             // ---------- _tab-item ----------
-    //             const $tabItem = $(`<li class="_tab-item">${roomIndex}</li>`);
-    //             if (index === 0) $tabItem.addClass('is-active');
-    //             $tabsList.append($tabItem);
-
-    //             // ---------- _tab ----------
-    //             const $tab = $(`
-    //                 <div class="_tab" data-options="${type}-${roomIndex}">
-    //                     ${$('#options-template').html()}
-    //                 </div>
-    //             `);
-
-    //             if (index === 0) $tab.addClass('is-active');
-
-    //             // прокидуємо індекс кімнати
-    //             $tab.data('room-index', index);
-    //             $tab.data('room-type', type);
-
-    //             $tabsContainer.append($tab);
-    //         });
-    //     });
-    // }
-
+  
     function normalizeKey(str = '') {
         return str
             .toString()
@@ -849,55 +807,11 @@ $(this).closest('.filter-opt').toggleClass('active');
             .replace(/\u043e/g, 'o') // "о"
             .trim();
     }
-
-    // _functions.buildRoomTabs = function () {
-    //     const roomsData = JSON.parse(localStorage.getItem('rooms_data') || '{}');
-
-    //     $('.filters-wrap').each(function () {
-    //         const $wrap = $(this);
-    //         const rawType = $wrap.data('options-type');
-    //         const type = normalizeKey(rawType);
-    //         const rooms = roomsData[type];
-    //         console.log('roomsData asd',roomsData)
-    //         console.log('type asd',type)
-    //         console.log('rooms asd',rooms)
-    //         if (!rooms || !rooms.length) return;
-
-    //         const $tabsList = $wrap.find('._tab-item').parent();
-    //         const $tabsContainer = $wrap.find('.filters'); // контейнер табів
-
-    //         // чистимо
-    //         $tabsList.empty();
-    //         $tabsContainer.empty();
-
-    //         rooms.forEach((room, index) => {
-    //             const roomIndex = index + 1;
-
-    //             // ---- tab item ----
-    //             const $tabItem = $(`<li class="_tab-item">${roomIndex}</li>`);
-    //             if (index === 0) $tabItem.addClass('is-active');
-    //             $tabsList.append($tabItem);
-
-    //             // ---- tab content ----
-    //             const $tab = $(`
-    //                 <div class="_tab">
-    //                     ${$('#options-template').html()}
-    //                 </div>
-    //             `);
-
-    //             if (index === 0) $tab.addClass('is-active');
-
-    //             // 🔥 ОБОВʼЯЗКОВО
-    //             _functions.namespaceTabOptions($tab, type, index);
-
-    //             $tabsContainer.append($tab);
-    //         });
-    //     });
-    // };
+ 
 
     _functions.buildRoomTabs = function () {
         const roomsData = JSON.parse(localStorage.getItem('rooms_data') || '{}');
-    console.log('build')
+    
         $('.filters-wrap').each(function () {
             const $wrap = $(this);
             const rawType = $wrap.data('options-type');
@@ -932,8 +846,7 @@ $(this).closest('.filter-opt').toggleClass('active');
  
     _functions.namespaceTabOptions = function($tab, type, index) {
         const prefix = `${type}[${index}]`;
-        console.log('type',type)
-        console.log('$tab',$tab)
+    
         $tab.find('input[name]').each(function () {
             const name = $(this).attr('name');
             $(this).attr('name', `${prefix}.${name}`);
@@ -946,26 +859,7 @@ $(this).closest('.filter-opt').toggleClass('active');
         });
     }
 
-    $(document).ready(function () {
-        // 1️⃣ Відновлюємо input площ
-        // _functions.restoreInputsFromRoomsData();
-
-        // 2️⃣ Створюємо таби на основі rooms_data
-        // _functions.buildRoomTabs();
-
-        // 3️⃣ Відновлюємо опції всередині табів
-        // _functions.restoreRoomOptions();
-
-        // // 4️⃣ UI логіка
-        // _functions.validateRooms();
-        // _functions.updateRoomsMap();
-        // _functions.updateTotal();
-
-        // // 5️⃣ Фінальна синхронізація у форму та localStorage
-        // _functions.updateRoomsFormData();
-    });   
-
-    // ====== Універсальна збірка даних кімнат (DOM → truth) ======
+  
     _functions.buildRoomsDataUnified = function () {
         const stored = JSON.parse(localStorage.getItem('rooms_data') || '{}');
         const result = {};
@@ -1030,11 +924,25 @@ $(this).closest('.filter-opt').toggleClass('active');
 
 
     // ====== Збереження даних у форму та localStorage ======
-    _functions.updateRoomsFormData = function () {
+    _functions.updateRoomsFormData = function () { 
+        const propertyType = $('input[name="property_type"]:checked').val() || null;
+        const totalSquare = localStorage.getItem('totalSquare');
+
         const newData = _functions.buildRoomsDataUnified();
         localStorage.setItem('rooms_data', JSON.stringify(newData));
         $('#rooms_data').val(JSON.stringify(newData));
+        
+        const result = _functions.calculateTotalPrice();
+
+        const total = Math.floor(result?.total) + (propertyType === 'new' ? 700 *  parseFloat(totalSquare) : 0);
+        $('input[name="total_price"]').val(total || 0)
+        $(".total-cost").text(total?.toLocaleString('uk-UA') || 0); 
+       
+        // console.log('totalSquare',totalSquare);
+        // console.log('propertyType',propertyType);
+        // console.log('propasdaertyType',propertyType === 'new' ? 700 *  parseFloat(totalSquare) : 0);
         console.log('rooms_data FINAL:', newData);
+        console.table(result.breakdown);
     };
 
     // ====== Збір даних з опцій однієї кімнати ======
@@ -1045,8 +953,8 @@ $(this).closest('.filter-opt').toggleClass('active');
             const name = $el.attr('name');
             const price = $el.data('price'); 
             if (!name) return;
-             console.log('el', $el)
-             console.log('price',price)
+            //  console.log('el', $el)
+            //  console.log('price',price)
             // беремо "чисту" назву (floor, ceiling...)
             const cleanName = name.split('.').pop();
 
@@ -1063,6 +971,8 @@ $(this).closest('.filter-opt').toggleClass('active');
         return options;
     };
 
+ 
+
     _functions.restoreRoomOptions = function () {
         const roomsData = JSON.parse(localStorage.getItem('rooms_data') || '{}');
 
@@ -1075,18 +985,32 @@ $(this).closest('.filter-opt').toggleClass('active');
             rooms.forEach((room, index) => {
                 const options = room.options || {};
                 const $tab = $wrap.find('._tab').eq(index);
+                if (!$tab.length) return;
 
-                Object.keys(options).forEach(key => {
-                    const value = options[key];
+                Object.entries(options).forEach(([key, option]) => {
+                    const value = option?.value;
+                    if (value === undefined || value === null) return;
+
                     const $inputs = $tab.find(`[name$=".${key}"]`);
 
                     $inputs.each(function () {
-                        if ($(this).is(':radio') || $(this).is(':checkbox')) {
-                            if ($(this).val() == value || value === true) {
-                                $(this).prop('checked', true).trigger('change');
+                        const $el = $(this);
+
+                        // RADIO
+                        if ($el.is(':radio')) {
+                            if ($el.val() == value) {
+                                $el.prop('checked', true).trigger('change');
                             }
-                        } else {
-                            $(this).val(value).trigger('input');
+                        }
+
+                        // CHECKBOX
+                        else if ($el.is(':checkbox')) {
+                            $el.prop('checked', !!value).trigger('change');
+                        }
+
+                        // NUMBER / TEXT
+                        else {
+                            $el.val(value).trigger('input');
                         }
                     });
                 });
@@ -1187,7 +1111,7 @@ $(this).closest('.filter-opt').toggleClass('active');
         if (!isValid) {
             $error.html('Не всі поля заповнені').addClass('active');
         }
-        console.log('isValid',isValid)
+        // console.log('isValid',isValid)
         return isValid;
     };
 
@@ -1227,6 +1151,134 @@ $(this).closest('.filter-opt').toggleClass('active');
         return isValid;
     };
 
+
+    _functions.calculateTotalPrice = function () {
+        const roomsData = JSON.parse(localStorage.getItem('rooms_data') || '{}');
+
+        let total = 0;
+        let breakdown = [];
+
+        Object.entries(roomsData).forEach(([roomType, rooms]) => {
+            rooms.forEach((room, roomIndex) => {
+                const square = parseFloat(room.square) || 0;
+                let roomTotal = 0;
+
+                // 👉 базова ціна (якщо буде)
+                // roomTotal += square * BASE_PRICE;
+
+                Object.entries(room.options || {}).forEach(([optionKey, option]) => {
+                    const calculator = _functions.optionCalculators[optionKey];
+                    if (!calculator) return;
+
+                    const price = calculator({
+                        square,
+                        value: option.value,
+                        price: option.price,
+                        roomType,
+                        roomIndex,
+                        room
+                    });
+
+                    roomTotal += price;
+                });
+
+                total += roomTotal;
+
+                breakdown.push({
+                    roomType,
+                    roomIndex,
+                    square,
+                    roomTotal
+                });
+            });
+        });
+
+        return {
+            total,
+            breakdown
+        };
+    };
+
+    _functions.optionCalculators = {
+
+        /* ========= ПІДЛОГА ========= */
+
+        floor_condition({ square, price }) {
+            return square * (price || 0);
+        },
+
+        floor({ square, price }) {
+            return square * (price || 0);
+        },
+
+        underfloor_heating({ value, price, room }) {
+            const square = room?.options?.warm_floor_square?.value;
+         
+            if(value === 'yes' && room?.options?.warm_floor_square?.value){ 
+                return 0.7 * price * square
+            } else {
+                return 0;
+            }
+        },
+
+        warm_floor_square({ value, price }) {
+            const warmSquare = parseFloat(value);
+            if (!warmSquare || warmSquare <= 0) return 0;
+            return warmSquare * (price || 0);
+        },
+
+
+        /* ========= СТЕЛЯ ========= */
+
+        ceiling({ square, price }) {
+            return square * (price || 0);
+        },
+
+
+        /* ========= СТІНИ ========= */
+
+        wall({ square, price }) {
+            return 3*square * (price || 0);
+        },
+
+
+        /* ========= ПЛІНТУС ========= */
+
+        baseboard({ square, price }) {
+            return (square / 2) * (price || 0);
+        },
+
+
+        /* ========= ОСВІТЛЕННЯ ========= */
+
+        lighting({ price,square, value }) { 
+            if(value === 'spot'){
+                return Math.floor(square * (price || 0) + ((square / 2)*350));
+
+            }
+            if(value === 'overhead_tracks'){
+                return Math.floor(square * (price || 0) + ((square / 3) * 400));
+
+            }
+            if(value === 'embedded_tracks'){
+                return Math.floor(square * (price || 0) + ((square / 3) * 2600));
+
+            }
+            if(value === 'luster'){
+                return Math.floor(square * (price || 0) + 500);
+
+            }                                    
+
+            return Math.floor(square * (price || 0) ); 
+        },
+
+
+        /* ========= ДВЕРІ ========= */
+
+        doors({ price }) { 
+            return price || 0;
+        }
+    };
 
 
 });
