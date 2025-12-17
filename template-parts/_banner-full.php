@@ -15,7 +15,7 @@
 
             <!-- to display the video, add a class 'video-present' to the video -->
             <div class="video">
-                <video muted playsinline loop preload poster="img/banner-img.webp" src="#"
+                <video muted playsinline loop preload poster="img/content/banner-img.webp" src="#"
                     data-src="video/video.mp4"></video>
             </div>
         </div>
