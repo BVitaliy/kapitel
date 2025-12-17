@@ -64,7 +64,7 @@ input:-webkit-autofill:focus {border: 0;-webkit-text-fill-color: var(--clr-black
 .ch-box {--ch-size: .875rem;--lh-size: calc(var(--ch-size) * 1.143);cursor: pointer;font-size: var(--ch-size);font-weight: 400;line-height: var(--lh-size);text-align: left;gap: calc(var(--ch-size) / 2);display: inline-flex;align-items: center;min-width: 8.3125rem;color: var(--clr-black-80);}
 .ch-box a {color: var(--clr-primary);text-decoration: underline;text-decoration-color: transparent;}
 .ch-box input[type=radio],
-.ch-box input[type=checkbox] {display: inline-block;position: relative;vertical-align: text-top;color: var(--clr-input);height: var(--lh-size);width: var(--lh-size);flex-shrink: 0;align-self: baseline;border: 0.0625rem solid currentColor;}
+.ch-box input[type=checkbox] {display: inline-block;position: relative;vertical-align: text-top;color: var(--clr-input);height: var(--lh-size);width: var(--lh-size);flex-shrink: 0;align-self: baseline;border: 0.0625rem solid currentColor;cursor: pointer;}
 .ch-box input[type=radio]:before,
 .ch-box input[type=checkbox]:before {content: "";position: absolute;top: 50%;left: 50%;display: block;width: 71.5%;height: 71.5%;transform: translate(-50%, -50%) scale(0);border-radius: inherit;background-color: currentColor;transition: var(--transition-1);}
 .ch-box input[type=radio]:checked,

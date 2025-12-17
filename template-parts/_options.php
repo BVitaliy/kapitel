@@ -289,7 +289,9 @@
                 <span>
                     Звичайні
                 </span>
-            </label>
+            </label>            
+        </div>
+        <div class="ch-box-wrap">
             <label class="ch-box">
                 <input type="radio" name="doors" value="hidden" data-price="5800">
                 <span>

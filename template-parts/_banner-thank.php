@@ -30,9 +30,14 @@
                     <div class="text">
                         Ми отримали ваші дані, ви можете завантажити свою презентацію
                     </div>     
-                    <a href="pdf/kapitel.pdf" class="btn btn-icon btn-pdf" download>
-                        завантажити пдф
-                    </a>           
+                    <div class="btn-stack">
+                        <a href="pdf/kapitel.pdf" class="btn btn-icon btn-pdf" download>
+                            завантажити пдф
+                        </a>    
+                        <a href="index.php" class="btn btn-border">
+                            почати знову
+                        </a>       
+                    </div>
                 </div>
             </div>
         </div>

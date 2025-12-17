@@ -15,7 +15,7 @@
 
             <!-- to display the video, add a class 'video-present' to the video -->
             <div class="video">
-                <video muted playsinline loop preload poster="img/banner-img.webp" src="#"
+                <video muted playsinline loop preload poster="img/content/banner-img.webp" src="#"
                     data-src="video/video.mp4"></video>
             </div>
         </div>
@@ -26,7 +26,7 @@
                 <div class="banner-row">
                     <div class="banner-col banner-left">
                         <div class="banner-info">
-                            <h1 class="h4 title upper text-center text-xl-left">
+                            <h1 class="h4 title upper text-center text-xl-left d-none d-xl-block">
                                 Прорахуйте вартість лише за <span>3 простих кроки</span>
                             </h1>
                             <div class="banner-steps">
@@ -46,6 +46,9 @@
                         </div>
                     </div>
                     <div class="banner-col banner-right">
+                        <h1 class="h4 title upper text-center text-xl-left d-xl-none">
+                            Прорахуйте вартість лише за <span>3 простих кроки</span>
+                        </h1>
                         <div class="banner-form">
                             <div class="banner-form__title h5 title upper text-center">калькулятор вартості проєкту</div>
                             <div class="form-block">

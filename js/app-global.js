@@ -438,4 +438,19 @@ jQuery(function ($) {
     //     }
     // });
 
+    if ($('html').hasClass('touch-screen')) {
+        // Toggle active on .h-contacts when clicked
+        $(document).on('click', '.h-contacts', function(e){
+            e.stopPropagation(); // prevent bubbling to body
+            $(this).toggleClass('active');
+        });
+
+        // Click anywhere else on body removes active
+        $(document).on('click', function(e){
+            if (!$(e.target).closest('.h-contacts').length) {
+                $('.h-contacts').removeClass('active');
+            }
+        });
+    }
+
 });
