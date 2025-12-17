@@ -107,6 +107,7 @@ a:hover .video-cover video {transform: scale(1.04);}
     font-size: 1rem;
 }
 .banner-form .h6 {font-size: clamp(1rem, 0.868rem + 0.423vw, 1.375rem);}
+.banner-form__title {line-height: 1.3;}
 @media (min-width: 768px) {
 .banner {--clr-title: #fff;--clr-text: rgba(255, 255, 255, .7);}
 .banner-media::before {content: "";position: absolute;z-index: 1;inset: 0;background-color: var(--clr-black-35);}
