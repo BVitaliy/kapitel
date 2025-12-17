@@ -5,7 +5,26 @@
 /*--------------------*/
 /*  STEPPER           */
 /*--------------------*/
-.stepper-zoom {position: absolute;right: 0;left: 0;top: 1.4375rem;z-index: 1;margin-inline: auto;width: 9.625rem;height: 2.8125rem;padding: 0.6875rem 0.625rem;display: flex;align-items: center;justify-content: center;gap: 0.75rem;background-color: var(--clr-white);}
+.options-stepper{
+position: absolute;right: 0;left: 0;
+    top: 1.4375rem;z-index: 1;margin-inline: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+}
+.stepper-zoom { 
+    width: 9.625rem;height: 2.8125rem;
+    padding: 0.6875rem 0.625rem;display: flex;
+    align-items: center;justify-content: center;gap: 0.75rem;
+    background-color: var(--clr-white);
+}
+.options-stepper .button{
+width: 2.8125rem;height:  2.8125rem;
+   background-color: var(--clr-white);
+   cursor: pointer;
+   padding: 8px;
+}
 .stepper-zoom button {width: 1.4375rem;height: 1.4375rem;flex-shrink: 0;font-size: 0;position: relative;cursor: pointer;}
 .stepper-zoom button::before,
 .stepper-zoom button::after {content: "";display: block;position: absolute;bottom: 0;right: 0;left: 0;top: 0;margin: auto;background-color: var(--clr-black-30);transition: var(--transition-1);}
@@ -36,6 +55,7 @@
 
 @media (max-width: 991px) {
 .rooms-map {position: static;width: 100%;}
+ 
 }
 @media (max-width: 575px) {
 .tooltip {font-size: 0.875rem;}
@@ -90,12 +110,15 @@
 .filter-opt__inner > * + * {margin-top: 0.9375rem;}
 .filter-opt__inner .ch-box {min-width: auto;}
 .filter-opt.active .filter-opt__toggle::after {opacity: 0;}
+.filter-opt.active .filter-opt__title small{
+    display: none;
+}
 .filter-opt.invalid {border-color: var(--clr-primary);}
 .filter-opt.invalid small {color: var(--clr-primary);}
 .filters-button {display: flex;gap: 0.625rem;padding-inline: var(--filters-padd);}
 .filters-button .btn {flex: 1;}
 .filters-button .btn-back {flex-shrink: 0;}
-.styles-wrap {--filters-padd: clamp(1rem, 0.912rem + 0.282vw, 1.25rem);position: absolute;left: 0;top: 0;}
+.styles-wrap {--filters-padd: clamp(1rem, 0.912rem + 0.282vw, 1.25rem);position: absolute;left: 0;top: 0;z-index: 3;}
 .styles-wrap .filters-close {width: 100%;}
 .styles-wrap .filters-bg {gap: 0;}
 .filters-img {position: relative;padding-top: 63.03%;overflow: hidden;cursor: pointer;}
@@ -176,6 +199,27 @@ overflow: auto;
     margin: 0;
     padding-top: 0;
     height: 75px;
+}
+.options-stepper .button {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+.options-stepper { 
+    right: 12px;
+    left: auto;
+    top: 10px; 
+}
+.style-map .marker { 
+    width: 28px;
+    height: 28px; 
+    padding: 4px;
+}
+.style-map .marker svg{
+    width: 14px;
+    height: 14px;
 }
 }
 @media (max-width: 575px) {

@@ -1,4 +1,4 @@
-<div class="filter-opt" data-marker="room-floor">
+<div class="filter-opt" data-marker="corridor-floor">
     <div class="filter-opt__top">
         <div class="filter-opt__icon">
             <img src="img/icons/icon-floor.svg" alt="">
@@ -33,7 +33,35 @@
                 </div>
             </div>
         </div>
- 
+        <div class="ch-box-wrap">
+            <label class="ch-box">
+                <input type="checkbox" name="floor_option_2">
+                <span>
+                    Тепла підлога
+                </span>
+            </label>
+            <div class="ch-box-inner">
+                <!-- <div class="ch-box-row"> -->
+                    <label class="ch-box">
+                        <input type="radio" value="yes" name="underfloor_heating" data-price="400">
+                        <span>
+                            Так
+                        </span>
+                    </label>
+                    <!-- <div class="ch-box-inp">
+                        Площа
+                        <input type="number" value="0" name="warm_floor_square" class="input">
+                        <small>м²</small>
+                    </div> -->
+                <!-- </div> -->
+                <label class="ch-box">
+                    <input type="radio" value="no" name="underfloor_heating" data-price="0">
+                    <span>
+                        Ні
+                    </span>
+                </label>
+            </div>
+        </div>
         <div class="ch-box-wrap">
             <label class="ch-box">
                 <input type="checkbox" name="floor_option_3">
@@ -42,7 +70,13 @@
                 </span>
             </label>
             <div class="ch-box-inner">
-                <div class="ch-box-row"> 
+                <div class="ch-box-row">
+                    <label class="ch-box">
+                        <input type="radio" value="tile" name="floor" data-image="floor" data-price="1200"  data-url="img/content/floor/Плитка.png">
+                        <span>
+                            Плитка
+                        </span>
+                    </label>
                     <label class="ch-box">
                         <input type="radio" value="vinyl" name="floor" data-image="floor" data-price="1150"  data-url="img/content/floor/Вініл.png">
                         <span>
@@ -66,7 +100,7 @@
         </div>
     </div>
 </div>
-<div class="filter-opt required" data-marker="room-ceiling">
+<div class="filter-opt required" data-marker="corridor-ceiling">
     <div class="filter-opt__top">
         <div class="filter-opt__icon">
             <img src="img/icons/icon-ceiling.png" alt="">
@@ -103,7 +137,7 @@
         </div>
     </div>
 </div>
-<div class="filter-opt required" data-marker="room-walls">
+<div class="filter-opt required" data-marker="corridor-walls">
     <div class="filter-opt__top">
         <div class="filter-opt__icon">
             <img src="img/icons/icon-walls.svg" alt="">
@@ -140,7 +174,7 @@
         </div>
     </div>
 </div>
-<div class="filter-opt" data-marker="room-baseboard">
+<div class="filter-opt" data-marker="corridor-baseboard">
     <div class="filter-opt__top">
         <div class="filter-opt__icon">
             <img src="img/icons/icon-baseboard.svg" alt="">
@@ -177,7 +211,7 @@
         </div>
     </div>
 </div>
-<div class="filter-opt required" data-marker="room-lighting">
+<div class="filter-opt required" data-marker="corridor-lighting">
     <div class="filter-opt__top">
         <div class="filter-opt__icon">
             <img src="img/icons/icon-lighting.svg" alt="">
@@ -227,11 +261,10 @@
                     Вмонтовані треки
                 </span>
             </label>
-        </div>
- 
+        </div> 
     </div>
 </div>
-<div class="filter-opt required" data-marker="room-doors">
+<div class="filter-opt required" data-marker="corridor-doors">
     <div class="filter-opt__top">
         <div class="filter-opt__icon">
             <img src="img/icons/icon-doors.svg" alt="">

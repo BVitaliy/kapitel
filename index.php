@@ -174,9 +174,161 @@
                     
                         <?php include 'template-parts/_stepper.php'; ?>
 
-                        <?php include 'template-parts/_style-map.php'; ?>
+                        <div class="styles-wrap">
+                            <button class="filters-close active d-none d-lg-flex" data-toggle-more="Розгорнути" data-toggle-less="Згорнути">
+                                <i></i>
+                            </button>
+                            <div class="filters-bg active">
+                                <div class="filters-subtitle">
+                                    Вибір готового стилю:
+                                </div>
+                                <div class="filters">
+                                    <div class="filters-img active" data-style-id="1" data-image-target="room-main-1" data-image="img/_temp/d1bf963668cb7f144a92c0c94ebf729b493b4247.jpg">
+                                        <picture> 
+                                            <source srcset="img/_temp/d1bf963668cb7f144a92c0c94ebf729b493b4247.jpg" type="image/jpg">
+                                            <img width="380" height="240" src="#" alt="" loading="lazy">
+                                        </picture>
+                                    </div>            
+                                    <div class="filters-img " data-style-id="2" data-image-target="room-main-1" data-image="img/_temp/9c80fe03bdea090524088ba01e4f17af6825c81f.jpg">
+                                        <picture>
+                                            <source srcset="img/content/style-image1.webp" type="image/webp">
+                                            <source srcset="img/content/style-image1.jpg" type="image/jpg">
+                                            <img width="380" height="240" src="#" alt="" loading="lazy">
+                                        </picture>
+                                    </div>
+                                    <div class="filters-img" data-style-id="3" data-image-target="room-main-1" data-image="img/_temp/e68b594257513113dc15edbee347dfb38764fa02.jpg">
+                                        <picture>
+                                            <source srcset="img/content/style-image2.webp" type="image/webp">
+                                            <source srcset="img/content/style-image2.jpg" type="image/jpg">
+                                            <img width="380" height="240" src="#" alt="" loading="lazy">
+                                        </picture>
+                                    </div>
+                                    <div class="filters-img" data-style-id="4" data-image-target="room-main-1" data-image="img/_temp/1121fa47ad5267d4f4c8546d82ce588b8f21e756.jpg">
+                                        <picture>
+                                            <source srcset="img/content/style-image3.webp" type="image/webp">
+                                            <source srcset="img/content/style-image3.jpg" type="image/jpg">
+                                            <img width="380" height="240" src="#" alt="" loading="lazy">
+                                        </picture>
+                                    </div>
+                        
+                                    <div class="filters-img" data-style-id="5" data-image-target="room-main-1" data-image="img/_temp/4.jpg">
+                                        <picture>
+                                            <source srcset="img/content/style-image5.webp" type="image/webp">
+                                            <source srcset="img/content/style-image5.jpg" type="image/jpg">
+                                            <img width="380" height="240" src="#" alt="" loading="lazy">
+                                        </picture>
+                                    </div>
+                                    <div class="filters-img" data-style-id="6" data-image-target="room-main-1" data-image="img/_temp/5.jpg">
+                                        <picture>
+                                            <source srcset="img/content/style-image6.webp" type="image/webp">
+                                            <source srcset="img/content/style-image6.jpg" type="image/jpg">
+                                            <img width="380" height="240" src="#" alt="" loading="lazy">
+                                        </picture>
+                                    </div>
+                                    <div class="filters-img" data-style-id="6" data-image-target="room-main-1" data-image="img/_temp/2b00df7fec491c113ed4072ebadb9542d4067016.jpg">
+                                        <picture>
+                                            <source srcset="img/content/style-image7.webp" type="image/webp">
+                                            <source srcset="img/content/style-image7.jpg" type="image/jpg">
+                                            <img width="380" height="240" src="#" alt="" loading="lazy">
+                                        </picture>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                        <?php include 'template-parts/_styles.php'; ?>
+                        <div class="style-map">
+                            <div class="style-map__image" data-draggable>
+                                <div class="main-image">
+
+                                    <img src="img/_temp/d1bf963668cb7f144a92c0c94ebf729b493b4247.jpg"  class="main" data-default-src="img/_temp/d1bf963668cb7f144a92c0c94ebf729b493b4247.jpg" data-image-id="room-main-1" alt="">
+                                    <img src="#" data-default-src="#" data-image-id="floor" alt="Підлога">
+                                    <img src="#" data-default-src="#" data-image-id="ceiling" alt="Стеля">
+                                    <img src="#" data-default-src="#" data-image-id="walls_color" alt="Стіни">
+                                    <img src="#" data-default-src="#" data-image-id="plinth" alt="Плінтус">
+                                    <img src="#" data-default-src="#" data-image-id="lighting" alt="Освітлення">
+                                    <img src="#" data-default-src="#" data-image-id="door" alt="Двері">
+                                </div>
+                                
+
+                                <div class="markers" data-markers>
+                                    <div class="list active" data-markers-id="1">
+                                        <div class="marker" style="left: 30%; top: 90%;" data-marker="room-floor">
+                                            <svg width="17" height="17">
+                                                <use xlink:href="img/icons/icons_global.svg#floor" fill="none"></use>
+                                            </svg>
+                                        </div>
+
+                                        <div class="marker" style="left: 22%; top: 30%;" data-marker="room-walls">
+                                            <svg width="18" height="18">
+                                                <use xlink:href="img/icons/icons_global.svg#walls" fill="none"></use>
+                                            </svg>
+                                        </div>
+
+                                        <div class="marker" style="left: 28%; top: 7%;" data-marker="room-ceiling">
+                                            <svg width="19" height="19">
+                                                <use xlink:href="img/icons/icons_global.svg#ceiling" fill="none"></use>
+                                            </svg>
+                                        </div>
+
+                                        <div class="marker" style="left: 35%; top: 11%;" data-marker="room-lighting">
+                                            <svg width="17" height="17">
+                                                <use xlink:href="img/icons/icons_global.svg#lighting" fill="none"></use>
+                                            </svg>
+                                        </div>
+
+                                        <div class="marker" style="left: 68%; top: 45%;" data-marker="room-doors">
+                                            <svg width="16" height="19">
+                                                <use xlink:href="img/icons/icons_global.svg#doors" fill="none"></use>
+                                            </svg>
+                                        </div>
+
+                                        <div class="marker" style="left: 67%; top: 83%;" data-marker="room-baseboard">
+                                            <svg width="17" height="17">
+                                                <use xlink:href="img/icons/icons_global.svg#baseboard" fill="none"></use>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="list" data-markers-id="2">
+                                        <div class="marker" style="left: 33%; top: 80%;" data-marker="room-floor">
+                                            <svg width="17" height="17">
+                                                <use xlink:href="img/icons/icons_global.svg#floor" fill="none"></use>
+                                            </svg>
+                                        </div>
+
+                                        <div class="marker" style="left: 25%; top: 34%;" data-marker="room-walls">
+                                            <svg width="18" height="18">
+                                                <use xlink:href="img/icons/icons_global.svg#walls" fill="none"></use>
+                                            </svg>
+                                        </div>
+
+                                        <div class="marker" style="left: 30%; top: 11%;" data-marker="room-ceiling">
+                                            <svg width="19" height="19">
+                                                <use xlink:href="img/icons/icons_global.svg#ceiling" fill="none"></use>
+                                            </svg>
+                                        </div>
+
+                                        <div class="marker" style="left: 35%; top: 11%;" data-marker="room-lighting">
+                                            <svg width="17" height="17">
+                                                <use xlink:href="img/icons/icons_global.svg#lighting" fill="none"></use>
+                                            </svg>
+                                        </div>
+
+                                        <div class="marker" style="left: 68%; top: 35%;" data-marker="room-doors">
+                                            <svg width="16" height="19">
+                                                <use xlink:href="img/icons/icons_global.svg#doors" fill="none"></use>
+                                            </svg>
+                                        </div>
+
+                                        <div class="marker" style="left: 67%; top: 83%;" data-marker="room-baseboard">
+                                            <svg width="17" height="17">
+                                                <use xlink:href="img/icons/icons_global.svg#baseboard" fill="none"></use>
+                                            </svg>
+                                        </div>
+                                    </div>            
+                                </div>
+                        
+                            </div>
+                        </div>
 
                         <div class="filters-wrap" data-options-type="room">
                             <button class="filters-close active d-none d-lg-flex" data-toggle-more="Розгорнути" data-toggle-less="Згорнути">
@@ -219,9 +371,162 @@
                     
                         <?php include 'template-parts/_stepper.php'; ?>
 
-                        <?php include 'template-parts/_style-map.php'; ?>
+                        <div class="styles-wrap">
+                            <button class="filters-close active d-none d-lg-flex" data-toggle-more="Розгорнути" data-toggle-less="Згорнути">
+                                <i></i>
+                            </button>
+                            <div class="filters-bg active">
+                                <div class="filters-subtitle">
+                                    Вибір готового стилю:
+                                </div>
+                                <div class="filters">
+                                    <div class="filters-img active" data-style-id="1" data-image-target="corridor-main-1" data-image="img/_temp/0023f8cf1f4d76ec70dce8cf6d41e916b3f57a7c.jpg">
+                                        <picture> 
+                                            <source srcset="img/_temp/0023f8cf1f4d76ec70dce8cf6d41e916b3f57a7c.jpg" type="image/jpg">
+                                            <img width="380" height="240" src="#" alt="" loading="lazy">
+                                        </picture>
+                                    </div>            
+                                    <div class="filters-img " data-style-id="2" data-image-target="corridor-main-1" data-image="img/_temp/9c80fe03bdea090524088ba01e4f17af6825c81f.jpg">
+                                        <picture>
+                                            <source srcset="img/content/style-image1.webp" type="image/webp">
+                                            <source srcset="img/content/style-image1.jpg" type="image/jpg">
+                                            <img width="380" height="240" src="#" alt="" loading="lazy">
+                                        </picture>
+                                    </div>
+                                    <div class="filters-img" data-style-id="3" data-image-target="corridor-main-1" data-image="img/_temp/e68b594257513113dc15edbee347dfb38764fa02.jpg">
+                                        <picture>
+                                            <source srcset="img/content/style-image2.webp" type="image/webp">
+                                            <source srcset="img/content/style-image2.jpg" type="image/jpg">
+                                            <img width="380" height="240" src="#" alt="" loading="lazy">
+                                        </picture>
+                                    </div>
+                                    <div class="filters-img" data-style-id="4" data-image-target="corridor-main-1" data-image="img/_temp/1121fa47ad5267d4f4c8546d82ce588b8f21e756.jpg">
+                                        <picture>
+                                            <source srcset="img/content/style-image3.webp" type="image/webp">
+                                            <source srcset="img/content/style-image3.jpg" type="image/jpg">
+                                            <img width="380" height="240" src="#" alt="" loading="lazy">
+                                        </picture>
+                                    </div>
+                        
+                                    <div class="filters-img" data-style-id="5" data-image-target="corridor-main-1" data-image="img/_temp/4.jpg">
+                                        <picture>
+                                            <source srcset="img/content/style-image5.webp" type="image/webp">
+                                            <source srcset="img/content/style-image5.jpg" type="image/jpg">
+                                            <img width="380" height="240" src="#" alt="" loading="lazy">
+                                        </picture>
+                                    </div>
+                                    <div class="filters-img" data-style-id="6" data-image-target="corridor-main-1" data-image="img/_temp/5.jpg">
+                                        <picture>
+                                            <source srcset="img/content/style-image6.webp" type="image/webp">
+                                            <source srcset="img/content/style-image6.jpg" type="image/jpg">
+                                            <img width="380" height="240" src="#" alt="" loading="lazy">
+                                        </picture>
+                                    </div>
+                                    <div class="filters-img" data-style-id="6" data-image-target="corridor-main-1" data-image="img/_temp/2b00df7fec491c113ed4072ebadb9542d4067016.jpg">
+                                        <picture>
+                                            <source srcset="img/content/style-image7.webp" type="image/webp">
+                                            <source srcset="img/content/style-image7.jpg" type="image/jpg">
+                                            <img width="380" height="240" src="#" alt="" loading="lazy">
+                                        </picture>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                        <?php include 'template-parts/_styles.php'; ?>
+                        <div class="style-map">
+                            <div class="style-map__image" data-draggable>
+                                <div class="main-image">
+
+                                    <img src="img/_temp/0023f8cf1f4d76ec70dce8cf6d41e916b3f57a7c.jpg"  class="main" 
+                                    data-default-src="img/_temp/0023f8cf1f4d76ec70dce8cf6d41e916b3f57a7c.jpg" data-image-id="corridor-main-1" alt="">
+                                    <img src="#" data-default-src="#" data-image-id="floor" alt="Підлога">
+                                    <img src="#" data-default-src="#" data-image-id="ceiling" alt="Стеля">
+                                    <img src="#" data-default-src="#" data-image-id="walls_color" alt="Стіни">
+                                    <img src="#" data-default-src="#" data-image-id="plinth" alt="Плінтус">
+                                    <img src="#" data-default-src="#" data-image-id="lighting" alt="Освітлення">
+                                    <img src="#" data-default-src="#" data-image-id="door" alt="Двері">
+                                </div>
+                                
+
+                                <div class="markers" data-markers>
+                                    <div class="list active" data-markers-id="1">
+                                        <div class="marker" style="left: 30%; top: 90%;" data-marker="corridor-floor">
+                                            <svg width="17" height="17">
+                                                <use xlink:href="img/icons/icons_global.svg#floor" fill="none"></use>
+                                            </svg>
+                                        </div>
+
+                                        <div class="marker" style="left: 22%; top: 30%;" data-marker="corridor-walls">
+                                            <svg width="18" height="18">
+                                                <use xlink:href="img/icons/icons_global.svg#walls" fill="none"></use>
+                                            </svg>
+                                        </div>
+
+                                        <div class="marker" style="left: 28%; top: 7%;" data-marker="corridor-ceiling">
+                                            <svg width="19" height="19">
+                                                <use xlink:href="img/icons/icons_global.svg#ceiling" fill="none"></use>
+                                            </svg>
+                                        </div>
+
+                                        <div class="marker" style="left: 35%; top: 11%;" data-marker="corridor-lighting">
+                                            <svg width="17" height="17">
+                                                <use xlink:href="img/icons/icons_global.svg#lighting" fill="none"></use>
+                                            </svg>
+                                        </div>
+
+                                        <div class="marker" style="left: 68%; top: 45%;" data-marker="corridor-doors">
+                                            <svg width="16" height="19">
+                                                <use xlink:href="img/icons/icons_global.svg#doors" fill="none"></use>
+                                            </svg>
+                                        </div>
+
+                                        <div class="marker" style="left: 67%; top: 83%;" data-marker="corridor-baseboard">
+                                            <svg width="17" height="17">
+                                                <use xlink:href="img/icons/icons_global.svg#baseboard" fill="none"></use>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="list" data-markers-id="2">
+                                        <div class="marker" style="left: 33%; top: 80%;" data-marker="corridor-floor">
+                                            <svg width="17" height="17">
+                                                <use xlink:href="img/icons/icons_global.svg#floor" fill="none"></use>
+                                            </svg>
+                                        </div>
+
+                                        <div class="marker" style="left: 25%; top: 34%;" data-marker="corridor-walls">
+                                            <svg width="18" height="18">
+                                                <use xlink:href="img/icons/icons_global.svg#walls" fill="none"></use>
+                                            </svg>
+                                        </div>
+
+                                        <div class="marker" style="left: 30%; top: 11%;" data-marker="corridor-ceiling">
+                                            <svg width="19" height="19">
+                                                <use xlink:href="img/icons/icons_global.svg#ceiling" fill="none"></use>
+                                            </svg>
+                                        </div>
+
+                                        <div class="marker" style="left: 35%; top: 11%;" data-marker="corridor-lighting">
+                                            <svg width="17" height="17">
+                                                <use xlink:href="img/icons/icons_global.svg#lighting" fill="none"></use>
+                                            </svg>
+                                        </div>
+
+                                        <div class="marker" style="left: 68%; top: 35%;" data-marker="corridor-doors">
+                                            <svg width="16" height="19">
+                                                <use xlink:href="img/icons/icons_global.svg#doors" fill="none"></use>
+                                            </svg>
+                                        </div>
+
+                                        <div class="marker" style="left: 67%; top: 83%;" data-marker="corridor-baseboard">
+                                            <svg width="17" height="17">
+                                                <use xlink:href="img/icons/icons_global.svg#baseboard" fill="none"></use>
+                                            </svg>
+                                        </div>
+                                    </div>            
+                                </div>
+                        
+                            </div>
+                        </div>
 
                         <div class="filters-wrap" data-options-type="corridor">
                             <button class="filters-close active d-none d-lg-flex" data-toggle-more="Розгорнути" data-toggle-less="Згорнути">
@@ -260,9 +565,162 @@
                     
                         <?php include 'template-parts/_stepper.php'; ?>
 
-                        <?php include 'template-parts/_style-map.php'; ?>
+                        <div class="styles-wrap">
+                            <button class="filters-close active d-none d-lg-flex" data-toggle-more="Розгорнути" data-toggle-less="Згорнути">
+                                <i></i>
+                            </button>
+                            <div class="filters-bg active">
+                                <div class="filters-subtitle">
+                                    Вибір готового стилю:
+                                </div>
+                                <div class="filters">
+                                    <div class="filters-img active" data-style-id="1" data-image-target="bathroom-main-1" data-image="img/_temp/16d0e8db4a52e18af95783c9847d7546a0338065.jpg">
+                                        <picture> 
+                                            <source srcset="img/_temp/16d0e8db4a52e18af95783c9847d7546a0338065.jpg" type="image/jpg">
+                                            <img width="380" height="240" src="#" alt="" loading="lazy">
+                                        </picture>
+                                    </div>            
+                                    <div class="filters-img " data-style-id="2" data-image-target="bathroom-main-1" data-image="img/_temp/9c80fe03bdea090524088ba01e4f17af6825c81f.jpg">
+                                        <picture>
+                                            <source srcset="img/content/style-image1.webp" type="image/webp">
+                                            <source srcset="img/content/style-image1.jpg" type="image/jpg">
+                                            <img width="380" height="240" src="#" alt="" loading="lazy">
+                                        </picture>
+                                    </div>
+                                    <div class="filters-img" data-style-id="3" data-image-target="bathroom-main-1" data-image="img/_temp/e68b594257513113dc15edbee347dfb38764fa02.jpg">
+                                        <picture>
+                                            <source srcset="img/content/style-image2.webp" type="image/webp">
+                                            <source srcset="img/content/style-image2.jpg" type="image/jpg">
+                                            <img width="380" height="240" src="#" alt="" loading="lazy">
+                                        </picture>
+                                    </div>
+                                    <div class="filters-img" data-style-id="4" data-image-target="bathroom-main-1" data-image="img/_temp/1121fa47ad5267d4f4c8546d82ce588b8f21e756.jpg">
+                                        <picture>
+                                            <source srcset="img/content/style-image3.webp" type="image/webp">
+                                            <source srcset="img/content/style-image3.jpg" type="image/jpg">
+                                            <img width="380" height="240" src="#" alt="" loading="lazy">
+                                        </picture>
+                                    </div>
+                        
+                                    <div class="filters-img" data-style-id="5" data-image-target="bathroom-main-1" data-image="img/_temp/4.jpg">
+                                        <picture>
+                                            <source srcset="img/content/style-image5.webp" type="image/webp">
+                                            <source srcset="img/content/style-image5.jpg" type="image/jpg">
+                                            <img width="380" height="240" src="#" alt="" loading="lazy">
+                                        </picture>
+                                    </div>
+                                    <div class="filters-img" data-style-id="6" data-image-target="bathroom-main-1" data-image="img/_temp/5.jpg">
+                                        <picture>
+                                            <source srcset="img/content/style-image6.webp" type="image/webp">
+                                            <source srcset="img/content/style-image6.jpg" type="image/jpg">
+                                            <img width="380" height="240" src="#" alt="" loading="lazy">
+                                        </picture>
+                                    </div>
+                                    <div class="filters-img" data-style-id="6" data-image-target="bathroom-main-1" data-image="img/_temp/2b00df7fec491c113ed4072ebadb9542d4067016.jpg">
+                                        <picture>
+                                            <source srcset="img/content/style-image7.webp" type="image/webp">
+                                            <source srcset="img/content/style-image7.jpg" type="image/jpg">
+                                            <img width="380" height="240" src="#" alt="" loading="lazy">
+                                        </picture>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                        <?php include 'template-parts/_styles.php'; ?>
+                        <div class="style-map">
+                            <div class="style-map__image" data-draggable>
+                                <div class="main-image">
+
+                                    <img src="img/_temp/16d0e8db4a52e18af95783c9847d7546a0338065.jpg"  class="main" 
+                                    data-default-src="img/_temp/16d0e8db4a52e18af95783c9847d7546a0338065.jpg" data-image-id="bathroom-main-1" alt="">
+                                    <img src="#" data-default-src="#" data-image-id="floor" alt="Підлога">
+                                    <img src="#" data-default-src="#" data-image-id="ceiling" alt="Стеля">
+                                    <img src="#" data-default-src="#" data-image-id="walls_color" alt="Стіни">
+                                    <img src="#" data-default-src="#" data-image-id="plinth" alt="Плінтус">
+                                    <img src="#" data-default-src="#" data-image-id="lighting" alt="Освітлення">
+                                    <img src="#" data-default-src="#" data-image-id="door" alt="Двері">
+                                </div>
+                                
+
+                                <div class="markers" data-markers>
+                                    <div class="list active" data-markers-id="1">
+                                        <div class="marker" style="left: 30%; top: 90%;" data-marker="bathroom-floor">
+                                            <svg width="17" height="17">
+                                                <use xlink:href="img/icons/icons_global.svg#floor" fill="none"></use>
+                                            </svg>
+                                        </div>
+
+                                        <div class="marker" style="left: 22%; top: 30%;" data-marker="bathroom-walls">
+                                            <svg width="18" height="18">
+                                                <use xlink:href="img/icons/icons_global.svg#walls" fill="none"></use>
+                                            </svg>
+                                        </div>
+
+                                        <div class="marker" style="left: 28%; top: 7%;" data-marker="bathroom-ceiling">
+                                            <svg width="19" height="19">
+                                                <use xlink:href="img/icons/icons_global.svg#ceiling" fill="none"></use>
+                                            </svg>
+                                        </div>
+
+                                        <div class="marker" style="left: 35%; top: 11%;" data-marker="bathroom-lighting">
+                                            <svg width="17" height="17">
+                                                <use xlink:href="img/icons/icons_global.svg#lighting" fill="none"></use>
+                                            </svg>
+                                        </div>
+
+                                        <div class="marker" style="left: 68%; top: 45%;" data-marker="bathroom-doors">
+                                            <svg width="16" height="19">
+                                                <use xlink:href="img/icons/icons_global.svg#doors" fill="none"></use>
+                                            </svg>
+                                        </div>
+
+                                        <div class="marker" style="left: 67%; top: 83%;" data-marker="bathroom-baseboard">
+                                            <svg width="17" height="17">
+                                                <use xlink:href="img/icons/icons_global.svg#baseboard" fill="none"></use>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="list" data-markers-id="2">
+                                        <div class="marker" style="left: 33%; top: 80%;" data-marker="bathroom-floor">
+                                            <svg width="17" height="17">
+                                                <use xlink:href="img/icons/icons_global.svg#floor" fill="none"></use>
+                                            </svg>
+                                        </div>
+
+                                        <div class="marker" style="left: 25%; top: 34%;" data-marker="bathroom-walls">
+                                            <svg width="18" height="18">
+                                                <use xlink:href="img/icons/icons_global.svg#walls" fill="none"></use>
+                                            </svg>
+                                        </div>
+
+                                        <div class="marker" style="left: 30%; top: 11%;" data-marker="bathroom-ceiling">
+                                            <svg width="19" height="19">
+                                                <use xlink:href="img/icons/icons_global.svg#ceiling" fill="none"></use>
+                                            </svg>
+                                        </div>
+
+                                        <div class="marker" style="left: 35%; top: 11%;" data-marker="bathroom-lighting">
+                                            <svg width="17" height="17">
+                                                <use xlink:href="img/icons/icons_global.svg#lighting" fill="none"></use>
+                                            </svg>
+                                        </div>
+
+                                        <div class="marker" style="left: 68%; top: 35%;" data-marker="bathroom-doors">
+                                            <svg width="16" height="19">
+                                                <use xlink:href="img/icons/icons_global.svg#doors" fill="none"></use>
+                                            </svg>
+                                        </div>
+
+                                        <div class="marker" style="left: 67%; top: 83%;" data-marker="bathroom-baseboard">
+                                            <svg width="17" height="17">
+                                                <use xlink:href="img/icons/icons_global.svg#baseboard" fill="none"></use>
+                                            </svg>
+                                        </div>
+                                    </div>            
+                                </div>
+                        
+                            </div>
+                        </div>
 
                         <div class="filters-wrap" data-options-type="bathroom">
                             <button class="filters-close active d-none d-lg-flex" data-toggle-more="Розгорнути" data-toggle-less="Згорнути">
@@ -306,9 +764,21 @@
         </main>
     </div>
 
-    <script type="text/template" id="options-template" style="display:none">
+    <script type="text/template"  data-template="kitchen" style="display:none">
         <?php include 'template-parts/_options.php'; ?>
     </script>
+
+    <script type="text/template"  data-template="room" style="display:none">
+        <?php include 'template-parts/_options-2.php'; ?>
+    </script>   
+    
+        <script type="text/template"  data-template="corridor" style="display:none">
+        <?php include 'template-parts/_options-3.php'; ?>
+    </script>   
+
+        <script type="text/template"  data-template="bathroom" style="display:none">
+        <?php include 'template-parts/_options-4.php'; ?>
+    </script>   
 
     <!-- Popups -->
     <div class="popup-wrapper" id="popups"></div>

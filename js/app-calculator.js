@@ -1,6 +1,11 @@
 jQuery(function ($) {
     "use strict";
 
+    let isDragging = false;
+    let startX = 0, startY = 0;
+    let lastX = 0, lastY = 0;
+    let currentScale = 1;
+
     // input validation
     $('input[type=number].input').on('input', function () {
         let val = $(this).val();
@@ -259,7 +264,7 @@ _functions.restoreInputsFromRoomsData = function () {
                     <div class="filter-num-cell"></div>
                     <div class="filter-num-cell"></div>
                     <div class="filter-num-cell">
-                        <input type="number" value="" min="1" max="999" class="input">
+                        <input type="number" value="" min="1" max="999" class="input" required>
                         <span>м²</span>
                     </div>
                 </div>
@@ -350,26 +355,98 @@ _functions.restoreInputsFromRoomsData = function () {
 
   
 
+    // $(document).on('click', '.filter-opt__top', function () {
+    //     let $filter = $(this).closest('.filter-opt');
+    //     let optMarker = $filter.data('marker');
+    //     $(this).closest('.filter-opt').toggleClass('active');
+    //     $filter.siblings().removeClass('active');
+    //     // Зупиняємо поточні анімації, щоб не було черги
+    //     $filter.find('.filter-opt__inner').stop(true, true).slideToggle();
+    //     $filter.siblings().find('.filter-opt__inner').stop(true, true).slideUp();
+
+    //     // Маркери
+    //     $('.style-map .marker').each(function () {
+    //         let marker = $(this).data('marker');
+
+    //         if (marker == optMarker) {
+    //             $(this).toggleClass('active').siblings('.marker').removeClass('active');
+    //         }
+    //     });
+    // });
+
     $(document).on('click', '.filter-opt__top', function () {
+
         let $filter = $(this).closest('.filter-opt');
         let optMarker = $filter.data('marker');
-$(this).closest('.filter-opt').toggleClass('active');
-        // Зупиняємо поточні анімації, щоб не було черги
+
+        $filter.toggleClass('active');
+        $filter.siblings().removeClass('active');
+
         $filter.find('.filter-opt__inner').stop(true, true).slideToggle();
         $filter.siblings().find('.filter-opt__inner').stop(true, true).slideUp();
 
-        // Маркери
+        let $activeMarker = null;
+
         $('.style-map .marker').each(function () {
             let marker = $(this).data('marker');
 
-            if (marker == optMarker) {
-                $(this).toggleClass('active').siblings('.marker').removeClass('active');
+            if (marker === optMarker) {
+                $(this)
+                    .addClass('active')
+                    .siblings('.marker')
+                    .removeClass('active');
+
+                $activeMarker = $(this);
             }
         });
+
+        // 🚀 ПІД'ЇЖДЖАЄМО ДО МАРКЕРА
+        if ($activeMarker) {
+            // _functions.centerToMarker($activeMarker);
+            _functions.resetDrag()
+        }
     });
 
+// _functions.centerToMarker = function ($marker) {
+//     if (!$marker || !$marker.length) return;
+// console.log('$marker',$marker)
+//     // знаходимо активний крок
+//     const $activeStep = $('.js-step.active');
+//     if (!$activeStep.length) return;
+
+//     // draggable та контейнер саме в активному кроці
+//     const $draggable = $activeStep.find('[data-draggable]');
+//     const $imageWrap = $draggable.find('.main-image');
+//     const $container = $draggable.parent(); // або можна $activeStep
+
+//     if (!$imageWrap.length) return;
+
+//     const containerW = $container.outerWidth();
+//     const containerH = $container.outerHeight();
+
+//     // Позиція маркера відносно draggable
+//     const markerOffset = $marker.position();
+//     const markerX = markerOffset.left * currentScale;
+//     const markerY = markerOffset.top * currentScale;
+
+//     // Центр контейнера
+//     const centerX = containerW / 2;
+//     const centerY = containerH / 2;
+
+//     // Новий translate, щоб маркер був в центрі
+//     lastX = centerX - markerX;
+//     lastY = centerY - markerY;
+
+//     $draggable.css({
+//         transition: 'transform 0.35s ease',
+//         transform: `translate(${lastX}px, ${lastY}px) scale(${currentScale})`
+//     });
+// };
+
         // Add active class to marker
-    $(document).on('click', '.marker', function () {
+    $(document).on('click', '.marker', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
         let marker = $(this).data('marker');
 
         $(this).toggleClass('active').siblings('.marker').removeClass('active');
@@ -391,10 +468,7 @@ $(this).closest('.filter-opt').toggleClass('active');
     // Drag + Touch  
     //===============
  
-    let isDragging = false;
-    let startX = 0, startY = 0;
-    let lastX = 0, lastY = 0;
-    let currentScale = 1;
+ 
 
 
  
@@ -415,6 +489,52 @@ $(this).closest('.filter-opt').toggleClass('active');
 
         $('[data-draggable]').css('transform', `translate(${lastX}px, ${lastY}px) scale(${currentScale})`);
     };
+
+  
+    $(document).on('click', '[data-position]', function () {
+        _functions.resetDrag();
+    });
+
+    $(document).on('click', '[data-full]', function () {
+        _functions.setValue($(".js_zoom input"), 100);
+        $('[data-draggable]').css('transform', `translate(${lastX}px, ${lastY}px) scale(${1})`);
+    });    
+
+let startDist = 0;
+let startScale = 1;
+
+function getDistance(touches) {
+    const dx = touches[0].clientX - touches[1].clientX;
+    const dy = touches[0].clientY - touches[1].clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+}
+
+$(document).on('touchstart', '[data-draggable]', function (e) {
+    if (e.touches.length === 2) {
+        startDist = getDistance(e.touches);
+        startScale = currentScale;
+    }
+});
+
+$(document).on('touchmove', '[data-draggable]', function (e) {
+    if (e.touches.length === 2) {
+        e.preventDefault();
+
+        const newDist = getDistance(e.touches);
+        let scale = startScale * (newDist / startDist);
+
+        // обмеження
+        scale = Math.max(0.5, Math.min(scale, 3));
+
+        currentScale = scale;
+
+        $(this).css(
+            'transform',
+            `translate(${lastX}px, ${lastY}px) scale(${currentScale})`
+        );
+    }
+});
+
 
     function getPoint(e){
         if(e.touches && e.touches.length){
@@ -469,53 +589,111 @@ $(this).closest('.filter-opt').toggleClass('active');
 
  
     // Active filters image
-    $(document).on('click', '.filters-img', function () {
+    // $(document).on('click', '.filters-img', function () {
 
-        $('.filters-img').removeClass('active');
-        $(this).addClass('active');
+    //     $('.filters-img').removeClass('active');
+    //     $(this).addClass('active');
 
-        const targetId = $(this).data('image-target');
-        const imageSrc = $(this).data('image');
-        const styleId  = $(this).data('style-id'); // <---- Додано
+    //     const targetId = $(this).data('image-target');
+    //     const imageSrc = $(this).data('image');
+    //     const styleId  = $(this).data('style-id'); // <---- Додано
 
-        const $targetImg = $(`[data-image-id="${targetId}"]`);
-        if (!$targetImg.length) return;
+    //     const $targetImg = $(`[data-image-id="${targetId}"]`);
+    //     if (!$targetImg.length) return;
 
-        $targetImg.addClass('no-transition');
-        $targetImg.attr('src', imageSrc);
+    //     $targetImg.addClass('no-transition');
+    //     $targetImg.attr('src', imageSrc);
 
-        setTimeout(() => {
-            $targetImg.removeClass('no-transition');
-        }, 50);
+    //     setTimeout(() => {
+    //         $targetImg.removeClass('no-transition');
+    //     }, 50);
 
-        // --------------------------
-        // 🔥 Перемикання маркерів
-        // --------------------------
-        $('[data-markers] .list').removeClass('active visible');
+    //     // --------------------------
+    //     // 🔥 Перемикання маркерів
+    //     // --------------------------
+    //     $('[data-markers] .list').removeClass('active visible');
 
-        const $activeMarkers = $(`[data-markers-id="${styleId}"]`);
-        if ($activeMarkers.length) {
-            $activeMarkers.addClass('active visible');
-        }
+    //     const $activeMarkers = $(`[data-markers-id="${styleId}"]`);
+    //     if ($activeMarkers.length) {
+    //         $activeMarkers.addClass('active visible');
+    //     }
 
-        // -------------------------------
-        // Оновлює hidden input
-        const $activeTab = $('._tab-item.is-active');
-        const tabIndex = $activeTab.index() + 1;
-        const roomType = $('.filters-title').data('room-type');
+    //     // -------------------------------
+    //     // Оновлює hidden input
+    //     const $activeTab = $('._tab-item.is-active');
+    //     const tabIndex = $activeTab.index() + 1;
+    //     const room = $activeTab.closest('.filters-wrap') ;
+    //     const roomType = $activeTab.closest('.filters-wrap').data('options-type');
 
-        const inputName = `${roomType}-image-${tabIndex}`;
-        const $formInput = $(`#main-form [name="${inputName}"]`);
+    //     const inputName = `${roomType}-image-${tabIndex}`;
+    //     const $formInput = $(`#main-form [name="${inputName}"]`);
+    //     console.log(' $room', room)
+    //     console.log(' $roomType', roomType)
+    //     console.log(' $activeTab', $activeTab)
+    //     console.log('inputName',inputName)
+    //     console.log('$formInput',$formInput)
+       
+    //     if ($formInput.length) {
+    //         $formInput.attr('data-value',imageSrc);
+    //     }
 
-        if ($formInput.length) {
-            $formInput.val(imageSrc);
-        }
+    //     // Reset zoom + drag
+    //     _functions.setValue($(".js_zoom input"), 100);
+    //     _functions.resetDrag();
+    // });
 
-        // Reset zoom + drag
-        _functions.setValue($(".js_zoom input"), 100);
-        _functions.resetDrag();
-    });
+$(document).on('click', '.filters-img', function () {
 
+    $('.filters-img').removeClass('active');
+    $(this).addClass('active');
+
+    const targetId = $(this).data('image-target');
+    const imageSrc = $(this).data('image');
+    const styleId  = $(this).data('style-id');
+
+    const $targetImg = $(`[data-image-id="${targetId}"]`);
+    if (!$targetImg.length) return;
+
+    $targetImg.addClass('no-transition');
+    $targetImg.attr('src', imageSrc);
+
+    setTimeout(() => {
+        $targetImg.removeClass('no-transition');
+    }, 50);
+
+    // 🔥 Перемикання маркерів
+    $('[data-markers] .list').removeClass('active visible');
+    const $activeMarkers = $(`[data-markers-id="${styleId}"]`);
+    if ($activeMarkers.length) {
+        $activeMarkers.addClass('active visible');
+    }
+
+    // -------------------------------
+    // Оновлює hidden input
+    const $activeStep = $(this).closest('.js-step'); // <-- активний крок
+    const $activeTab = $activeStep.find('._tab-item.is-active'); // таб всередині активного кроку
+    const tabIndex = $activeTab.index() + 1;
+
+    const $wrap = $activeTab.closest('.filters-wrap'); // обгортка конкретної кімнати
+    const roomType = $wrap.data('options-type');
+
+    const inputName = `${roomType}-image-${tabIndex}`;
+    const $formInput = $(`#main-form [name="${inputName}"]`);
+
+    console.log('$wrap', $wrap);
+    console.log('roomType', roomType);
+    console.log('$activeTab', $activeTab);
+    console.log('inputName', inputName);
+    console.log('$formInput', $formInput);
+
+    if ($formInput.length) {
+        $formInput.attr('data-value', imageSrc);
+    }
+
+    // Reset zoom + drag
+    _functions.setValue($(".js_zoom input"), 100);
+    _functions.resetDrag();
+});
 
 
     $(document).ready(function(){
@@ -556,7 +734,7 @@ $(this).closest('.filter-opt').toggleClass('active');
     $(document).on('click', '._tab-item', function(){
         const $this = $(this);
         const index = $this.index() + 1;
-        const roomType = $('.filters-title').data('room-type');
+        const roomType = $this.closest('.filters-wrap').data('options-type');
         const $form = $('#main-form');
 
         // знімаємо активні класи
@@ -572,7 +750,8 @@ $(this).closest('.filter-opt').toggleClass('active');
         const mainDefaultSrc = $mainImg.attr('data-default-src');
         const inputName = `${roomType}-image-${index}`;
         const $input = $form.find(`[name="${inputName}"]`);
-
+console.log('$inputName ',inputName)
+console.log('$input ',$input)
         let newSrc;
         if($input.val()){ // якщо раніше вибрана картинка
             newSrc = $input.val();
@@ -591,25 +770,68 @@ $(this).closest('.filter-opt').toggleClass('active');
         _functions.setValue($(".js_zoom input"), 100);
         // $('[data-draggable]').css('transform', `translate(0px, 0px) scale(1)`);
          _functions.resetDrag();
+         _functions.resetStyleMapImages();
      
     });
 
 
     $(document).ready(function() {
         // 🖼 ОНОВЛЕННЯ КАРТИНОК ЗА RADIO / CHECKBOX
-        $(document).on("change", 'input[data-image]', function () {
-            const type = $(this).data("image");    // наприклад "floor"
-            const url = $(this).data("url");       // шлях до картинки
+        // $(document).on("change", 'input[data-image]', function () {
+        //     const type = $(this).data("image");    // наприклад "floor"
+        //     const url = $(this).data("url");       // шлях до картинки
 
-            // Знаходимо відповідний <img data-image-id="floor">
-            const $img = $(`.main-image img[data-image-id="${type}"]`);
+        //     // Знаходимо відповідний <img data-image-id="floor">
+        //     const $img = $(`.main-image img[data-image-id="${type}"]`);
 
+        //     if ($img.length) {
+        //         $img.attr("src", url);
+        //     }
+        // });
+
+        $(document).on('change', 'input[type="radio"][data-image]', function () {
+            if (!this.checked) return;
+
+            const imageType = $(this).data('image');
+            const imageUrl  = $(this).data('url');
+            if (!imageType || !imageUrl) return;
+
+            // 🔹 Вибираємо активний крок
+            const $activeStep = $(this).closest('.js-step');
+            if (!$activeStep.length || !$activeStep.hasClass('is-active')) return;
+
+            const $wrap = $activeStep.find('.filters-wrap');
+            const type = $wrap.data('options-type');
+            const index = $wrap.find('._tab-item.is-active').index();
+
+            const ctx = { type, index };
+            console.log('imageType', imageType);
+            console.log('ctx', ctx);
+
+            if (!ctx) return;
+
+            // -------------------
+            // UI
+            // -------------------
+            const $img = $activeStep.find(`.main-image img[data-image-id="${imageType}"]`);
             if ($img.length) {
-                $img.attr("src", url);
+                $img.attr('src', imageUrl);
             }
+            console.log('$img', $img);
+
+            // -------------------
+            // STORE
+            // -------------------
+            const rooms = JSON.parse(localStorage.getItem('rooms_data') || '{}');
+
+            rooms[ctx.type] = rooms[ctx.type] || [];
+            rooms[ctx.type][ctx.index] = rooms[ctx.type][ctx.index] || {};
+            rooms[ctx.type][ctx.index].images = rooms[ctx.type][ctx.index].images || {};
+            rooms[ctx.type][ctx.index].images[imageType] = imageUrl;
+
+            localStorage.setItem('rooms_data', JSON.stringify(rooms));
         });
-
-
+ 
         const $form = $('#main-form');
 
         // Функція для оновлення small з вибраними опціями
@@ -705,6 +927,7 @@ $(this).closest('.filter-opt').toggleClass('active');
                 }
             }); 
 
+            console.log('formData',formData)
             // Оновлюємо small для кожного батьківського filter-opt
             const $opt = $(this).closest('.filter-opt');
             updateFilterOptTitle($opt);
@@ -758,7 +981,7 @@ $(this).closest('.filter-opt').toggleClass('active');
             
             // Тултіп — шукаємо по data-tooltip
             let $tooltip = $(`.rooms-map .tooltip[data-tooltip="${roomType}"]`);
-            
+            console.log('$mapImg',$mapImg)
             if (totalRoomSquare > 0) {
                 $mapImg.attr("src", imgSrc);
                 $tooltip.addClass('active');
@@ -809,41 +1032,159 @@ $(this).closest('.filter-opt').toggleClass('active');
     }
  
 
-    _functions.buildRoomTabs = function () {
-        const roomsData = JSON.parse(localStorage.getItem('rooms_data') || '{}');
+    // _functions.buildRoomTabs = function () {
+    //     const roomsData = JSON.parse(localStorage.getItem('rooms_data') || '{}');
     
-        $('.filters-wrap').each(function () {
-            const $wrap = $(this);
-            const rawType = $wrap.data('options-type');
-            const type = normalizeKey(rawType);
-            const rooms = roomsData[type];
-            if (!rooms || !rooms.length) return;
+    //     $('.filters-wrap').each(function () {
+    //         const $wrap = $(this);
+    //         const rawType = $wrap.data('options-type');
+    //         const type = normalizeKey(rawType);
+    //         const rooms = roomsData[type];
+    //         if (!rooms || !rooms.length) return;
 
-            const $tabsList = $wrap.find('.sub-links ul');
-            const $tabsContainer = $wrap.find('.filters');
+    //         const $tabsList = $wrap.find('.sub-links ul');
+    //         const $tabsContainer = $wrap.find('.filters');
 
-            $tabsList.empty();
-            $tabsContainer.empty();
+    //         $tabsList.empty();
+    //         $tabsContainer.empty();
 
-            rooms.forEach((room, index) => {
-                const $tabItem = $(`<li class="_tab-item">${index+1}</li>`);
-                if (index === 0) $tabItem.addClass('is-active');
-                if(rooms.length > 1){
-                    $tabsList.append($tabItem);
-                }
+    //         rooms.forEach((room, index) => {
+    //             const $tabItem = $(`<li class="_tab-item">${index+1}</li>`);
+    //             if (index === 0) $tabItem.addClass('is-active');
+    //             if(rooms.length > 1){
+    //                 $tabsList.append($tabItem);
+    //             }
 
-                const $tab = $(`
-                    <div class="_tab">
-                        ${$('#options-template').html()}
-                    </div>
-                `);
-                if (index === 0) $tab.addClass('is-active');
+    //             const $tab = $(`
+    //                 <div class="_tab">
+    //                     ${$('#options-template').html()}
+    //                 </div>
+    //             `);
+    //             if (index === 0) $tab.addClass('is-active');
 
-                _functions.namespaceTabOptions($tab, type, index);
-                $tabsContainer.append($tab);
-            });
+    //             _functions.namespaceTabOptions($tab, type, index);
+    //             $tabsContainer.append($tab);
+    //         });
+    //     });
+    // };
+
+    // _functions.buildRoomTabs = function () {
+    //     const roomsData = JSON.parse(localStorage.getItem('rooms_data') || '{}');
+    //     const $form = $('#main-form');
+
+    //     $('.filters-wrap').each(function () {
+    //         const $wrap = $(this);
+    //         const rawType = $wrap.data('options-type');
+    //         if (!rawType) return;
+
+    //         const type = normalizeKey(rawType); // kitchen, bedroom ...
+    //         const rooms = roomsData[type];
+    //         if (!rooms || !rooms.length) return;
+
+    //         const $tabsList = $wrap.find('.sub-links ul');
+    //         const $tabsContainer = $wrap.find('.filters');
+
+    //         $tabsList.empty();
+    //         $tabsContainer.empty();
+
+    //         rooms.forEach((room, index) => {
+    //             const tabIndex = index + 1;
+
+    //             /* =========================
+    //             TAB BUTTON
+    //             ========================= */
+    //             const $tabItem = $(`<li class="_tab-item">${tabIndex}</li>`);
+    //             if (index === 0) $tabItem.addClass('is-active');
+    //             if (rooms.length > 1) {
+    //                 $tabsList.append($tabItem);
+    //             }
+
+    //             /* =========================
+    //             TAB CONTENT
+    //             ========================= */
+    //             const $tab = $(`
+    //                 <div class="_tab">
+    //                     ${$('#options-template').html()}
+    //                 </div>
+    //             `);
+    //             if (index === 0) $tab.addClass('is-active');
+
+    //             _functions.namespaceTabOptions($tab, type, index);
+    //             $tabsContainer.append($tab);
+
+    //             /* =========================
+    //             🔹 HIDDEN INPUT FOR IMAGE
+    //             ========================= */
+    //             const inputName = `${type}-image-${tabIndex}`;
+
+    //             if (!$form.find(`[name="${inputName}"]`).length) {
+    //                 $('<input>', {
+    //                     type: 'hidden',
+    //                     name: inputName,
+    //                     value: ''
+    //                 }).appendTo($form);
+    //             }
+    //         });
+    //     });
+    // };
+
+    _functions.buildRoomTabs = function () {
+    const roomsData = JSON.parse(localStorage.getItem('rooms_data') || '{}');
+    const $form = $('#main-form');
+
+    $('.filters-wrap').each(function () {
+        const $wrap = $(this);
+        const rawType = $wrap.data('options-type');
+        if (!rawType) return;
+
+        const type = normalizeKey(rawType); // kitchen, bedroom ...
+        const rooms = roomsData[type];
+        if (!rooms || !rooms.length) return;
+
+        const $tabsList = $wrap.find('.sub-links ul');
+        const $tabsContainer = $wrap.find('.filters');
+
+        $tabsList.empty();
+        $tabsContainer.empty();
+
+        // вибираємо відповідний шаблон
+        const templateHtml = $(`script[data-template="${type}"]`).html() || '';
+
+        rooms.forEach((room, index) => {
+            const tabIndex = index + 1;
+
+            /* =========================
+            TAB BUTTON
+            ========================= */
+            const $tabItem = $(`<li class="_tab-item">${tabIndex}</li>`);
+            if (index === 0) $tabItem.addClass('is-active');
+            if (rooms.length > 1) {
+                $tabsList.append($tabItem);
+            }
+
+            /* =========================
+            TAB CONTENT
+            ========================= */
+            const $tab = $(`<div class="_tab">${templateHtml}</div>`);
+            if (index === 0) $tab.addClass('is-active');
+
+            _functions.namespaceTabOptions($tab, type, index);
+            $tabsContainer.append($tab);
+
+            /* =========================
+            🔹 HIDDEN INPUT FOR IMAGE
+            ========================= */
+            const inputName = `${type}-image-${tabIndex}`;
+            if (!$form.find(`[name="${inputName}"]`).length) {
+                $('<input>', {
+                    type: 'hidden',
+                    name: inputName,
+                    value: ''
+                }).appendTo($form);
+            }
         });
-    };
+    });
+};
 
  
     _functions.namespaceTabOptions = function($tab, type, index) {
@@ -1016,8 +1357,16 @@ $(this).closest('.filter-opt').toggleClass('active');
                         }
                     });
                 });
+                const images = room.images || {};
+                Object.entries(images).forEach(([imgKey, imgSrc]) => {
+                    const $img = $(`.main-image img[data-image-id="${imgKey}"]`);
+                    if ($img.length) {
+                        $img.attr('src', imgSrc);
+                    }
+                });
             });
         });
+
     };
 
 
@@ -1048,6 +1397,7 @@ $(this).closest('.filter-opt').toggleClass('active');
         $currentStep.removeClass('active');
         $nextStep.addClass('active');
         _functions.syncHeaderWithStep();
+        _functions.resetStyleMapImages();
     });
 
 
@@ -1063,6 +1413,7 @@ $(this).closest('.filter-opt').toggleClass('active');
         $currentStep.removeClass('active');
         $prevStep.addClass('active');
         _functions.syncHeaderWithStep();
+        _functions.resetStyleMapImages();
         // scrollToTop();
     });
 
@@ -1127,12 +1478,19 @@ $(this).closest('.filter-opt').toggleClass('active');
 
         // 👉 перевіряємо всі required
         $step.find('input[required], select[required], textarea[required]').each(function () {
-            const $el = $(this);
+        const $el = $(this);
             $el.removeClass('invalid'); 
 
-            if (!$el.val()) {
+            let val = $el.val();
+
+            // для числових полів
+            if ($el.is('input[type="number"]')) {
+                val = parseFloat(val);
+            }
+
+            if (val === '' || val === 0 || val === null || val === undefined || (typeof val === 'number' && isNaN(val))) {
                 isValid = false;
- 
+
                 $el.addClass('invalid');
                 $el.closest('.input-field').addClass('is-invalid');
             }
@@ -1181,6 +1539,26 @@ $(this).closest('.filter-opt').toggleClass('active');
 
         return isValid;
     };
+
+ 
+
+$(document).on(
+    'input change',
+    '.js-step input, .js-step select, .js-step textarea',
+    function () {
+        const $step = $(this).closest('.js-step');
+
+        // форма (кроки 1–2)
+        if ($step.hasClass('js-step-form') && $(this).hasClass('invalid')) {
+            _functions.validateStep($step );
+        }
+
+        // крок з кімнатами
+        if ($step.hasClass('js-step-rooms')  && $(this).closest('.filter-opt').hasClass('invalid')) {
+            _functions.validateRoomOptionsStep($step );
+        }
+    }
+);
 
 
     _functions.calculateTotalPrice = function () {
@@ -1242,10 +1620,10 @@ $(this).closest('.filter-opt').toggleClass('active');
             return square * (price || 0);
         },
 
-        underfloor_heating({ value, price, room }) {
-            const square = room?.options?.warm_floor_square?.value;
+        underfloor_heating({ value, price, room, square }) {
+            // const square = room?.options?.warm_floor_square?.value;
          
-            if(value === 'yes' && room?.options?.warm_floor_square?.value){ 
+            if(value === 'yes' && square){ 
                 return 0.7 * price * square
             } else {
                 return 0;
@@ -1298,7 +1676,8 @@ $(this).closest('.filter-opt').toggleClass('active');
             if(value === 'luster'){
                 return Math.floor(square * (price || 0) + 500);
 
-            }                                    
+            }     
+                                              
 
             return Math.floor(square * (price || 0) ); 
         },
@@ -1309,6 +1688,26 @@ $(this).closest('.filter-opt').toggleClass('active');
         doors({ price }) { 
             return price || 0;
         }
+    };
+
+
+
+    _functions.getActiveRoomContext = function () {
+        const $wrap = $('.filters-wrap:visible').first();
+        if (!$wrap.length) return null;
+
+        const type = normalizeKey($wrap.data('options-type'));
+        const index = $wrap.find('._tab.is-active, ._tab.active').index();
+
+        if (index < 0) return null;
+
+        return { type, index };
+    };
+
+    _functions.resetStyleMapImages = function () {
+        // $('.main-image img').not('.main').each(function () {
+        //     $(this).attr('src', '#');
+        // });
     };
 
 
