@@ -16,7 +16,7 @@
 /*  Inputs            */
 /*--------------------*/
 .input-field {--int-height: 2.8125rem;--int-pd: 1rem;--font-size: 1rem;display: block;position: relative;text-align: left;line-height: 0;font-size: var(--font-size);}
-.input {position: relative;z-index: 1;font-weight: 400;font-size: var(--font-size);line-height: var(--int-height);height: var(--int-height);padding: var(--int-pd);text-overflow: ellipsis;color: var(--clr-black);border: 0.0625rem solid var(--clr-border);background-color: var(--clr-white);transition: var(--transition-1);}
+.input {position: relative;z-index: 1;font-weight: 400;font-size: 0.875rem;line-height: var(--int-height);height: var(--int-height);padding: var(--int-pd);text-overflow: ellipsis;color: var(--clr-black);border: 0.0625rem solid var(--clr-border);background-color: var(--clr-white);transition: var(--transition-1);}
 textarea.input {height: 8.75rem;line-height: 1.38em;}
 .input-placeholder {display: inline-block;pointer-events: none;text-align: left;font-size: var(--font-size);line-height: 1em;font-weight: 400;color: var(--clr-black);margin-bottom: 0.5rem;display: -webkit-box;-webkit-line-clamp: 1;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;background-color: var(--clr-white);transition: var(--transition-1);}
 textarea.input + .input-placeholder {transform: translateY(var(--int-pd));}

@@ -17,15 +17,14 @@
                         До сайту
                     </a>
 
-                    <a href="tel:+380960555777" class="h-contacts">
+                    <div class="h-contacts">
                         <i>
                             <svg width="12" height="12">
                                 <use xlink:href="img/icons/icons_global.svg#phone" fill="none"></use>
                             </svg>
                         </i>
                         <ul>
-                            <li>+38 096 055 57 77
-                            </li>
+                            <li><a href="tel:+380960555777">+38 096 055 57 77</a></li>
                             <li>
                                 <svg width="16" height="16">
                                     <use xlink:href="img/icons/icons_global.svg#clock" fill="none"></use>
@@ -33,7 +32,7 @@
                                 Пн-Пт з 9:00 до 18:00
                             </li>
                         </ul>
-                    </a>
+                    </div>
                 </div>
 
                 <div class="h-menu">
