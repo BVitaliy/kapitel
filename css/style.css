@@ -127,6 +127,9 @@ a:hover .video-cover video {transform: scale(1.04);}
 .banner-row {flex-direction: column;gap: calc(var(--sp-sm) + 0.625rem);}
 .banner-left,
 .banner-right {width: 100%;}
+.banner-right {order: -1;}
+.banner-right .title {margin-bottom: calc(var(--sp-sm));}
+.banner-steps {margin-top: 0;}
 }
 @media (max-width: 767px) {
 .banner-media {position: relative;padding-top: 56.25%;}

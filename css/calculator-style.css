@@ -1,4 +1,5 @@
 .section-calculator {--filters-width: 25.5rem;--filters-gap: 1.5625rem;--toggle-height: 2.8125rem;--styles-width: 9.9375rem;margin: 0;position: relative;width: 100%;min-height: 100%;display: flex;flex: 1;}
+.filters-wrap[data-options-type] {--filters-width: 23.75rem;}
 @media (max-width: 991px) {
 .section-calculator {flex-direction: column;}
 }
@@ -14,7 +15,7 @@
 .stepper-zoom button.incr::after {width: 0.0625rem;height: 0.9375rem;}
 .stepper-zoom input {text-align: center;border-right: 0.0625rem solid var(--clr-black-10);border-left: 0.0625rem solid var(--clr-black-10);height: 1.3125rem;}
 .stepper-number {width: 100%;display: flex;align-items: center;}
-.stepper-number button {width: 2.5rem;height: 2.5rem;flex-shrink: 0;background-color: var(--bg-4);border: 0.0625rem solid transparent;cursor: pointer;transition: var(--transition-1);}
+.stepper-number button {width: 2.5rem;height: 2.5rem;flex-shrink: 0;background-color: var(--bg-4);border: 0.0625rem solid transparent;cursor: pointer;transition: var(--transition-1);color: var(--clr-black);}
 @media (min-width: 1200px) {
 .stepper-zoom button:hover::before,
 .stepper-zoom button:hover::after {background-color: var(--clr-black);}
@@ -139,11 +140,14 @@
 .filters-title-wrap ._tab-item:hover {color: var(--clr-black-50);}
 }
 @media (max-width: 991px) {
+    .style-map .marker {width: 1.8rem;height: 1.8rem;}
+    .style-map .marker svg {width: 50%;height: 50%;}
+    .filters-button {background-color: var(--clr-white);position: sticky;bottom: 0;left: 0;right: 0;padding-block: 1rem;z-index: 10;box-shadow: 0 0 10px var(--clr-black-10);}
     .style-map__image .main-image img {
         object-fit: contain; 
     }
 .filters-wrap {position: static;width: 100%;flex: 1;display: flex;}
-.filters-bg {height: auto;flex: 1;}
+.filters-bg {height: auto;flex: 1;padding-bottom: 0;}
 .style-map{
     position: relative;
     height: auto;
