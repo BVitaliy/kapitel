@@ -1069,14 +1069,43 @@ $(this).closest('.filter-opt').toggleClass('active');
     _functions.syncHeaderWithStep = function() {
         const stepIndex = $('.js-step').index($('.js-step.active'));
 
-        $('.h-links li')
-            .removeClass('current')
-            .eq(stepIndex)
-            .addClass('current');
+        $('.h-links li').each(function (index) {
+            const $li = $(this);
+
+            $li.removeClass('current');
+
+            // поточний
+            if (index === stepIndex) {
+                $li.addClass('current');
+            }
+
+            // всі попередні — filled
+            if (index < stepIndex) {
+                $li.addClass('filled');
+            }
+        });
+
         _functions.buildRoomTabs();
         _functions.restoreRoomOptions();
     }
 
+    $(document).on('click', '.h-links li', function (e) {
+        e.preventDefault();
+        const $li = $(this);
+
+        // ❌ якщо не filled — не даємо клікати
+        if (!$li.hasClass('filled')) {
+            return;
+        }
+
+        const targetIndex = $li.index();
+
+        // перемикаємо steps
+        $('.js-step').removeClass('active')
+            .eq(targetIndex).addClass('active');
+
+        _functions.syncHeaderWithStep();
+    });
  
 
     if ($('#main-form').length) {

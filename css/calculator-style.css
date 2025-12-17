@@ -137,6 +137,9 @@
 .filters-title-wrap ._tab-item:hover {color: var(--clr-black-50);}
 }
 @media (max-width: 991px) {
+    .style-map__image .main-image img {
+        object-fit: contain; 
+    }
 .filters-wrap {position: static;width: 100%;flex: 1;display: flex;}
 .filters-bg {height: auto;flex: 1;}
 .style-map{
@@ -147,7 +150,7 @@
 .style-map:before{
     content: "";
     display: block;
-    padding-top: 68%;
+    padding-top: 56%;
 }
 .style-map__image{
     position: absolute;
