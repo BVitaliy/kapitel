@@ -85,7 +85,7 @@
 .filter-opt__toggle::after {content: "";display: block;position: absolute;bottom: 0;right: 0;left: 0;top: 0;margin: auto;background-color: var(--clr-black);transition: var(--transition-1);}
 .filter-opt__toggle::before {width: 1rem;height: 0.0625rem;}
 .filter-opt__toggle::after {width: 0.0625rem;height: 1rem;}
-.filter-opt__inner {display: none;padding-left: 1.875rem;}
+.filter-opt__inner {display: none;padding-left: 1.5625rem;}
 .filter-opt__inner::before {content: "";display: block;height: 0.4375rem;}
 .filter-opt__inner::after {content: "";display: block;height: 0.9375rem;}
 .filter-opt__inner > * {padding-top: 0;}
