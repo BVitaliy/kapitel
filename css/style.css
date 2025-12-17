@@ -89,9 +89,11 @@ a:hover .video-cover video {transform: scale(1.04);}
 .banner-container.size2 .banner-form > * + * {margin-block: 1.25rem;}
 .banner-container.size2 .banner-form .ch-box-wrap {padding-top: 0;margin-block: 0 2.5rem;}
 .banner-container.size2 .banner-form .h6 {line-height: 1.3;max-width: 29.4375rem;margin-inline: auto;}
+.banner-container.size2 .banner-form .btn-stack {margin-block: 0;}
 .banner-container.size2 .text {margin-bottom: 2rem;}
 .banner-container.size2 .form-buttons {margin-bottom: 0;}
 .banner-container.size2 .btn {margin-top: 0;}
+.banner-container.size2 .btn:not(.btn-border) {padding-block: .688em;}
 
 .banner-row {--bs-gutter-x: clamp(1.875rem, 0.039rem + 7.832vw, 9.438rem);display: flex;align-items: center;margin-inline: calc(var(--bs-gutter-x) * -0.5);}
 .banner-col {flex-shrink: 0;padding-inline: calc(var(--bs-gutter-x) * 0.5);}
@@ -128,6 +130,7 @@ a:hover .video-cover video {transform: scale(1.04);}
 }
 @media (max-width: 767px) {
 .banner-media {position: relative;padding-top: 56.25%;}
+.banner-container.size2 .text {margin-bottom: 1rem;}
 }
 @media (max-width: 575px) {
 .banner-step {--img-size: 3.125rem;padding-inline: 1rem;}
