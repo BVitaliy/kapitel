@@ -1,4 +1,4 @@
-<div class="filter-opt" data-marker="room-floor">
+<div class="filter-opt" data-marker="kitchen-floor">
     <div class="filter-opt__top">
         <div class="filter-opt__icon">
             <img src="img/icons/icon-floor.svg" alt="">
@@ -33,7 +33,35 @@
                 </div>
             </div>
         </div>
- 
+        <div class="ch-box-wrap">
+            <label class="ch-box">
+                <input type="checkbox" name="floor_option_2">
+                <span>
+                    Тепла підлога
+                </span>
+            </label>
+            <div class="ch-box-inner">
+                <!-- <div class="ch-box-row"> -->
+                    <label class="ch-box">
+                        <input type="radio" value="yes" name="underfloor_heating" data-price="400">
+                        <span>
+                            Так
+                        </span>
+                    </label>
+                    <!-- <div class="ch-box-inp">
+                        Площа
+                        <input type="number" value="0" name="warm_floor_square" class="input">
+                        <small>м²</small>
+                    </div>
+                </div> -->
+                <label class="ch-box">
+                    <input type="radio" value="no" name="underfloor_heating" data-price="0">
+                    <span>
+                        Ні
+                    </span>
+                </label>
+            </div>
+        </div>
         <div class="ch-box-wrap">
             <label class="ch-box">
                 <input type="checkbox" name="floor_option_3">
@@ -42,31 +70,26 @@
                 </span>
             </label>
             <div class="ch-box-inner">
-                <div class="ch-box-row"> 
+                <div class="ch-box-row">
                     <label class="ch-box">
-                        <input type="radio" value="vinyl" name="floor" data-image="floor" data-price="1150"  data-url="img/content/floor/Вініл.png">
+                        <input type="radio" value="tile" name="floor" data-image="floor" data-price="1200"  data-url="img/content/floor/Плитка.png">
                         <span>
-                            Вініл
+                            Плитка 600*600мм
                         </span>
                     </label>
                     <label class="ch-box">
-                        <input type="radio" value="parquet" name="floor" data-image="floor" data-price="670"  data-url="img/content/floor/Паркет.png">
+                        <input type="radio" value="tile2" name="floor" data-image="floor" data-price="1300"  data-url="img/content/floor/Вініл.png">
                         <span>
-                            Паркет
+                            Плитка 600*1200мм
                         </span>
                     </label>
-                    <label class="ch-box">
-                        <input type="radio" value="laminate" name="floor" data-image="floor" data-price="300"  data-url="img/content/floor/Ламінат.png">
-                        <span>
-                            Ламінат
-                        </span>
-                    </label>
+ 
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="filter-opt required" data-marker="room-ceiling">
+<div class="filter-opt required" data-marker="kitchen-ceiling">
     <div class="filter-opt__top">
         <div class="filter-opt__icon">
             <img src="img/icons/icon-ceiling.png" alt="">
@@ -103,7 +126,7 @@
         </div>
     </div>
 </div>
-<div class="filter-opt required" data-marker="room-walls">
+<div class="filter-opt required" data-marker="kitchen-walls">
     <div class="filter-opt__top">
         <div class="filter-opt__icon">
             <img src="img/icons/icon-walls.svg" alt="">
@@ -116,68 +139,81 @@
     <div class="filter-opt__inner">
         <div class="ch-box-wrap">
             <label class="ch-box">
-                <input type="radio" name="wall" value="1" data-image="ceiling"  data-url="#" data-price="1127">
+                <input type="radio" name="wall" value="1" data-image="ceiling"  data-url="#" data-price="1550">
                 <span>
-                    Штукатурення, грунутвання, шпаклювання, армування, фарбування
+                    штукатурення , грунутвання ,  облицювання плиткою 600*600 мм
                 </span>
             </label>
         </div>
         <div class="ch-box-wrap">
             <label class="ch-box">
-                <input type="radio" name="wall" value="2" data-image="ceiling"  data-url="img/_temp/Стіни/декоративка.png" data-price="1382">
+                <input type="radio" name="wall" value="2" data-image="ceiling"  data-url="img/_temp/Стіни/декоративка.png" data-price="1700">
                 <span>
-                    Штукатурення, грунутвання, шпаклювання, армування, декоративна штукатурка 
+                    штукатурення , грунутвання ,  облицювання плиткою 600*1200 мм
                 </span>
             </label>
         </div>
         <div class="ch-box-wrap">
             <label class="ch-box">
-                <input type="radio" name="wall" value="3" data-image="ceiling"  data-url="img/_temp/Стіни/шпалери.png" data-price="1200">
+                <input type="radio" name="wall" value="3" data-image="ceiling"  data-url="img/_temp/Стіни/шпалери.png" data-price="2300">
                 <span>
-                    Штукатурення, грунутвання, шпаклювання, армування, поклейка шпалер
+                    штукатурення , грунутвання ,  облицювання плиткою малий формат 
                 </span>
             </label>
         </div>
     </div>
 </div>
-<div class="filter-opt" data-marker="room-baseboard">
+<div class="filter-opt" data-marker="pidon">
     <div class="filter-opt__top">
         <div class="filter-opt__icon">
             <img src="img/icons/icon-baseboard.svg" alt="">
         </div>
         <div class="filter-opt__title">
-            Плінтус <small></small>
+            Душовий підон  <small></small>
         </div>
         <div class="filter-opt__toggle"></div>
     </div>
     <div class="filter-opt__inner">
         <div class="ch-box-wrap">
             <label class="ch-box">
-                <input type="radio" name="baseboard" value="mdf" data-price="210">
+                <input type="radio" name="pidon" value="pidon" data-price="8000">
                 <span>
-                    MDF
+                    Душовий підон
                 </span>
             </label>
         </div>
-        <div class="ch-box-wrap">
-            <label class="ch-box">
-                <input type="radio" name="baseboard" value="aluminum" data-price="292">
-                <span>
-                    Алюміній 
-                </span>
-            </label>
-        </div>
-        <div class="ch-box-wrap">
-            <label class="ch-box">
-                <input type="radio" name="baseboard" value="hidden" data-price="968">
-                <span>
-                    Прихований
-                </span>
-            </label>
-        </div>
+  
     </div>
 </div>
-<div class="filter-opt required" data-marker="room-lighting">
+<div class="filter-opt" data-marker="toilet">
+    <div class="filter-opt__top">
+        <div class="filter-opt__icon">
+            <img src="img/icons/icon-baseboard.svg" alt="">
+        </div>
+        <div class="filter-opt__title">
+            Унітаз  <small></small>
+        </div>
+        <div class="filter-opt__toggle"></div>
+    </div>
+    <div class="filter-opt__inner">
+        <div class="ch-box-wrap">
+            <label class="ch-box">
+                <input type="radio" name="toilet" value="1" data-price="4200">
+                <span>
+                    Підвісний
+                </span>
+            </label>
+            <label class="ch-box">
+                <input type="radio" name="toilet" value="2" data-price="1100">
+                <span>
+                    Окремостоячий
+                </span>
+            </label>            
+        </div>
+  
+    </div>
+</div>
+<div class="filter-opt required" data-marker="kitchen-lighting">
     <div class="filter-opt__top">
         <div class="filter-opt__icon">
             <img src="img/icons/icon-lighting.svg" alt="">
@@ -231,7 +267,7 @@
  
     </div>
 </div>
-<div class="filter-opt required" data-marker="room-doors">
+<div class="filter-opt required" data-marker="kitchen-doors">
     <div class="filter-opt__top">
         <div class="filter-opt__icon">
             <img src="img/icons/icon-doors.svg" alt="">
