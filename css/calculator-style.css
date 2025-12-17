@@ -147,7 +147,7 @@
 .style-map:before{
     content: "";
     display: block;
-    padding-top: 85%;
+    padding-top: 68%;
 }
 .style-map__image{
     position: absolute;

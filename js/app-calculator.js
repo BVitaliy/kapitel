@@ -828,7 +828,9 @@ $(this).closest('.filter-opt').toggleClass('active');
             rooms.forEach((room, index) => {
                 const $tabItem = $(`<li class="_tab-item">${index+1}</li>`);
                 if (index === 0) $tabItem.addClass('is-active');
-                $tabsList.append($tabItem);
+                if(rooms.length > 1){
+                    $tabsList.append($tabItem);
+                }
 
                 const $tab = $(`
                     <div class="_tab">
