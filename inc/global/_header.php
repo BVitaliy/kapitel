@@ -39,17 +39,17 @@
                 <div class="h-menu">
                     <nav class="h-links">
                         <ul>
-                            <li class="<?php echo $item_class_1 ?? ''; ?>"><a href="index.php"><i><svg width="12" height="13">
+                            <li class="<?php echo $item_class_1 ?? ''; ?>"><a href=""><i><svg width="12" height="13">
                                             <use xlink:href="img/icons/icons_global.svg#stick" fill="none"></use>
                                         </svg></i>Загальне</a></li>
-                            <li class="<?php echo $item_class_2 ?? ''; ?>"><a href="rooms-number.php"><i><svg width="14" height="14">
+                            <li class="<?php echo $item_class_2 ?? ''; ?>"><a href=""><i><svg width="14" height="14">
                                             <use xlink:href="img/icons/icons_global.svg#room" fill="none"></use>
                                         </svg></i>К-ть приміщень</a></li>
-                            <li class="<?php echo $item_class_3 ?? ''; ?>"><a href="kitchen.php"><i>1</i>Кухня</a></li>
-                            <li class="<?php echo $item_class_4 ?? ''; ?>"><a href="room.php"><i>2</i>Кімната</a></li>
-                            <li class="<?php echo $item_class_5 ?? ''; ?>"><a href="corridor.php"><i>3</i>Коридор</a></li>
-                            <li class="<?php echo $item_class_6 ?? ''; ?>"><a href="bathroom.php"><i>4</i>Санвузол</a></li>
-                            <li class="<?php echo $item_class_7 ?? ''; ?>"><a href="calculation.php"><i><svg width="12" height="13">
+                            <li class="<?php echo $item_class_3 ?? ''; ?>"><a href=""><i>1</i>Кухня</a></li>
+                            <li class="<?php echo $item_class_4 ?? ''; ?>"><a href=""><i>2</i>Кімната</a></li>
+                            <li class="<?php echo $item_class_5 ?? ''; ?>"><a href=""><i>3</i>Коридор</a></li>
+                            <li class="<?php echo $item_class_6 ?? ''; ?>"><a href=""><i>4</i>Санвузол</a></li>
+                            <li class="<?php echo $item_class_7 ?? ''; ?>"><a href=""><i><svg width="12" height="13">
                                             <use xlink:href="img/icons/icons_global.svg#flag" fill="none"></use>
                                         </svg></i>Розрахунок</a></li>
                         </ul>
