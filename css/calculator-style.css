@@ -68,7 +68,7 @@
 .filter-num-cell:nth-child(2) {width: 7.5rem;}
 .filter-num-cell:nth-child(3) {width: 4.5625rem;justify-content: space-between;}
 .filter-num-cell:nth-child(3) span {font-size: 0.875rem;color: var(--clr-black);}
-.filter-num-cell input {width: 3.125rem;height: 2.5rem;text-align: center;}
+.filter-num-cell input {width: 3.125rem;height: 2.5rem;text-align: center;font-size: 1rem;}
 .filter-num-cell input:focus {border-color: var(--clr-border-2);}
 .filters-total-square {display: flex;align-items: center;justify-content: space-between;gap: 0.3125rem;color: var(--clr-black);padding-top: 0.875rem;margin-top: 0.875rem;border-top: 0.0625rem solid var(--clr-border);}
 .filters-total-square b {display: flex;align-items: center;margin-left: auto;font-weight: 500;color: var(--clr-primary);}
