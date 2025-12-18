@@ -642,58 +642,62 @@ $(document).on('touchmove', '[data-draggable]', function (e) {
     //     _functions.resetDrag();
     // });
 
-$(document).on('click', '.filters-img', function () {
+    $(document).on('click', '.filters-img', function () {
 
-    $('.filters-img').removeClass('active');
-    $(this).addClass('active');
+        $('.filters-img').removeClass('active');
+        $(this).addClass('active');
 
-    const targetId = $(this).data('image-target');
-    const imageSrc = $(this).data('image');
-    const styleId  = $(this).data('style-id');
+        const targetId = $(this).data('image-target');
+        const imageSrc = $(this).data('image');
+        const imageValue = $(this).data('value');
+        const styleId  = $(this).data('style-id');
 
-    const $targetImg = $(`[data-image-id="${targetId}"]`);
-    if (!$targetImg.length) return;
+        const $targetImg = $(`[data-image-id="${targetId}"]`);
+        if (!$targetImg.length) return;
 
-    $targetImg.addClass('no-transition');
-    $targetImg.attr('src', imageSrc);
+        $targetImg.addClass('no-transition');
+        $targetImg.attr('src', imageSrc);
 
-    setTimeout(() => {
-        $targetImg.removeClass('no-transition');
-    }, 50);
+        setTimeout(() => {
+            $targetImg.removeClass('no-transition');
+        }, 50);
 
-    // 🔥 Перемикання маркерів
-    $('[data-markers] .list').removeClass('active visible');
-    const $activeMarkers = $(`[data-markers-id="${styleId}"]`);
-    if ($activeMarkers.length) {
-        $activeMarkers.addClass('active visible');
-    }
+        // 🔥 Перемикання маркерів
+        $('[data-markers] .list').removeClass('active visible');
+        const $activeMarkers = $(`[data-markers-id="${styleId}"]`);
+        if ($activeMarkers.length) {
+            $activeMarkers.addClass('active visible');
+        }
 
-    // -------------------------------
-    // Оновлює hidden input
-    const $activeStep = $(this).closest('.js-step'); // <-- активний крок
-    const $activeTab = $activeStep.find('._tab-item.is-active'); // таб всередині активного кроку
-    const tabIndex = $activeTab.index() + 1;
+        // -------------------------------
+        // Оновлює hidden input
+        const $activeStep = $(this).closest('.js-step'); // <-- активний крок
+        const $activeTab = $activeStep.find('._tab-item.is-active'); // таб всередині активного кроку
+        const tabIndex = $activeTab.index() + 1;
 
-    const $wrap = $activeTab.closest('.filters-wrap'); // обгортка конкретної кімнати
-    const roomType = $wrap.data('options-type');
+        const $wrap = $activeTab.closest('.filters-wrap'); // обгортка конкретної кімнати
+        const type = $wrap.data('options-type');
+        const roomType =  normalizeKey(type);  
+     
+        const inputName = `${roomType}-image-${tabIndex}`;
+        const $formInput = $(`#main-form [name="${inputName}"]`);
 
-    const inputName = `${roomType}-image-${tabIndex}`;
-    const $formInput = $(`#main-form [name="${inputName}"]`);
+        console.log('$wrap', $wrap);
+        console.log('type', type);
+        console.log('roomType', roomType);
+        console.log('$activeTab', $activeTab);
+        console.log('inputName', inputName);
+        console.log('$formInput', $formInput);
 
-    console.log('$wrap', $wrap);
-    console.log('roomType', roomType);
-    console.log('$activeTab', $activeTab);
-    console.log('inputName', inputName);
-    console.log('$formInput', $formInput);
+        if ($formInput.length) {
+            $formInput.val(imageValue);
+            $formInput.attr('data-value', imageSrc);
+        }
 
-    if ($formInput.length) {
-        $formInput.attr('data-value', imageSrc);
-    }
-
-    // Reset zoom + drag
-    _functions.setValue($(".js_zoom input"), 100);
-    _functions.resetDrag();
-});
+        // Reset zoom + drag
+        _functions.setValue($(".js_zoom input"), 100);
+        _functions.resetDrag();
+    });
 
 
     $(document).ready(function(){
@@ -789,7 +793,10 @@ console.log('$input ',$input)
         //     }
         // });
 
-        $(document).on('change', 'input[type="radio"][data-image]', function () {
+        $(document).on('change', 'input[data-image]', function () {
+            console.log($(this))
+            console.log($(this).checked)
+            console.log(this.checked)
             if (!this.checked) return;
 
             const imageType = $(this).data('image');
@@ -798,7 +805,7 @@ console.log('$input ',$input)
 
             // 🔹 Вибираємо активний крок
             const $activeStep = $(this).closest('.js-step');
-            if (!$activeStep.length || !$activeStep.hasClass('is-active')) return;
+            if (!$activeStep.length || !$activeStep.hasClass('active')) return;
 
             const $wrap = $activeStep.find('.filters-wrap');
             const type = $wrap.data('options-type');
@@ -1705,9 +1712,9 @@ $(document).on(
     };
 
     _functions.resetStyleMapImages = function () {
-        // $('.main-image img').not('.main').each(function () {
-        //     $(this).attr('src', '#');
-        // });
+        $('.main-image img').not('.main').each(function () {
+            $(this).attr('src', '#');
+        });
     };
 
 

@@ -170,7 +170,7 @@ width: 2.8125rem;height:  2.8125rem;
         object-fit: contain; 
     }
 .filters-wrap {position: static;width: 100%;flex: 1;display: flex;}
-.filters-bg {height: auto;flex: 1;padding-bottom: 0;}
+.filters-bg {height: auto;flex: 1;padding-bottom: 0;background: #fff;}
 .style-map{
     position: relative;
     height: auto;

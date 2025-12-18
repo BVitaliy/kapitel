@@ -150,7 +150,7 @@
     <div class="filter-opt__inner">
         <div class="ch-box-wrap">
             <label class="ch-box">
-                <input type="radio" name="wall" value="1" data-image="ceiling"  data-url="#" data-price="1127">
+                <input type="radio" name="wall" value="1" data-image="wall"  data-url="#" data-price="1127">
                 <span>
                     Штукатурення, грунутвання, шпаклювання, армування, фарбування
                 </span>
@@ -158,7 +158,7 @@
         </div>
         <div class="ch-box-wrap">
             <label class="ch-box">
-                <input type="radio" name="wall" value="2" data-image="ceiling"  data-url="img/_temp/Стіни/декоративка.png" data-price="1382">
+                <input type="radio" name="wall" value="2" data-image="wall"  data-url="img/_temp/Стіни/декоративка.png" data-price="1382">
                 <span>
                     Штукатурення, грунутвання, шпаклювання, армування, декоративна штукатурка 
                 </span>
@@ -166,7 +166,7 @@
         </div>
         <div class="ch-box-wrap">
             <label class="ch-box">
-                <input type="radio" name="wall" value="3" data-image="ceiling"  data-url="img/_temp/Стіни/шпалери.png" data-price="1200">
+                <input type="radio" name="wall" value="3" data-image="wall"  data-url="img/_temp/Стіни/шпалери.png" data-price="1200">
                 <span>
                     Штукатурення, грунутвання, шпаклювання, армування, поклейка шпалер
                 </span>

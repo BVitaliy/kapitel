@@ -139,7 +139,7 @@
     <div class="filter-opt__inner">
         <div class="ch-box-wrap">
             <label class="ch-box">
-                <input type="radio" name="wall" value="1" data-image="ceiling"  data-url="#" data-price="1550">
+                <input type="radio" name="wall" value="1" data-image="wall"  data-url="#" data-price="1550">
                 <span>
                     штукатурення , грунутвання ,  облицювання плиткою 600*600 мм
                 </span>
@@ -147,7 +147,7 @@
         </div>
         <div class="ch-box-wrap">
             <label class="ch-box">
-                <input type="radio" name="wall" value="2" data-image="ceiling"  data-url="img/_temp/Стіни/декоративка.png" data-price="1700">
+                <input type="radio" name="wall" value="2" data-image="wall"  data-url="img/_temp/Стіни/декоративка.png" data-price="1700">
                 <span>
                     штукатурення , грунутвання ,  облицювання плиткою 600*1200 мм
                 </span>
@@ -155,7 +155,7 @@
         </div>
         <div class="ch-box-wrap">
             <label class="ch-box">
-                <input type="radio" name="wall" value="3" data-image="ceiling"  data-url="img/_temp/Стіни/шпалери.png" data-price="2300">
+                <input type="radio" name="wall" value="3" data-image="wall"  data-url="img/_temp/Стіни/шпалери.png" data-price="2300">
                 <span>
                     штукатурення , грунутвання ,  облицювання плиткою малий формат 
                 </span>
