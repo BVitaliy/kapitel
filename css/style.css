@@ -181,9 +181,15 @@ a:hover .video-cover video {transform: scale(1.04);}
 /*--------------------------*/
 ._tabs {position: relative;}
 :where(._tab) {display: none;}
-._tab:nth-child(1 of ._tab) {display: block;}
+/* ._tab:nth-child(1 of ._tab) {display: block;} */
 ._tab-item {transition: var(--transition-1);cursor: pointer;}
 ._tab-item.is-active {pointer-events: none;}
 .banner-container.size2 {
     max-width: 37.8125rem;
+}
+._tab:not(.active){
+    display: none;
+}
+._tab.active{
+    display: block!important;
 }

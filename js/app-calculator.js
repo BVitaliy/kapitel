@@ -643,8 +643,8 @@ $(document).on('touchmove', '[data-draggable]', function (e) {
     // });
 
     $(document).on('click', '.filters-img', function () {
-
-        $('.filters-img').removeClass('active');
+        const $activeStep = $(this).closest('.js-step');
+        $activeStep.find('.filters-img').removeClass('active');
         $(this).addClass('active');
 
         const targetId = $(this).data('image-target');
@@ -671,8 +671,8 @@ $(document).on('touchmove', '[data-draggable]', function (e) {
 
         // -------------------------------
         // Оновлює hidden input
-        const $activeStep = $(this).closest('.js-step'); // <-- активний крок
-        const $activeTab = $activeStep.find('._tab-item.is-active'); // таб всередині активного кроку
+          // <-- активний крок
+        const $activeTab = $activeStep.find('._tab.active'); // таб всередині активного кроку
         const tabIndex = $activeTab.index() + 1;
 
         const $wrap = $activeTab.closest('.filters-wrap'); // обгортка конкретної кімнати
@@ -700,83 +700,157 @@ $(document).on('touchmove', '[data-draggable]', function (e) {
     });
 
 
-    $(document).ready(function(){
+    // $(document).ready(function(){
 
-        // тип приміщення (на сторінці тільки один)
-        const roomType = $('.filters-title').data('room-type'); // "кухня"
-        const $tabs = $('._tab-item');
+    //     // тип приміщення (на сторінці тільки один)
+    //     const roomType = $('.filters-title').data('room-type'); // "кухня"
+    //     const $tabs = $('._tab-item');
         
-        const $form = $('#main-form');
+    //     const $form = $('#main-form');
 
-        // створює hidden input для кожного таба
-        $tabs.each(function(index){
-            const tabIndex = index + 1; // щоб рахувало з 1
-            const inputName = `${roomType}-image-${tabIndex}`;
+    //     // створює hidden input для кожного таба
+    //     $tabs.each(function(index){
+    //         const tabIndex = index + 1; // щоб рахувало з 1
+    //         const inputName = `${roomType}-image-${tabIndex}`;
  
-            if( !$form.find(`[name="${inputName}"]`).length ){
-                const $input = $('<input>', {
-                    type: 'hidden',
-                    name: inputName,
-                    value: '' // спочатку пусте
-                });
-                $form.append($input);
-            }
-        });
+    //         if( !$form.find(`[name="${inputName}"]`).length ){
+    //             const $input = $('<input>', {
+    //                 type: 'hidden',
+    //                 name: inputName,
+    //                 value: '' // спочатку пусте
+    //             });
+    //             $form.append($input);
+    //         }
+    //     });
 
-        // ініціалізує картинку на активному табі
-        const activeIndex = $tabs.filter('.is-active').index() + 1;
-        const activeInput = $form.find(`[name="${roomType}-image-${activeIndex}"]`);
+    //     // ініціалізує картинку на активному табі
+    //     const activeIndex = $tabs.filter('.is-active').index() + 1;
+    //     const activeInput = $form.find(`[name="${roomType}-image-${activeIndex}"]`);
         
-        // якщо картинка є в data-image-id
-        const $mainImg = $('.style-map__image').find('img[data-image-id]')
-        if($mainImg.length){
-            activeInput.val($mainImg.attr('src'))
-        }
+    //     // якщо картинка є в data-image-id
+    //     const $mainImg = $('.style-map__image').find('img[data-image-id]')
+    //     if($mainImg.length){
+    //         activeInput.val($mainImg.attr('src'))
+    //     }
 
-    });
+    // });
 
-    $(document).on('click', '._tab-item', function(){
+//     $(document).on('click', '._tab-item', function(){
+//         const $this = $(this);
+//         const index = $this.index() + 1;
+//         const roomType = $this.closest('.filters-wrap').data('options-type');
+//         const $form = $('#main-form');
+
+//         // знімаємо активні класи
+//         $this.siblings().removeClass('is-active');
+//         $this.addClass('is-active');
+
+//         // показуємо відповідний _tab
+//         const $tabsContent = $('.filters ._tab');
+//         $tabsContent.removeClass('active').eq(index-1).addClass('active');
+
+//         // оновлюємо картинку
+//         const $mainImg = $('.style-map__image').find('img[data-image-id].main');
+//         const mainDefaultSrc = $mainImg.attr('data-default-src');
+//         const inputName = `${roomType}-image-${index}`;
+//         const $input = $form.find(`[name="${inputName}"]`);
+// console.log('$inputName ',inputName)
+// console.log('$input ',$input)
+//         let newSrc;
+//         if($input.val()){ // якщо раніше вибрана картинка
+//             newSrc = $input.data('value');
+//         } else {
+//             // скидає на дефолт
+//             newSrc = mainDefaultSrc;
+//             $input.val(mainDefaultSrc);
+//         }
+
+//         $mainImg.attr('src', newSrc);
+
+//         // === Додаємо активний клас на filters-img для поточного таба
+//         $('.filters-img').removeClass('active');
+//         $(`.filters-img[data-image="${newSrc}"]`).addClass('active');
+
+//         _functions.setValue($(".js_zoom input"), 100);
+//         // $('[data-draggable]').css('transform', `translate(0px, 0px) scale(1)`);
+//          _functions.resetDrag();
+//          _functions.resetStyleMapImages();
+     
+//     });
+
+    $(document).on('click', '._tab-item', function () {
         const $this = $(this);
+
+        // 🔒 ОБМЕЖУЄМО КОНТЕКСТ
+        const $step = $this.closest('.js-step.active');
+        if (!$step.length) return;
+
+        const $wrap = $this.closest('.filters-wrap');
         const index = $this.index() + 1;
-        const roomType = $this.closest('.filters-wrap').data('options-type');
+        const roomType = $wrap.data('options-type');
         const $form = $('#main-form');
 
-        // знімаємо активні класи
-        $this.siblings().removeClass('is-active');
-        $this.addClass('is-active');
+        /* =========================
+        TAB ACTIVE
+        ========================= */
+        $this
+            .addClass('active')
+            .siblings('._tab-item')
+            .removeClass('active');
 
-        // показуємо відповідний _tab
-        const $tabsContent = $('.filters ._tab');
-        $tabsContent.removeClass('active').eq(index-1).addClass('active');
+        /* =========================
+        TAB CONTENT (ЛОКАЛЬНО)
+        ========================= */
+        const $tabsContent = $wrap.find('.filters > ._tab');
 
-        // оновлюємо картинку
-        const $mainImg = $('.style-map__image').find('img[data-image-id].main');
-        const mainDefaultSrc = $mainImg.attr('data-default-src');
+        $tabsContent
+            .removeClass('active')
+            .eq(index - 1)
+            .addClass('active');
+
+        /* =========================
+        MAIN IMAGE (ЛОКАЛЬНО)
+        ========================= */
+        const $mainImg = $step
+            .find('.style-map__image img.main[data-image-id]');
+
+        if (!$mainImg.length) return;
+
+        const mainDefaultSrc = $mainImg.data('default-src');
+
         const inputName = `${roomType}-image-${index}`;
         const $input = $form.find(`[name="${inputName}"]`);
-console.log('$inputName ',inputName)
-console.log('$input ',$input)
-        let newSrc;
-        if($input.val()){ // якщо раніше вибрана картинка
-            newSrc = $input.val();
-        } else {
-            // скидає на дефолт
-            newSrc = mainDefaultSrc;
-            $input.val(mainDefaultSrc);
-        }
 
+        let newSrc;
+
+        if ($input.length && $input.data('value')) {
+            newSrc = $input.data('value');
+        } else {
+            newSrc = mainDefaultSrc;
+            if ($input.length) {
+                $input.data('value', mainDefaultSrc);
+            }
+        }
+        console.log($input.length && $input.data('value'))
+        console.log(' $input', $input)
+        console.log('inputName',inputName)
+        console.log('newSrc',newSrc)
         $mainImg.attr('src', newSrc);
 
-        // === Додаємо активний клас на filters-img для поточного таба
-        $('.filters-img').removeClass('active');
-        $(`.filters-img[data-image="${newSrc}"]`).addClass('active');
+        /* =========================
+        ACTIVE FILTERS IMG (ЛОКАЛЬНО)
+        ========================= */
+        $step.find('.filters-img').removeClass('active');
+        $step.find(`.filters-img[data-image="${newSrc}"]`).addClass('active');
 
-        _functions.setValue($(".js_zoom input"), 100);
-        // $('[data-draggable]').css('transform', `translate(0px, 0px) scale(1)`);
-         _functions.resetDrag();
-         _functions.resetStyleMapImages();
-     
+        /* =========================
+        RESET ZOOM + DRAG (ЛОКАЛЬНО)
+        ========================= */
+        _functions.setValue($step.find('.js_zoom input'), 100);
+        _functions.resetDrag();
+        _functions.resetStyleMapImages();
     });
+
 
 
     $(document).ready(function() {
@@ -1173,7 +1247,7 @@ console.log('$input ',$input)
             TAB CONTENT
             ========================= */
             const $tab = $(`<div class="_tab">${templateHtml}</div>`);
-            if (index === 0) $tab.addClass('is-active');
+            if (index === 0) $tab.addClass('active');
 
             _functions.namespaceTabOptions($tab, type, index);
             $tabsContainer.append($tab);
@@ -1400,6 +1474,9 @@ console.log('$input ',$input)
             }
         }
 
+        _functions.resetDrag();
+        _functions.setValue($(".js_zoom input"), 100);
+
         // 👉 якщо все ОК
         $currentStep.removeClass('active');
         $nextStep.addClass('active');
@@ -1416,7 +1493,8 @@ console.log('$input ',$input)
 
         // ❗ якщо це step-1 — не даємо йти назад
         if (!$prevStep.length) return;
-
+        _functions.resetDrag();
+        _functions.setValue($(".js_zoom input"), 100);
         $currentStep.removeClass('active');
         $prevStep.addClass('active');
         _functions.syncHeaderWithStep();
@@ -1511,43 +1589,129 @@ console.log('$input ',$input)
         return isValid;
     };
 
+    // _functions.validateRoomOptionsStep = function ($step) {
+    //     let isValid = true;
+
+    //     const $error = $step.find('.error-text.invalid');
+    //     $error.text('').removeClass('active');
+
+    //     // чистимо старі помилки
+    //     $step.find('.filter-opt')
+    //         .removeClass('invalid');
+    //     if($step.find('.filter-opt').find('.filter-opt__title small').text() === 'не вибрано'){
+    //         $step.find('.filter-opt')
+    //         .find('.filter-opt__title small')
+    //         .text('')
+    //     }
+    //     // 👉 перевіряємо лише required блоки
+    //     $step.find('.filter-opt.required').each(function () {
+    //         const $opt = $(this);
+
+    //         // radio / checkbox всередині
+    //         const hasChecked = $opt.find('input[type="radio"]:checked, input[type="checkbox"]:checked').length > 0;
+
+    //         if (!hasChecked) {
+    //             isValid = false;
+
+    //             $opt.addClass('invalid');
+    //             $opt.find('.filter-opt__title small').text('не вибрано');
+    //         }
+    //     });
+
+    //     if (!isValid) {
+    //         $error.text('Не всі поля заповнені').addClass('active');
+    //     }
+
+    //     return isValid;
+    // };
+
     _functions.validateRoomOptionsStep = function ($step) {
         let isValid = true;
+        let firstInvalidTabIndex = null;
 
         const $error = $step.find('.error-text.invalid');
         $error.text('').removeClass('active');
 
-        // чистимо старі помилки
-        $step.find('.filter-opt')
-            .removeClass('invalid');
-        if($step.find('.filter-opt').find('.filter-opt__title small').text() === 'не вибрано'){
-            $step.find('.filter-opt')
-            .find('.filter-opt__title small')
-            .text('')
-        }
-        // 👉 перевіряємо лише required блоки
-        $step.find('.filter-opt.required').each(function () {
-            const $opt = $(this);
-
-            // radio / checkbox всередині
-            const hasChecked = $opt.find('input[type="radio"]:checked, input[type="checkbox"]:checked').length > 0;
-
-            if (!hasChecked) {
-                isValid = false;
-
-                $opt.addClass('invalid');
-                $opt.find('.filter-opt__title small').text('не вибрано');
+        /* =========================
+        ОЧИСТКА СТАНІВ
+        ========================= */
+        $step.find('.filter-opt').removeClass('invalid');
+        $step.find('.filter-opt__title small').each(function () {
+            if ($(this).text().trim() === 'не вибрано') {
+                $(this).text('');
             }
         });
 
+        /* =========================
+        ПЕРЕВІРКА КОЖНОЇ КІМНАТИ
+        ========================= */
+        $step.find('.filters-wrap').each(function () {
+            const $wrap = $(this);
+
+            $wrap.find('.filters > ._tab').each(function (tabIndex) {
+                const $tab = $(this);
+                let tabValid = true;
+
+                $tab.find('.filter-opt.required').each(function () {
+                    const $opt = $(this);
+
+                    const hasChecked =
+                        $opt.find('input[type="radio"]:checked, input[type="checkbox"]:checked').length > 0;
+
+                    if (!hasChecked) {
+                        tabValid = false;
+                        isValid = false;
+
+                        $opt.addClass('invalid');
+                        $opt.find('.filter-opt__title small').text('не вибрано');
+                    }
+                });
+
+                // 👉 запамʼятовуємо ПЕРШУ невалідну кімнату
+                if (!tabValid && firstInvalidTabIndex === null) {
+                    firstInvalidTabIndex = {
+                        wrap: $wrap,
+                        index: tabIndex
+                    };
+                }
+            });
+        });
+
+        /* =========================
+        ЯКЩО Є ПОМИЛКИ
+        ========================= */
         if (!isValid) {
             $error.text('Не всі поля заповнені').addClass('active');
+
+            // 🚀 ПЕРЕХІД НА ПЕРШУ НЕЗАПОВНЕНУ КІМНАТУ
+            if (firstInvalidTabIndex) {
+                const { wrap, index } = firstInvalidTabIndex;
+
+                // tab buttons
+                wrap.find('._tab-item')
+                    .removeClass('is-active')
+                    .eq(index)
+                    .addClass('is-active');
+
+                // tab content
+                wrap.find('._tab')
+                    .removeClass('active')
+                    .eq(index)
+                    .addClass('active');
+
+                // optional: скрол до опцій
+                const $target = wrap.find('._tab').eq(index);
+                if ($target.length) {
+                    $('html, body').animate({
+                        scrollTop: $target.offset().top - 100
+                    }, 400);
+                }
+            }
         }
 
         return isValid;
     };
 
- 
 
 $(document).on(
     'input change',
