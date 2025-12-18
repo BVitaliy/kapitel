@@ -497,6 +497,7 @@ _functions.restoreInputsFromRoomsData = function () {
 
     $(document).on('click', '[data-full]', function () {
         _functions.setValue($(".js_zoom input"), 100);
+        _functions.resetDrag();
         $('[data-draggable]').css('transform', `translate(${lastX}px, ${lastY}px) scale(${1})`);
     });    
 
@@ -780,8 +781,7 @@ $(document).on('touchmove', '[data-draggable]', function (e) {
 
     $(document).on('click', '._tab-item', function () {
         const $this = $(this);
-
-        // 🔒 ОБМЕЖУЄМО КОНТЕКСТ
+ 
         const $step = $this.closest('.js-step.active');
         if (!$step.length) return;
 
@@ -823,8 +823,10 @@ $(document).on('touchmove', '[data-draggable]', function (e) {
 
         let newSrc;
 
-        if ($input.length && $input.data('value')) {
-            newSrc = $input.data('value');
+        if ($input.length  ) {
+             console.log('asdasd',$input.length && $input.data('value'))
+             newSrc = $input.data('value');
+             console.log('$input.data',$input.data('value'))
         } else {
             newSrc = mainDefaultSrc;
             if ($input.length) {
