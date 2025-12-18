@@ -92,7 +92,7 @@ html {font-size: 2rem;}
 /*--------------------*/
 /*  Header            */
 /*--------------------*/
-:root {--h-height: 4rem;--h-logo-width: 3.1875rem;--h-gutter: 1.5625rem;}
+:root {--h-height: 4rem;--h-logo-width: 4.375rem;--h-gutter: 1.5625rem;}
 header {position: relative;z-index: 100;height: var(--h-height);}
 header .container-fluid {--bs-gutter-x: 0;}
 .h-wrap {position: fixed;z-index: 100;top: 0;left: 0;width: 100%;background-color: var(--clr-white);border-bottom: 0.0625rem solid var(--clr-border);border-top: 0.0625rem solid var(--clr-border);transition: box-shadow var(--transition-1);}
@@ -109,8 +109,8 @@ header.scrolled .h-wrap {box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.04);}
 .h-total > * {display: flex;align-items: center;gap: 0.4375rem;min-height: 1.125rem;line-height: 1;color: var(--clr-black); min-width: 80px;}
 .h-total svg {color: var(--clr-icon);}
 .h-total b {font-weight: 500;}
-.h-logo {display: block;width: var(--h-logo-width);flex-shrink: 0;margin-right: 1.5625rem;}
-.h-logo img {display: block;max-width: 100%;}
+.h-logo {display: block;flex-shrink: 0;margin-right: 1.5625rem;width: var(--h-logo-width);}
+.h-logo img {display: block;max-width: 100%;width: var(--h-logo-width);}
 .h-home {display: inline-flex;align-items: center;gap: 0.3125rem;font-size: 0.875rem;margin-right: clamp(1rem, 0.472rem + 1.69vw, 2.5rem);color: var(--clr-black);}
 .h-home i {flex-shrink: 0;display: flex;align-items: center;justify-content: center;width: 1.75rem;height: 1.75rem;background-color: var(--bg-2);border-radius: 100%;}
 .h-home i svg {transition: var(--transition-1);}
