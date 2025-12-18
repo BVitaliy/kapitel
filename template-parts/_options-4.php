@@ -1,4 +1,4 @@
-<div class="filter-opt" data-marker="kitchen-floor">
+<div class="filter-opt" data-marker="bathroom-floor">
     <div class="filter-opt__top">
         <div class="filter-opt__icon">
             <img src="img/icons/icon-floor.svg" alt="">
@@ -89,7 +89,7 @@
         </div>
     </div>
 </div>
-<div class="filter-opt required" data-marker="kitchen-ceiling">
+<div class="filter-opt required" data-marker="bathroom-ceiling">
     <div class="filter-opt__top">
         <div class="filter-opt__icon">
             <img src="img/icons/icon-ceiling.png" alt="">
@@ -126,7 +126,7 @@
         </div>
     </div>
 </div>
-<div class="filter-opt required" data-marker="kitchen-walls">
+<div class="filter-opt required" data-marker="bathroom-walls">
     <div class="filter-opt__top">
         <div class="filter-opt__icon">
             <img src="img/icons/icon-walls.svg" alt="">
@@ -213,7 +213,7 @@
   
     </div>
 </div>
-<div class="filter-opt required" data-marker="kitchen-lighting">
+<div class="filter-opt required" data-marker="bathroom-lighting">
     <div class="filter-opt__top">
         <div class="filter-opt__icon">
             <img src="img/icons/icon-lighting.svg" alt="">
@@ -267,7 +267,7 @@
  
     </div>
 </div>
-<div class="filter-opt required" data-marker="kitchen-doors">
+<div class="filter-opt required" data-marker="bathroom-doors">
     <div class="filter-opt__top">
         <div class="filter-opt__icon">
             <img src="img/icons/icon-doors.svg" alt="">

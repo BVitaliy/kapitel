@@ -856,6 +856,7 @@ $(document).on('touchmove', '[data-draggable]', function (e) {
 
 
     $(document).ready(function() {
+        _functions.scrollHeaderToActive()
         // 🖼 ОНОВЛЕННЯ КАРТИНОК ЗА RADIO / CHECKBOX
         // $(document).on("change", 'input[data-image]', function () {
         //     const type = $(this).data("image");    // наприклад "floor"
@@ -1504,13 +1505,13 @@ $(document).on('touchmove', '[data-draggable]', function (e) {
         // scrollToTop();
     });
 
-    _functions.syncHeaderWithStep = function() {
+    _functions.syncHeaderWithStep = function () {
         const stepIndex = $('.js-step').index($('.js-step.active'));
 
         $('.h-links li').each(function (index) {
             const $li = $(this);
 
-            $li.removeClass('current');
+            $li.removeClass('current filled');
 
             // поточний
             if (index === stepIndex) {
@@ -1525,7 +1526,57 @@ $(document).on('touchmove', '[data-draggable]', function (e) {
 
         _functions.buildRoomTabs();
         _functions.restoreRoomOptions();
-    }
+
+        /* =========================
+        📱 SCROLL TO TOP (MOBILE)
+        ========================= */
+        if (window.innerWidth < 991) {
+            // невелика затримка, щоб DOM оновився
+            setTimeout(() => {
+                $('html, body').animate(
+                    { scrollTop: 0 },
+                    0
+                );
+                _functions.scrollHeaderToActive();
+            }, 0);
+        }
+    };
+
+
+    _functions.isElementInViewX = function ($el, $container) {
+        const elLeft   = $el.position().left;
+        const elRight  = elLeft + $el.outerWidth();
+
+        const viewLeft  = $container.scrollLeft();
+        const viewRight = viewLeft + $container.innerWidth();
+
+        return elLeft >= viewLeft && elRight <= viewRight;
+    };
+
+    _functions.scrollHeaderToActive = function () {
+        const $nav = $('.h-menu');
+        const $list = $nav.find('ul');
+        const $active = $nav.find('li.current');
+
+        if (!$active.length) return;
+
+        // якщо вже видно — нічого не робимо
+        if (_functions.isElementInViewX($active, $nav)) return;
+
+        const activeLeft = $active.position().left;
+        const activeWidth = $active.outerWidth();
+        const navWidth = $nav.innerWidth();
+
+        // центруємо активний пункт
+        const newScrollLeft =
+            activeLeft - navWidth / 2 + activeWidth / 2;
+
+        $nav.animate(
+            { scrollLeft: newScrollLeft },
+            300
+        );
+    };
+
 
     $(document).on('click', '.h-links li', function (e) {
         e.preventDefault();

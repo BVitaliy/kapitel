@@ -53,7 +53,44 @@ jQuery(function ($) {
 
       th.closest('.input-field').addClass('value');
     });
+_functions.scrollHeaderToActive()
+    
   });
+
+
+      _functions.isElementInViewX = function ($el, $container) {
+        const elLeft   = $el.position().left;
+        const elRight  = elLeft + $el.outerWidth();
+
+        const viewLeft  = $container.scrollLeft();
+        const viewRight = viewLeft + $container.innerWidth();
+
+        return elLeft >= viewLeft && elRight <= viewRight;
+    };
+
+    _functions.scrollHeaderToActive = function () {
+        const $nav = $('.h-menu');
+        const $list = $nav.find('ul');
+        const $active = $nav.find('li.current');
+
+        if (!$active.length) return;
+
+        // якщо вже видно — нічого не робимо
+        if (_functions.isElementInViewX($active, $nav)) return;
+
+        const activeLeft = $active.position().left;
+        const activeWidth = $active.outerWidth();
+        const navWidth = $nav.innerWidth();
+
+        // центруємо активний пункт
+        const newScrollLeft =
+            activeLeft - navWidth / 2 + activeWidth / 2;
+
+        $nav.animate(
+            { scrollLeft: newScrollLeft },
+            300
+        );
+    };
 
 
   // Validate email
