@@ -40,7 +40,9 @@
                         <ul>
                             <li class="<?php echo $item_class_1 ?? ''; ?>"><a href="index.php"><i><svg width="12" height="13">
                                             <use xlink:href="img/icons/icons_global.svg#stick" fill="none"></use>
-                                        </svg></i>Загальне</a></li>
+                                        </svg></i>Загальне</a>
+                                    
+                                    </li>
                             <li class="<?php echo $item_class_2 ?? ''; ?>"><a href=""><i><svg width="14" height="14">
                                             <use xlink:href="img/icons/icons_global.svg#room" fill="none"></use>
                                         </svg></i>К-ть приміщень</a></li>

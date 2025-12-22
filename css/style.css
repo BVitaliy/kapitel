@@ -193,3 +193,35 @@ a:hover .video-cover video {transform: scale(1.04);}
 ._tab.active{
     display: block!important;
 }
+
+
+.autocomplete {
+    position: relative;
+}
+
+.autocomplete-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-top: none;
+    max-height: 220px;
+    overflow-y: auto;
+    display: none;
+}
+
+.autocomplete-list li {
+    padding: 10px 14px;
+    cursor: pointer;
+    font-size: 14px;
+    display: block;
+    line-height: 1;
+}
+
+.autocomplete-list li:hover,
+.autocomplete-list li.active {
+    background: #f3f3f3;
+}

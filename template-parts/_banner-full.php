@@ -67,10 +67,45 @@
                                     </select> 
                                 </div>
                                 -->
-                                <div class="input-field">
+                                <div class="input-field autocomplete">
                                     <div class="input-placeholder">Область</div>
-                                    <input type="text" class="input" required name=region placeholder="Введіть назву">
+                                    <input
+                                        type="text"
+                                        class="input js-autocomplete-input"
+                                        name="region"
+                                        placeholder="Введіть назву"
+                                        autocomplete="off"
+                                        required
+                                    >
+
+                                    <ul class="autocomplete-list js-autocomplete-list">
+                                        <li>Вінницька </li>
+                                        <li>Волинська </li>
+                                        <li>Дніпропетровська </li>
+                                        <li>Донецька </li>
+                                        <li>Житомирська </li>
+                                        <li>Закарпатська </li>
+                                        <li>Запорізька </li>
+                                        <li>Івано-Франківська </li>
+                                        <li>Київська </li>
+                                        <li>Кіровоградська </li>
+                                        <li>Луганська </li>
+                                        <li>Львівська </li>
+                                        <li>Миколаївська </li>
+                                        <li>Одеська </li>
+                                        <li>Полтавська </li>
+                                        <li>Рівненська </li>
+                                        <li>Сумська </li>
+                                        <li>Тернопільська </li>
+                                        <li>Харківська </li>
+                                        <li>Херсонська </li>
+                                        <li>Хмельницька </li>
+                                        <li>Черкаська </li>
+                                        <li>Чернівецька </li>
+                                        <li>Чернігівська </li> 
+                                    </ul>
                                 </div>
+
                                 <div class="input-field">
                                     <div class="input-placeholder">Місто</div>
                                     <input type="text" class="input" required name=city placeholder="Введіть назву">
@@ -113,7 +148,7 @@
                                         <b>Почати</b>
                                     </a>
                                 </div>
-</div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -1023,6 +1023,8 @@ $(document).on('touchmove', '[data-draggable]', function (e) {
         $('.filter-opt').each(function() {
             updateFilterOptTitle($(this));
         });
+
+        _functions.autocomplete();
     });
 
 
@@ -1933,6 +1935,43 @@ $(document).on(
             $(this).attr('src', '#');
         });
     };
+
+    _functions.autocomplete = function ( ) {
+        $('.js-autocomplete-input').each(function () {
+
+            const $input = $(this);
+            const $wrap = $input.closest('.autocomplete');
+            const $list = $wrap.find('.js-autocomplete-list');
+            const $items = $list.find('li');
+
+            $input.on('input focus', function () {
+                const value = $input.val().toLowerCase();
+                let hasVisible = false;
+
+                $items.each(function () {
+                    const text = $(this).text().toLowerCase();
+                    const match = text.includes(value);
+
+                    $(this).toggle(match);
+                    if (match) hasVisible = true;
+                });
+
+                $list.toggle(hasVisible && value.length);
+            });
+
+            $list.on('click', 'li', function () {
+                $input.val($(this).text());
+                $list.hide();
+            });
+
+            $(document).on('click', function (e) {
+                if (!$(e.target).closest($wrap).length) {
+                    $list.hide();
+                }
+            });
+
+        });
+    }
 
 
 });
