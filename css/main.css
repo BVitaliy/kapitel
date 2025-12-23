@@ -316,9 +316,11 @@ form.main-form{
         overflow-x: auto;
         background: var(--clr-white);
         padding: 0;
-        height: auto;
+        /* height: auto; */
+        height: 48px;
     }
-
+    
+ 
     .h-links ul {
         gap: 0;
         position: relative;
@@ -337,7 +339,7 @@ form.main-form{
         margin-right: -30px;
         min-width: 130px;
                 -webkit-mask: url("data:image/svg+xml;utf8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 40' preserveAspectRatio='none'> <polygon points='86,0 100,20 86,40 0,40 6,20 0,0' fill='white'/> </svg>") no-repeat center / 100% 100%;
-                 background: #ccc;
+                 background: #E0E0E0;
     }
     .h-links li:first-child ,
     .h-links li:first-child a{
@@ -378,10 +380,12 @@ form.main-form{
     .h-links li:first-child{
         /* z-index: 4;
         margin-right: -15px; */
+        margin-left: -10px;
+        padding: 1px 1px 1px 0px;
         -webkit-mask: url("data:image/svg+xml;utf8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 40' preserveAspectRatio='none'> <polygon points='86,0 100,20 94,40 0,40 0,20 0,0' fill='white'/> </svg>") no-repeat center / 100% 100%;
     }
     .h-links li:first-child a{
-        padding: 7px 35px 7px 15px;
+        padding: 7px 35px 7px 25px;
         -webkit-mask: url("data:image/svg+xml;utf8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 40' preserveAspectRatio='none'> <polygon points='86,0 100,20 94,40 0,40 0,20 0,0' fill='white'/> </svg>") no-repeat center / 100% 100%;
         
     }
