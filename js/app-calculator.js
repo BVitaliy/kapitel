@@ -691,10 +691,10 @@ $(document).on('touchmove', '[data-draggable]', function (e) {
         console.log('$formInput', $formInput);
 
         if ($formInput.length) {
-            $formInput.val(imageValue);
+            $formInput.val(styleId);
             $formInput.attr('data-value', imageSrc);
         }
-
+        $(`[name="style_id"]`).val(styleId); // <---- Додано
         // Reset zoom + drag
         _functions.setValue($(".js_zoom input"), 100);
         _functions.resetDrag();

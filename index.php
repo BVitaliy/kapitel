@@ -759,6 +759,7 @@
 
                  <input type="hidden" name="rooms_data" id="rooms_data">
                  <input type="hidden" name="total_price">
+                 <input type="hidden" name="style_id">
            </form>        
         </main>
     </div>
