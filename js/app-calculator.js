@@ -698,9 +698,78 @@ $(document).on('touchmove', '[data-draggable]', function (e) {
         // Reset zoom + drag
         _functions.setValue($(".js_zoom input"), 100);
         _functions.resetDrag();
+
+        // -------------------------------
+        // Парсимо data-images
+        let imagesData = $(this).attr('data-images');
+
+        let parsedImages = null;
+
+        if (imagesData) {
+            try {
+                // HTML entities → нормальний JSON
+                const decoded = $('<textarea/>').html(imagesData).text();
+                parsedImages = JSON.parse(decoded);
+            } catch (e) {
+                console.error('❌ Не вдалося розпарсити data-images', e);
+            }
+        }
+
+        console.log('parsedImages', parsedImages);
+        _functions.syncInputsWithParsedImages($activeStep, parsedImages);
+
     });
 
+_functions.syncInputsWithParsedImages = function ($step, parsedImages) {
+    if (!parsedImages) return;
 
+    $step.find('input[data-image]').each(function () {
+        const $input = $(this);
+
+        const sectionKey = $input.data('image'); // ceiling, wall...
+        const inputValue = $input.val();
+
+        if (!sectionKey || !parsedImages[sectionKey]) return;
+
+        const section = parsedImages[sectionKey];
+        if (!Array.isArray(section.options)) return;
+
+        const matchedOption = section.options.find(
+            opt => String(opt.value) === String(inputValue)
+        );
+
+        if (!matchedOption || !matchedOption.image_url) return;
+
+        // 🔥 1. оновлюємо data-url
+        $input.attr('data-url', matchedOption.image_url);
+
+        // 🔥 2. оновлюємо відповідну картинку
+        _functions.syncImagesByDataId(
+            $step,
+            sectionKey,
+            matchedOption.image_url
+        );
+    });
+};
+
+
+    _functions.syncImagesByDataId = function ($step, sectionKey, imageSrc) {
+        if (!sectionKey || !imageSrc) return;
+
+        const $img = $step.find(`.main-image img[data-image-id="${sectionKey}"]`);
+        if (!$img.length) return;
+
+        // ❌ не оновлюємо пусті або #
+        if (!imageSrc || imageSrc === '#') return;
+
+        $img
+            .addClass('no-transition')
+            .attr('src', imageSrc);
+
+        setTimeout(() => {
+            $img.removeClass('no-transition');
+        }, 50);
+    };
     // $(document).ready(function(){
 
     //     // тип приміщення (на сторінці тільки один)
@@ -870,50 +939,54 @@ $(document).on('touchmove', '[data-draggable]', function (e) {
         //     }
         // });
 
+        // $(document).on('change', 'input[data-image]', function () {
+        //     console.log($(this))
+        //     console.log($(this).checked)
+        //     console.log(this.checked)
+        //     if (!this.checked) return;
+
+        //     const imageType = $(this).data('image');
+        //     const imageUrl  = $(this).data('url');
+        //     if (!imageType || !imageUrl) return;
+
+        //     // 🔹 Вибираємо активний крок
+        //     const $activeStep = $(this).closest('.js-step');
+        //     if (!$activeStep.length || !$activeStep.hasClass('active')) return;
+
+        //     const $wrap = $activeStep.find('.filters-wrap');
+        //     const type = $wrap.data('options-type');
+        //     const index = $wrap.find('._tab-item.is-active').index();
+
+        //     const ctx = { type, index };
+        //     console.log('imageType', imageType);
+        //     console.log('ctx', ctx);
+        //     console.log('imageUrl', imageUrl);
+
+        //     if (!ctx) return;
+
+        //     // -------------------
+        //     // UI
+        //     // -------------------
+        //     const $img = $activeStep.find(`.main-image img[data-image-id="${imageType}"]`);
+        //     if ($img.length) {
+        //         $img.attr('src', imageUrl);
+        //     }
+        //     console.log('$img', $img);
+
+        //     // -------------------
+        //     // STORE
+        //     // -------------------
+        //     const rooms = JSON.parse(localStorage.getItem('rooms_data') || '{}');
+
+        //     rooms[ctx.type] = rooms[ctx.type] || [];
+        //     rooms[ctx.type][ctx.index] = rooms[ctx.type][ctx.index] || {};
+        //     rooms[ctx.type][ctx.index].images = rooms[ctx.type][ctx.index].images || {};
+        //     rooms[ctx.type][ctx.index].images[imageType] = imageUrl;
+
+        //     localStorage.setItem('rooms_data', JSON.stringify(rooms));
+        // });
         $(document).on('change', 'input[data-image]', function () {
-            console.log($(this))
-            console.log($(this).checked)
-            console.log(this.checked)
-            if (!this.checked) return;
-
-            const imageType = $(this).data('image');
-            const imageUrl  = $(this).data('url');
-            if (!imageType || !imageUrl) return;
-
-            // 🔹 Вибираємо активний крок
-            const $activeStep = $(this).closest('.js-step');
-            if (!$activeStep.length || !$activeStep.hasClass('active')) return;
-
-            const $wrap = $activeStep.find('.filters-wrap');
-            const type = $wrap.data('options-type');
-            const index = $wrap.find('._tab-item.is-active').index();
-
-            const ctx = { type, index };
-            console.log('imageType', imageType);
-            console.log('ctx', ctx);
-
-            if (!ctx) return;
-
-            // -------------------
-            // UI
-            // -------------------
-            const $img = $activeStep.find(`.main-image img[data-image-id="${imageType}"]`);
-            if ($img.length) {
-                $img.attr('src', imageUrl);
-            }
-            console.log('$img', $img);
-
-            // -------------------
-            // STORE
-            // -------------------
-            const rooms = JSON.parse(localStorage.getItem('rooms_data') || '{}');
-
-            rooms[ctx.type] = rooms[ctx.type] || [];
-            rooms[ctx.type][ctx.index] = rooms[ctx.type][ctx.index] || {};
-            rooms[ctx.type][ctx.index].images = rooms[ctx.type][ctx.index].images || {};
-            rooms[ctx.type][ctx.index].images[imageType] = imageUrl;
-
-            localStorage.setItem('rooms_data', JSON.stringify(rooms));
+            _functions.applyImageByInput($(this));
         });
  
         const $form = $('#main-form');
@@ -1026,6 +1099,53 @@ $(document).on('touchmove', '[data-draggable]', function (e) {
 
         _functions.autocomplete();
     });
+
+
+    _functions.applyImageByInput = function($input) {
+        console.log($input)
+        console.log($input.checked) 
+        if (!$input.prop('checked')) return;
+
+        const imageType = $input.data('image');
+        const imageUrl  = $input.attr('data-url');
+        if (!imageType || !imageUrl) return;
+
+        // 🔹 Вибираємо активний крок
+        const $activeStep = $input.closest('.js-step');
+        if (!$activeStep.length || !$activeStep.hasClass('active')) return;
+
+        const $wrap = $activeStep.find('.filters-wrap');
+        const type = $wrap.data('options-type');
+        const index = $wrap.find('._tab-item.is-active').index();
+
+        const ctx = { type, index };
+        console.log('imageType', imageType);
+        console.log('ctx', ctx);
+        console.log('imageUrl', imageUrl);
+
+        if (!ctx) return;
+
+        // -------------------
+        // UI
+        // -------------------
+        const $img = $activeStep.find(`.main-image img[data-image-id="${imageType}"]`);
+        if ($img.length) {
+            $img.attr('src', imageUrl);
+        }
+        console.log('$img', $img);
+
+        // -------------------
+        // STORE
+        // -------------------
+        const rooms = JSON.parse(localStorage.getItem('rooms_data') || '{}');
+
+        rooms[ctx.type] = rooms[ctx.type] || [];
+        rooms[ctx.type][ctx.index] = rooms[ctx.type][ctx.index] || {};
+        rooms[ctx.type][ctx.index].images = rooms[ctx.type][ctx.index].images || {};
+        rooms[ctx.type][ctx.index].images[imageType] = imageUrl;
+
+        localStorage.setItem('rooms_data', JSON.stringify(rooms));
+    }
 
 
     _functions.updateRoomsMap = function () {
